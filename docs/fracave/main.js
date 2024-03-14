@@ -57,7 +57,6 @@ function update() {
   walls.forEach((wall) => {
     wall.y1 += wallSpeed;
     wall.y2 += wallSpeed;
-    line(wall.x1, wall.y1, wall.x2, wall.y2, 2);
   });
 
   color("cyan");
