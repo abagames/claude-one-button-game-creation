@@ -8,6 +8,7 @@ This is the Claude version of the [one-button-game-builder](https://github.com/a
 
 Click the image below to play directly in the browser.
 
+[![monkeyt screenshot](./docs/monkeyt/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?monkeyt)
 [![fracave screenshot](./docs/fracave/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?fracave)
 [![windpower screenshot](./docs/windpower/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?windpower)
 [![fallbounce screenshot](./docs/fallbounce/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?fallbounce)
@@ -21,6 +22,115 @@ Claude's ideas are diverse and include many unique variations. In this regard, I
 # Prompt
 
 By providing [the following prompt](./prompt.txt) and [set of files](./knowledge/) to Claude, game generation can be performed.
+
+## ver.2
+
+> Your assignment is to design a one-button action mini-game that operates on a simple set of rules and characters. The conversation with the user will be structured in 7 steps:
+>
+> 1. Ask the user for the theme of the game.
+>
+> 2. Please review the complete contents of two files: one_button.md and ideas.md. Using one_button.md as a guide for innovative button control schemes, generate five distinctive and captivating game ideas based on the theme. For each concept, outline the chosen one-button control mechanism. To stimulate creativity and originality, refer to the brainstorming techniques in ideas.md.
+>
+> 3. For the game idea selected by the user, please provide a comprehensive set of game rules, similar to the example provided:
+>
+> - One end of the cord is anchored to a pin, while the other end rotates clockwise around the pinned end.
+> - By holding down the button, the cord can be extended to its maximum length.
+> - Upon releasing the button, the cord retracts to its original length.
+> - Pins gradually scroll down, positioning the cord near the screen's bottom.
+> - After scrolling a certain distance, new pins randomly appear at the top of the screen.
+> - If the cord collides with a pin other than its current anchor, it attaches to the new pin.
+>
+> 4. Detail the game rules to a degree that allows them to be implemented as source code for each game object. Each object's rules may encompass the following aspects:
+>
+> - Properties
+> - Initial state
+> - Shape
+> - Appearance rules
+> - Behaviors
+> - One-button controls
+> - Collision events
+> - Scrolling
+>
+> Present the rules in a structured format, similar to the example provided:
+> Cord:
+>
+> - Properties: pinned pin, length, angle
+> - Initial state: Pinned to the initial pin.
+> - Shape: line
+> - One-button controls: Extends by holding down the button. Retracts to its original length by releasing the button.
+> - Behaviors: Rotates around the pinned pin.
+> - Collision events: If it collides with a pin other than the pinned one, the colliding pin becomes the new pinned pin.
+>
+> Pins:
+>
+> - Properties: coordinate
+> - Initial state: A pin at the center of the top screen.
+> - Shape: rect (small)
+> - Appearance rules: Each time the screen scrolls a certain distance, a new pin randomly appears at the top.
+> - Scrolling: Scrolls down until the pin to which the cord is pinned is just above the bottom edge of the screen.
+>
+> 5. Provide the skeleton JavaScript source code filled with comments to implement the detailed rules of the game, following the structure of the given example:
+>
+> ```
+> // Define variables for objects.
+> // Cord:
+> // - Properties: pinned pin, length, angle
+> /** @type {{pinnedPin: {coordinate: Vector}, length: number, angle: number}} */
+> let cord;
+> const defaultCordLength = 7;
+> // Pins:
+> // Properties: coordinate
+> /** @type { {coordinate: Vector}[]} */
+> let pins;
+>
+> // Define variables for games.
+> /** @type {Vector} */
+> let scrollingSpeed;
+> /** @type {Vector} */
+> let scrolledDistance;
+>
+> function update() {
+>   if (!ticks) {
+>     // Set the initial state of the game.
+>     // Pins:
+>     // - Initial state: A pin at the center of the top screen.
+>
+>     // Cord:
+>     // - Initial state: Pinned to the initial pin.
+>
+>     // Initialize all variables.
+>   }
+>   // Implement the rules of the objects.
+>
+>   // Cord:
+>   // - Shape: line
+>   // - One-button controls: Extends by holding down the button. Retracts to its original length by releasing the button.
+>   // - Behaviors: Rotates around the pinned pin.
+>   // - Collision events: If it collides with a pin other than the pinned one, the colliding pin becomes the new pinned pin.
+>
+>   // Pins:
+>   // - Shape: rect (small)
+>   // - Appearance rules: Each time the screen scrolls a certain distance, a new pin randomly appears at the top.
+>   // - Scrolling: Scrolls down until the pin to which the cord is pinned is just above the bottom edge of the screen.
+> }
+> ```
+>
+> 6. As a skilled game developer with expertise in JavaScript and familiarity with the crisp-game-lib library for browser-based games, your assignment is to develop a one-button game based on the given specifications.
+>    Start by thoroughly examining the crisp-game-lib.d.ts typing file. This document offers in-depth information on the functions, classes, and variables available in the crisp-game-lib library.
+>    Next, scrutinize the provided pinclimb.js sample code file. These files showcase example implementations of one-button games created using the crisp-game-lib library. Study both the typing file and the sample code files meticulously to fully comprehend how to structure and develop a one-button game using crisp-game-lib.
+>    Focus on the following critical aspects:
+>
+> - Utilize the isCollision property to draw objects and check for overlap/collision between them concurrently. Ensure the object being checked for collision using the isColliding property is drawn prior to performing the collision detection. The sequence of drawing is vital.
+> - For screen scrolling, establish a scrollSpeed Vector type variable that records the scroll speed for each frame, and translate objects by scrollSpeed.
+> - For timed events triggered every X ticks with (ticks % X === 0), use (ticks % floor(X) === 0) to handle cases where X is a floating-point value.
+> - For copying the Vector variable P to CP, use CP = vec(P).
+> - There is no need to manipulate or assign values to the score and difficulty variables. The score is automatically displayed and does not need to be displayed.
+> - Use Math.max, Math.min for max and min functions.
+>
+> 7. Using the crisp-game-lib library, write the logic equivalent to each comment in the skelton JavaScript source code provided for implementing the detailed rules of the game.
+>    Leave the comments in the skeleton source code, including Properties, Initial state, Shape, Appearance rules, Behaviors, One-button controls, Collision events, Scrolling, etc. of the game objects, as they are.
+
+## ver.1
 
 > Your task is to facilitate the creation of a one-button action mini-game, which can be operated with a single button and follows a minimal set of rules and characters. The conversation with the user will be structured in 10 steps:
 >
