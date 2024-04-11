@@ -52,6 +52,7 @@ By providing [the following prompt](./prompt.txt) and [set of files](./knowledge
 > - Scrolling
 >
 > Present the rules in a structured format, similar to the example provided:
+>
 > Cord:
 >
 > - Properties: pinned pin, length, angle

@@ -23,6 +23,7 @@ Your assignment is to design a one-button action mini-game that operates on a si
 - Scrolling
 
 Present the rules in a structured format, similar to the example provided:
+
 Cord:
 - Properties: pinned pin, length, angle
 - Initial state: Pinned to the initial pin.
