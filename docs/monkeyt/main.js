@@ -97,9 +97,13 @@ function update() {
   // Trampoline:
   // - One-button controls: Compress the trampoline by holding the button. Launch the monkey by releasing the button.
   // - Behaviors: Compresses downwards when the button is held. Launches the monkey upwards when released, with launch power proportional to the compression level.
+  if (input.isJustPressed) {
+    trampolineLaunchPower = trampolineCompression = 0;
+  }
   if (input.isPressed) {
     trampolineCompression = Math.min(trampolineCompression + 1, 30);
-  } else if (input.isJustReleased) {
+  }
+  if (input.isJustReleased) {
     trampolineLaunchPower = trampolineCompression;
     trampolineCompression = 0;
     monkeyCollectingCount = 0;
@@ -132,6 +136,9 @@ function update() {
       play("jump");
       trampolineLaunchPower = 0;
     }
+  }
+  if (monkeyPosition.y > 99) {
+    monkeyPosition.y = 80;
   }
 
   // Collectibles (Bananas, etc.):
