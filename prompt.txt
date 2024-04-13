@@ -16,6 +16,7 @@ Your assignment is to design a one-button action mini-game that operates on a si
 - Properties
 - Initial state
 - Shape
+- Color
 - Appearance rules
 - Behaviors
 - One-button controls
@@ -28,6 +29,7 @@ Cord:
 - Properties: pinned pin, length, angle
 - Initial state: Pinned to the initial pin.
 - Shape: line
+- Color: black
 - One-button controls: Extends by holding down the button. Retracts to its original length by releasing the button.
 - Behaviors: Rotates around the pinned pin.
 - Collision events: If it collides with a pin other than the pinned one, the colliding pin becomes the new pinned pin.
@@ -36,6 +38,7 @@ Pins:
 - Properties: coordinate
 - Initial state: A pin at the center of the top screen.
 - Shape: rect (small)
+- Color: blue
 - Appearance rules: Each time the screen scrolls a certain distance, a new pin randomly appears at the top.
 - Scrolling: Scrolls down until the pin to which the cord is pinned is just above the bottom edge of the screen.
 
@@ -74,12 +77,14 @@ function update() {
 
   // Cord:
   // - Shape: line
+  // - Color: black
   // - One-button controls: Extends by holding down the button. Retracts to its original length by releasing the button.
   // - Behaviors: Rotates around the pinned pin.
   // - Collision events: If it collides with a pin other than the pinned one, the colliding pin becomes the new pinned pin.
 
   // Pins:
   // - Shape: rect (small)
+  // - Color: blue
   // - Appearance rules: Each time the screen scrolls a certain distance, a new pin randomly appears at the top.
   // - Scrolling: Scrolls down until the pin to which the cord is pinned is just above the bottom edge of the screen.
 }
