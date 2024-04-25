@@ -40,15 +40,15 @@ function update() {
   if (!ticks) {
     // Set the initial state of the game.
     // Anchor Points:
-    // - Initial state: Placed throughout the level
+    // - Initial state: Placed at the top of the screen
     anchorPoints = [vec(50, 0)];
 
     // Collectibles:
     // Player:
-    // - Initial state: Center of the screen, attached to starting anchor point
+    // - Initial state: Attached to starting anchor point
     player = { pos: vec(30, 30), vel: vec(), attachedAnchor: anchorPoints[0] };
 
-    // - Initial state: Placed throughout the level
+    // - Initial state: None
     collectibles = [];
 
     scrolledDistanceY = 0;
@@ -84,7 +84,7 @@ function update() {
     a.y += scrollY;
     color(a === attachableAnchor ? "red" : "black");
     arc(a, anchorRadius).isColliding;
-    // Attach to anchor points.
+    // Attach to anchor point.
     if (a === attachableAnchor) {
       color("red");
       line(player.pos, a, 1);
@@ -108,9 +108,8 @@ function update() {
   // Player:
   // - Shape: Circle
   // - Color: Blue
-  // - Behaviors: Swings around anchor point, can extend and retract grappling hook
-  // - One-button controls: Holding button extends hook, releasing button retracts hook
-  // - Collision events: If colliding with a new anchor point while hook is extended, attach to the new point. If colliding with hazards, take damage and return to last anchor. If colliding with collectibles, collect them.
+  // - Behaviors: Swings around anchor point
+  // - One-button controls: Releasing hook or holding anchor
   color("blue");
   player.pos.add(player.vel);
   // Air resistance
