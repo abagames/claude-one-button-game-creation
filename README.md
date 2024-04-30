@@ -13,6 +13,7 @@ By providing [set of files](./knowledge/) to Claude and starting a chat, game ge
 Click the image below to play directly in the browser.
 
 [![grapplingh screenshot](./docs/grapplingh/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?grapplingh)
+[![sweep screenshot](./docs/sweep/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?sweep)
 [![monkeyt screenshot](./docs/monkeyt/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?monkeyt)
 [![fracave screenshot](./docs/fracave/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?fracave)
 [![windpower screenshot](./docs/windpower/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?windpower)
