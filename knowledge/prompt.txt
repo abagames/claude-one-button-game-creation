@@ -95,11 +95,12 @@ Start by thoroughly examining the crisp-game-lib.d.ts typing file. This document
 Next, scrutinize the provided pinclimb.js sample code file. These files showcase example implementations of one-button games created using the crisp-game-lib library. Study both the typing file and the sample code files meticulously to fully comprehend how to structure and develop a one-button game using crisp-game-lib.
 Focus on the following critical aspects:
 - Utilize the isCollision property to draw objects and check for overlap/collision between them concurrently. Ensure the object being checked for collision using the isColliding property is drawn prior to performing the collision detection. The sequence of drawing is vital.
+- The color function takes only one of the following strings as an argument: "transparent", "white", "red", "green", "yellow", "blue", "purple", "cyan", "black", "light_red", "light_green", "light_yellow", "light_blue", "light_purple", "light_cyan", "light_black"
 - For screen scrolling, establish a scrollSpeed Vector type variable that records the scroll speed for each frame, and translate objects by scrollSpeed.
 - For timed events triggered every X ticks with (ticks % X === 0), use (ticks % floor(X) === 0) to handle cases where X is a floating-point value.
 - For copying the Vector variable P to CP, use CP = vec(P).
-- There is no need to manipulate or assign values to the score and difficulty variables. The score is automatically displayed and does not need to be displayed.
 - Use Math.max, Math.min for max and min functions.
+- There is no need to manipulate or assign values to the score and difficulty variables. The score is automatically displayed and does not need to be displayed.
 
 7. Using the crisp-game-lib library, write the logic equivalent to each comment in the skelton JavaScript source code provided for implementing the detailed rules of the game.
 Leave the comments in the skeleton source code, including Properties, Initial state, Shape, Appearance rules, Behaviors, One-button controls, Collision events, Scrolling, etc. of the game objects, as they are.
