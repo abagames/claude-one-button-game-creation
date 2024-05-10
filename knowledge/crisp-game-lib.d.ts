@@ -1,6 +1,3 @@
-declare let title: string;
-declare let description: string;
-declare let characters: string[];
 declare type Options = {
   viewSize?: { x: number; y: number };
 };
@@ -8,20 +5,9 @@ declare let options: Options;
 declare function update(): void;
 
 declare let ticks: number;
-// difficulty (Starts from 1, increments by a minute)
-declare let difficulty: number;
-// score
-declare let score: number;
-declare let time: number;
-declare let isReplaying: boolean;
-
-// Add score
-declare function addScore(value: number): void;
-declare function addScore(value: number, x: number, y: number): void;
-declare function addScore(value: number, pos: VectorLike): void;
 
 // End game
-declare function end(gameOverText?: string): void;
+declare function end(): void;
 
 // color
 declare type Color =
@@ -181,42 +167,6 @@ declare function text(
   options?: LetterOptions
 ): Collision;
 
-declare function char(
-  str: string,
-  x: number,
-  y: number,
-  options?: LetterOptions
-): Collision;
-
-declare function char(
-  str: string,
-  pos: VectorLike,
-  options?: LetterOptions
-): Collision;
-
-// Add particles
-declare function particle(
-  x: number,
-  y: number,
-  count?: number,
-  speed?: number,
-  angle?: number,
-  angleWidth?: number
-): void;
-declare function particle(
-  pos: VectorLike,
-  count?: number,
-  speed?: number,
-  angle?: number,
-  angleWidth?: number
-): void;
-
-// Record/Restore a frame state for replaying and rewinding
-declare function frameState(state: any): any;
-
-// Rewind a game
-declare function rewind(): void;
-
 // Return Vector
 declare function vec(x?: number | VectorLike, y?: number): Vector;
 
@@ -253,7 +203,6 @@ declare function remove<T>(
   array: T[],
   func: (v: T, index?: number) => any
 ): T[];
-declare function addWithCharCode(char: string, offset: number): string;
 
 declare interface Vector {
   x: number;
