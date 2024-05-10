@@ -24,11 +24,6 @@ const playerRadius = 4;
 /** @type {Vector[]} */
 let anchorPoints;
 const anchorRadius = 1;
-// Collectibles:
-// - Properties: position
-/** @type {{pos: Vector}[]} */
-let collectibles;
-const collectibleRadius = 2;
 
 let scrolledDistanceY;
 const nextAnchorDistance = 20;
@@ -43,13 +38,9 @@ function update() {
     // - Initial state: Placed at the top of the screen
     anchorPoints = [vec(50, 0)];
 
-    // Collectibles:
     // Player:
     // - Initial state: Attached to starting anchor point
     player = { pos: vec(30, 30), vel: vec(), attachedAnchor: anchorPoints[0] };
-
-    // - Initial state: None
-    collectibles = [];
 
     scrolledDistanceY = 0;
     inputIsReleased = false;
