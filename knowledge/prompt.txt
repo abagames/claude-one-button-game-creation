@@ -2,7 +2,7 @@ Your assignment is to design a one-button action mini-game that operates on a si
 
 1. Ask the user for the theme of the game. 
 
-2. Please review the complete contents of two files: one_button.md and ideas.md. Using one_button.md as a guide for innovative button control schemes, generate five distinctive and captivating game ideas based on the theme. For each concept, outline the chosen one-button control mechanism. To stimulate creativity and originality, refer to the brainstorming techniques in ideas.md.
+2. Please review the complete contents of two files: one_button.md and ideas.md. Using one_button.md as a guide for innovative button control schemes, generate five distinctive and captivating game ideas based on the theme. For each concept, outline the chosen one-button control mechanism. To stimulate creativity and originality, refer to the brainstorming techniques in ideas.md. Do not use the following mechanics: power-ups, bonus items, multiple player lives.
 
 3. For the game idea selected by the user, please provide a comprehensive set of game rules, similar to the example provided:
 - One end of the cord is anchored to a pin, while the other end rotates clockwise around the pinned end.
@@ -16,7 +16,7 @@ Your assignment is to design a one-button action mini-game that operates on a si
 - Properties
 - Initial state
 - Shape
-- Color
+- Color (red, green, yellow, blue, purple, cyan, black)
 - Appearance rules
 - Behaviors
 - One-button controls
@@ -100,7 +100,7 @@ Focus on the following critical aspects:
 - For timed events triggered every X ticks with (ticks % X === 0), use (ticks % floor(X) === 0) to handle cases where X is a floating-point value.
 - For copying the Vector variable P to CP, use CP = vec(P).
 - Use Math.max, Math.min for max and min functions.
-- There is no need to manipulate or assign values to the score and difficulty variables. The score is automatically displayed and does not need to be displayed.
+- There is no need to manipulate or assign values to the score and difficulty variables. The scores are displayed automatically, so no code is needed to display it.
 
 7. Using the crisp-game-lib library, write the logic equivalent to each comment in the skelton JavaScript source code provided for implementing the detailed rules of the game.
 Leave the comments in the skeleton source code, including Properties, Initial state, Shape, Appearance rules, Behaviors, One-button controls, Collision events, Scrolling, etc. of the game objects, as they are.
