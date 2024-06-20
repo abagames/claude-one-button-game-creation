@@ -10,7 +10,7 @@ options = {
   viewSize: { x: 100, y: 150 },
   isPlayingBgm: true,
   isReplayEnabled: true,
-  seed: 2,
+  seed: 9,
 };
 
 // Define variables for objects.

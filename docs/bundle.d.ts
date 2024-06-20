@@ -19,10 +19,13 @@ declare type Options = {
   isRewindEnabled?: boolean;
   isDrawingParticleFront?: boolean;
   isDrawingScoreFront?: boolean;
+  isUsingSmallText?: boolean;
   isMinifying?: boolean;
   isSoundEnabled?: boolean;
   viewSize?: { x: number; y: number };
+  audioSeed?: number;
   seed?: number;
+  audioVolume?: number;
   theme?: ThemeName;
 };
 declare let options: Options;
@@ -188,6 +191,7 @@ declare type LetterOptions = {
   rotation?: number;
   mirror?: { x?: 1 | -1; y?: 1 | -1 };
   scale?: { x?: number; y?: number };
+  isSmallText?: boolean;
 };
 
 declare function text(
@@ -217,6 +221,25 @@ declare function char(
 ): Collision;
 
 // Add particles
+declare function particle(
+  x: number,
+  y: number,
+  options?: {
+    count?: number;
+    speed?: number;
+    angle?: number;
+    angleWidth?: number;
+  }
+): void;
+declare function particle(
+  pos: VectorLike,
+  options?: {
+    count?: number;
+    speed?: number;
+    angle?: number;
+    angleWidth?: number;
+  }
+): void;
 declare function particle(
   x: number,
   y: number,
@@ -649,12 +672,14 @@ declare function getButton({
   text,
   isToggle,
   onClick,
+  isSmallText,
 }: {
   pos: VectorLike;
   size: VectorLike;
   text: string;
   isToggle?: boolean;
   onClick?: () => void;
+  isSmallText?: boolean;
 }): Button;
 
 declare function updateButton(button: Button): void;

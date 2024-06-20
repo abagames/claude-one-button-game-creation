@@ -35,7 +35,7 @@ ll  l
 options = {
   isPlayingBgm: true,
   isReplayEnabled: true,
-  seed: 2,
+  seed: 1,
 };
 
 // Define variables for game objects

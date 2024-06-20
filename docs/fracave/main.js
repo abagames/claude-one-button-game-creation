@@ -9,7 +9,7 @@ options = {
   viewSize: { x: 100, y: 150 },
   isPlayingBgm: true,
   isReplayEnabled: true,
-  seed: 1,
+  seed: 5,
 };
 
 let player;
