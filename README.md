@@ -13,10 +13,11 @@ By providing [set of files](./knowledge/) to Claude and starting a chat, game ge
 Click the image below to play directly in the browser.
 
 [![grapplingh screenshot](./docs/grapplingh/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?grapplingh)
-[![cleaner screenshot](./docs/cleaner/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?cleaner)
 [![monkeyt screenshot](./docs/monkeyt/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?monkeyt)
 [![fracave screenshot](./docs/fracave/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?fracave)
+[![cleaner screenshot](./docs/cleaner/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?cleaner)
 [![windpower screenshot](./docs/windpower/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?windpower)
+[![hoardspout screenshot](./docs/hoardspout/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?hoardspout)
 [![feedingfrenzy screenshot](./docs/feedingfrenzy/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?feedingfrenzy)
 [![fallbounce screenshot](./docs/fallbounce/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?fallbounce)
 [![hoppinhazards screenshot](./docs/hoppinhazards/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?hoppinhazards)
