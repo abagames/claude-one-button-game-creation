@@ -1,11 +1,12 @@
 // Define variables for objects.
-// Cord:
+// # Cord
 // - Properties: pinned pin, length, angle
 /** @type {{pinnedPin: {coordinate: Vector}, length: number, angle: number}} */
 let cord;
 const defaultCordLength = 7;
-// Pins:
-// Properties: coordinate
+// # Pins
+// - Properties:
+//   - position: Vector (x, y coordinates)
 /** @type { {coordinate: Vector}[]} */
 let pins;
 
@@ -19,12 +20,16 @@ const nextPinDistance = 10;
 function update() {
   if (!ticks) {
     // Set the initial state of the game.
-    // Pins:
-    // - Initial state: A pin at the center of the top screen.
+    // # Pins
+    // - Initial state:
+    //   - One pin at the center-top of the screen (cord's initial anchor)
     pins = [{ coordinate: vec(50, 0) }];
 
-    // Cord:
-    // - Initial state: Pinned to the initial pin.
+    // # Cord
+    // - Initial state:
+    //   - Attached to the initial pin at the center-top of the screen
+    //   - length = defaultCordLength
+    //   - angle = 0 (pointing rightwards)
     cord = { pinnedPin: pins[0], length: defaultCordLength, angle: 0 };
 
     // Initialize all variables.
@@ -33,12 +38,16 @@ function update() {
   }
   // Implement the rules of the objects.
 
-  // Cord:
+  // # Cord:
   // - Shape: line
   // - Color: black
-  // - Controls: Extends by holding down the button. Retracts to its original length by releasing the button.
-  // - Behaviors: Rotates around the pinned pin.
-  // - Collision events: If it collides with a pin other than the pinned one, the colliding pin becomes the new pinned pin.
+  // - One-button controls:
+  //   - Press: Extend the cord (increase length)
+  //   - Release: Retract the cord (decrease length)
+  // - Behavior:
+  //   - Continuously rotates around the anchor pin
+  //   - Length changes based on button input
+  //   - Automatically retracts if no input is given
   scrollingSpeed.y = 0.01;
   if (cord.pinnedPin.coordinate.y < 80) {
     scrollingSpeed.y += (80 - cord.pinnedPin.coordinate.y) * 0.1;
@@ -55,11 +64,17 @@ function update() {
     vec(cord.pinnedPin.coordinate).addWithAngle(cord.angle, cord.length)
   );
 
-  // Pins:
-  // - Shape: rect (small)
+  // # Pins
+  // - Shape: small rectangle
   // - Color: blue
-  // - Appearance rules: Each time the screen scrolls a certain distance, a new pin randomly appears at the top.
-  // - Scrolling: Scrolls down until the pin to which the cord is pinned is just above the bottom edge of the screen.
+  // - Appearance rules:
+  //   - New pins spawn at the top of the screen at regular scrolling distances
+  //   - Pins are randomly positioned horizontally
+  // - Scrolling:
+  //   - All pins move downward to position the anchored pin near the screen's bottom
+  //   - Pins that move off-screen are removed
+  // - Collision events:
+  //   - If the cord collides with a pin, that pin becomes the new anchor
   let currentPinnedPin = cord.pinnedPin;
   color("blue");
   remove(pins, (p) => {
