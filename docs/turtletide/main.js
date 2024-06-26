@@ -70,8 +70,8 @@ function updateWater() {
     0,
     10 * sqrt(difficulty)
   );
-  water.waterLevel =
-    50 + Math.sin(ticks * water.waveFrequency) * water.waveAmplitude;
+  const wl = 50 + Math.sin(ticks * water.waveFrequency) * water.waveAmplitude;
+  water.waterLevel += (wl - water.waterLevel) * 0.1;
   color(WATER_COLOR);
   rect(0, water.waterLevel, 100, 100 - water.waterLevel);
 }
