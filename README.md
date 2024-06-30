@@ -8,6 +8,8 @@ This is the Claude version of the [one-button-game-builder](https://github.com/a
 
 By providing [set of files](./knowledge/) to Claude and starting a chat, game generation can be performed.
 
+These files can also be given to [project knowledge](https://www.anthropic.com/news/projects) for use.
+
 # Examples of Built Games
 
 Click the image below to play directly in the browser.
@@ -15,6 +17,7 @@ Click the image below to play directly in the browser.
 [![grapplingh screenshot](./docs/grapplingh/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?grapplingh)
 [![wavybird screenshot](./docs/wavybird/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?wavybird)
 [![skyraftsman screenshot](./docs/skyraftsman/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?skyraftsman)
+[![fishgrill screenshot](./docs/fishgrill/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?fishgrill)
 [![monkeyt screenshot](./docs/monkeyt/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?monkeyt)
 [![fracave screenshot](./docs/fracave/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?fracave)
 [![cleaner screenshot](./docs/cleaner/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?cleaner)
