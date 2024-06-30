@@ -9,12 +9,22 @@ Your task is to design an innovative, intuitive, and fun one-button action mini-
    Present the ideas in a numbered list.
 
 3. For the user-selected idea, create a concise set of game rules. Focus on:
-   - Core gameplay loop
-   - Player interaction
-   - Environmental elements
-   Avoid complex mechanics like power-ups, scoring systems, win/lose conditions, or difficulty adjustment.
+   - Game Environment
+   - Core Mechanics
+   - Player Interaction
+   - Challenge
+
+   Avoid complex mechanics like:
+   - power-ups
+   - rhythm games
+   - maze
+   - scoring systems
+   - win/lose conditions
+   - end game conditions
+   - difficulty adjustment
 
    Example:
+
    1. The player controls a stretchy, rotating cord anchored to a pin.
    
    2. Game Environment:
@@ -30,7 +40,6 @@ Your task is to design an innovative, intuitive, and fun one-button action mini-
       - Successfully connecting to a new pin moves the anchor point to that pin.
    
    5. Challenge:
-      - The cord must avoid touching the bottom of the screen.
       - Connecting to pins higher up the screen is crucial for survival.
 
 4. Detail the game objects (maximum 3 types). For each object, specify:
@@ -41,46 +50,58 @@ Your task is to design an innovative, intuitive, and fun one-button action mini-
    - Behavior (movement patterns, interactions)
    - One-button controls (if applicable)
    - Collision events
-   - Appearance rules
+   - Spawning rules
    - Scrolling (if applicable)
+
+   Avoid complex mechanics like:
+   - scoring systems
+   - win/lose conditions
+   - end game conditions
+   - difficulty adjustment
 
    Example:
 
    # Cord
    - Properties:
-     - anchorPin: Pin object the cord is currently attached to
-     - length: Current length of the cord (number)
-     - angle: Current rotation angle (number, in radians)
-     - rotationSpeed: Speed of rotation (number, in radians per frame)
+     - anchoredPin: Reference to the pin it's anchored to
+     - length: Length of the cord (number)
+     - angle: Rotation angle of the cord (number, in radians)
    - Initial state:
-     - Attached to the initial pin at the center-top of the screen
-     - length = minLength
-     - angle = 0 (pointing rightwards)
+     - Anchored to the first pin at (50, 0) (the center-top of the screen)
+     - length: 7 (defaultCordLength)
+     - angle: 0 (pointing rightwards)
    - Shape: line
    - Color: black
-   - One-button controls:
-     - Press: Extend the cord (increase length)
-     - Release: Retract the cord (decrease length)
    - Behavior:
-     - Continuously rotates around the anchor pin
-     - Length changes based on button input
-     - Automatically retracts if no input is given
+     - Rotates clockwise (angle increases by 0.05 each update)
+     - Length extends when input is pressed, retracts when released
+   - One-button controls:
+     - When pressed: Cord length increases
+     - When released: Cord length gradually returns to default
 
    # Pins
    - Properties:
-     - position: Vector (x, y coordinates)
+     - pos: The pin's position (Vector, x, y coordinates)
    - Initial state:
-     - One pin at the center-top of the screen (cord's initial anchor)
-   - Shape: small rectangle
+     - One pin at coordinates (50, 0) (the center-top of the screen) (cord's initial anchoredPin)
+   - Shape: Small box (3x3 units)
    - Color: blue
-   - Appearance rules:
-     - New pins spawn at the top of the screen at regular scrolling distances
-     - Pins are randomly positioned horizontally
+   - Behavior:
+     - Static, but move downward as the screen scrolls
+   - Spawning rules:
+     - New pins spawn at the top of the screen
+     - Horizontal position is random between 10 and 90
+     - Vertical spacing is 10 units (nextPinDistance)
    - Scrolling:
-     - All pins move downward to position the anchored pin near the screen's bottom
-     - Pins that move off-screen are removed
+     - Pins move downward at a base speed of 0.01 units per update
+     - Scrolling speed increases if the anchored pin is above y=80, pulling it downward faster
    - Collision events:
-     - If the cord collides with a pin, that pin becomes the new anchor
+     - When the cord collides with a pin, it anchores to that pin and the cord length returns to default
+
+   #  Additional game mechanics
+   - The game world scrolls vertically
+   - Pins are removed when they move off the bottom of the screen (y > 102)
+   - The scrolling speed adjusts to keep the player's anchored pin visible on screen
 
 5. Provide a skeleton JavaScript code structure with comments outlining the implementation of game rules. Include:
    - Variable definitions for game objects
@@ -92,14 +113,17 @@ Your task is to design an innovative, intuitive, and fun one-button action mini-
    ```javascript
    // Define variables for objects.
    // # Cord
-   // - Properties: pinned pin, length, angle
-   /** @type {{pinnedPin: {coordinate: Vector}, length: number, angle: number}} */
+   // - Properties:
+   //   - anchoredPin: Reference to the pin it's anchored to
+   //   - length: Length of the cord (number)
+   //   - angle: Rotation angle of the cord (number, in radians)
+   /** @type {{anchoredPin: {pos: Vector}, length: number, angle: number}} */
    let cord;
    const defaultCordLength = 7;
    // # Pins
    // - Properties:
-   //   - position: Vector (x, y coordinates)
-   /** @type { {coordinate: Vector}[]} */
+   //   - pos: The pin's position (Vector, x, y coordinates)
+   /** @type { {pos: Vector}[]} */
    let pins;
    
    // Define variables for games.
@@ -113,40 +137,48 @@ Your task is to design an innovative, intuitive, and fun one-button action mini-
        // Set the initial state of the game.
        // # Pins
        // - Initial state:
-       //   - One pin at the center-top of the screen (cord's initial anchor)
+       //   - One pin at coordinates (50, 0) (the center-top of the screen) (cord's initial anchoredPin)
    	   
        // # Cord
-       // - Initial state:
-       //   - Attached to the initial pin at the center-top of the screen
-       //   - length = defaultCordLength
-       //   - angle = 0 (pointing rightwards)
+       //  - Initial state:
+       //    - Anchored to the first pin at (50, 0) (the center-top of the screen)
+       //    - length: 7 (defaultCordLength)
+       //    - angle: 0 (pointing rightwards)
        
        // Initialize all variables.
      }
      // Implement the rules of the objects.
      
+     // #  Additional game mechanics
+     // - The game world scrolls vertically
+     // - Pins are removed when they move off the bottom of the screen (y > 102)
+     // - The scrolling speed adjusts to keep the player's anchored pin visible on screen
+
      // # Cord:
-     // - Shape: line
-     // - Color: black
-     // - One-button controls:
-     //   - Press: Extend the cord (increase length)
-     //   - Release: Retract the cord (decrease length)
-     // - Behavior:
-     //   - Continuously rotates around the anchor pin
-     //   - Length changes based on button input
-     //   - Automatically retracts if no input is given
+     //  - Shape: line
+     //  - Color: black
+     //  - Behavior:
+     //    - Rotates clockwise (angle increases by 0.05 each update)
+     //    - Length extends when input is pressed, retracts when released
+     //  - One-button controls:
+     //    - When pressed: Cord length increases
+     //    - When released: Cord length gradually returns to default
      
      // # Pins
-     // - Shape: small rectangle
-     // - Color: blue
-     // - Appearance rules:
-     //   - New pins spawn at the top of the screen at regular scrolling distances
-     //   - Pins are randomly positioned horizontally
-     // - Scrolling:
-     //   - All pins move downward to position the anchored pin near the screen's bottom
-     //   - Pins that move off-screen are removed
-     // - Collision events:
-     //   - If the cord collides with a pin, that pin becomes the new anchor
+     //  - Shape: Small box (3x3 units)
+     //  - Color: blue
+     //  - Behavior:
+     //    - Static, but move downward as the screen scrolls
+     //  - Spawning rules:
+     //    - New pins spawn at the top of the screen
+     //    - Horizontal position is random between 10 and 90
+     //    - Vertical spacing is 10 units (nextPinDistance)
+     //  - Scrolling:
+     //    - Pins move downward at a base speed of 0.01 units per update
+     //    - Scrolling speed increases if the anchored pin is above y=80, pulling it downward faster
+     //  - Collision events:
+     //    - When the cord collides with a pin, it anchors to that pin and the cord length returns to default
+     //    - The scrolling speed adjusts to keep the player's anchored pin visible on screen
    }
    ```
 
@@ -194,9 +226,18 @@ Your task is to design an innovative, intuitive, and fun one-button action mini-
      ```javascript
      player.pos.x = clamp(player.pos.x, 0, 100);
      ```
+   - Use `rnd()` for events that occur with a certain probability:
+     ```javascript
+	 if (rnd() < 0.05) { }
+	 ```
    - Accurate implementation of game rules
    - Clear and concise code structure
    - Retention of descriptive comments
+   - Avoid complex mechanics like:
+     - scoring systems
+     - win/lose conditions
+     - end game conditions
+     - difficulty adjustment
 
 Remember:
 - Prioritize simplicity and innovation in game mechanics

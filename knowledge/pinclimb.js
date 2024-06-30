@@ -1,13 +1,16 @@
 // Define variables for objects.
 // # Cord
-// - Properties: pinned pin, length, angle
-/** @type {{pinnedPin: {coordinate: Vector}, length: number, angle: number}} */
+// - Properties:
+//   - anchoredPin: Reference to the pin it's anchored to
+//   - length: Length of the cord (number)
+//   - angle: Rotation angle of the cord (number, in radians)
+/** @type {{anchoredPin: {pos: Vector}, length: number, angle: number}} */
 let cord;
 const defaultCordLength = 7;
 // # Pins
 // - Properties:
-//   - position: Vector (x, y coordinates)
-/** @type { {coordinate: Vector}[]} */
+//   - pos: The pin's position (Vector, x, y coordinates)
+/** @type { {pos: Vector}[]} */
 let pins;
 
 // Define variables for games.
@@ -22,15 +25,15 @@ function update() {
     // Set the initial state of the game.
     // # Pins
     // - Initial state:
-    //   - One pin at the center-top of the screen (cord's initial anchor)
-    pins = [{ coordinate: vec(50, 0) }];
+    //   - One pin at coordinates (50, 0) (the center-top of the screen) (cord's initial anchoredPin)
+    pins = [{ pos: vec(50, 0) }];
 
     // # Cord
-    // - Initial state:
-    //   - Attached to the initial pin at the center-top of the screen
-    //   - length = defaultCordLength
-    //   - angle = 0 (pointing rightwards)
-    cord = { pinnedPin: pins[0], length: defaultCordLength, angle: 0 };
+	//  - Initial state:
+    //    - Anchored to the first pin at (50, 0) (the center-top of the screen)
+    //    - length: 7 (defaultCordLength)
+    //    - angle: 0 (pointing rightwards)
+    cord = { anchoredPin: pins[0], length: defaultCordLength, angle: 0 };
 
     // Initialize all variables.
     scrollingSpeed = vec();
@@ -38,20 +41,24 @@ function update() {
   }
   // Implement the rules of the objects.
 
-  // # Cord:
-  // - Shape: line
-  // - Color: black
-  // - One-button controls:
-  //   - Press: Extend the cord (increase length)
-  //   - Release: Retract the cord (decrease length)
-  // - Behavior:
-  //   - Continuously rotates around the anchor pin
-  //   - Length changes based on button input
-  //   - Automatically retracts if no input is given
+  // #  Additional game mechanics
+  // - The game world scrolls vertically
+  // - Pins are removed when they move off the bottom of the screen (y > 102)
+  // - The scrolling speed adjusts to keep the player's anchored pin visible on screen
   scrollingSpeed.y = 0.01;
-  if (cord.pinnedPin.coordinate.y < 80) {
-    scrollingSpeed.y += (80 - cord.pinnedPin.coordinate.y) * 0.1;
+  if (cord.anchoredPin.pos.y < 80) {
+    scrollingSpeed.y += (80 - cord.anchoredPin.pos.y) * 0.1;
   }
+
+  // # Cord:
+  //  - Shape: line
+  //  - Color: black
+  //  - Behavior:
+  //    - Rotates clockwise (angle increases by 0.05 each update)
+  //    - Length extends when input is pressed, retracts when released
+  //  - One-button controls:
+  //    - When pressed: Cord length increases
+  //    - When released: Cord length gradually returns to default
   if (input.isPressed) {
     cord.length += 1;
   } else {
@@ -60,34 +67,38 @@ function update() {
   cord.angle += 0.05;
   color("black");
   line(
-    cord.pinnedPin.coordinate,
-    vec(cord.pinnedPin.coordinate).addWithAngle(cord.angle, cord.length)
+    cord.anchoredPin.pos,
+    vec(cord.anchoredPin.pos).addWithAngle(cord.angle, cord.length)
   );
 
   // # Pins
-  // - Shape: small rectangle
-  // - Color: blue
-  // - Appearance rules:
-  //   - New pins spawn at the top of the screen at regular scrolling distances
-  //   - Pins are randomly positioned horizontally
-  // - Scrolling:
-  //   - All pins move downward to position the anchored pin near the screen's bottom
-  //   - Pins that move off-screen are removed
-  // - Collision events:
-  //   - If the cord collides with a pin, that pin becomes the new anchor
-  let currentPinnedPin = cord.pinnedPin;
+  //  - Shape: Small box (3x3 units)
+  //  - Color: blue
+  //  - Behavior:
+  //    - Static, but move downward as the screen scrolls
+  //  - Spawning rules:
+  //    - New pins spawn at the top of the screen
+  //    - Horizontal position is random between 10 and 90
+  //    - Vertical spacing is 10 units (nextPinDistance)
+  //  - Scrolling:
+  //    - Pins move downward at a base speed of 0.01 units per update
+  //    - Scrolling speed increases if the anchored pin is above y=80, pulling it downward faster
+  //  - Collision events:
+  //    - When the cord collides with a pin, it anchors to that pin and the cord length returns to default
+  //    - The scrolling speed adjusts to keep the player's anchored pin visible on screen
+  let currentAnchoredPin = cord.anchoredPin;
   color("blue");
   remove(pins, (p) => {
-    p.coordinate.y += scrollingSpeed.y;
-    if (box(p.coordinate, 3).isColliding.rect.black && p !== currentPinnedPin) {
-      cord.pinnedPin = p;
+    p.pos.y += scrollingSpeed.y;
+    if (box(p.pos, 3).isColliding.rect.black && p !== currentAnchoredPin) {
+      cord.anchoredPin = p;
       cord.length = defaultCordLength;
     }
-    return p.coordinate.y > 102;
+    return p.pos.y > 102;
   });
   scrolledDistance.add(scrollingSpeed);
   while (scrolledDistance.y > nextPinDistance) {
     scrolledDistance.y -= nextPinDistance;
-    pins.push({ coordinate: vec(rnd(10, 90), -2 + scrolledDistance.y) });
+    pins.push({ pos: vec(rnd(10, 90), -2 + scrolledDistance.y) });
   }
 }
