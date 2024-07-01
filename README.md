@@ -6,9 +6,9 @@ This is the Claude version of the [one-button-game-builder](https://github.com/a
 
 # How to use
 
-By providing [set of files](./knowledge/) to Claude and starting a chat, game generation can be performed.
+By dropping [set of 5 files in the knowledge directory](./knowledge/) into the chat session of Claude and starting a chat, game generation can be performed.
 
-These files can also be given to [project knowledge](https://www.anthropic.com/news/projects) for use.
+These 5 files can also be given to [project knowledge](https://www.anthropic.com/news/projects) for use.
 
 # Examples of Built Games
 
