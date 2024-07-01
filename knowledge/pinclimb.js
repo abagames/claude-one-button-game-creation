@@ -13,7 +13,7 @@ const defaultCordLength = 7;
 /** @type { {pos: Vector}[]} */
 let pins;
 
-// Define variables for games.
+// Define variables for the game.
 /** @type {Vector} */
 let scrollingSpeed;
 /** @type {Vector} */
@@ -29,7 +29,7 @@ function update() {
     pins = [{ pos: vec(50, 0) }];
 
     // # Cord
-	//  - Initial state:
+    //  - Initial state:
     //    - Anchored to the first pin at (50, 0) (the center-top of the screen)
     //    - length: 7 (defaultCordLength)
     //    - angle: 0 (pointing rightwards)

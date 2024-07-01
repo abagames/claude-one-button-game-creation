@@ -126,7 +126,7 @@ Your task is to design an innovative, intuitive, and fun one-button action mini-
    /** @type { {pos: Vector}[]} */
    let pins;
    
-   // Define variables for games.
+   // Define variables for the game.
    /** @type {Vector} */
    let scrollingSpeed;
    /** @type {Vector} */
@@ -212,11 +212,11 @@ Your task is to design an innovative, intuitive, and fun one-button action mini-
        // Handle collision with drawn red rectangles
      }
      ```
-   - Implement scrolling with a scrollSpeed Vector:
+   - Implement scrolling with a scrollingSpeed Vector:
      ```javascript
-     let scrollSpeed = vec(0, 1);
+     let scrollingSpeed = vec(0, 1);
      // In update():
-     obstacle.pos.y += scrollSpeed.y;
+     obstacle.pos.y += scrollingSpeed.y;
      ```
    - Use `vec()` for Vector copying:
      ```javascript
@@ -228,8 +228,8 @@ Your task is to design an innovative, intuitive, and fun one-button action mini-
      ```
    - Use `rnd()` for events that occur with a certain probability:
      ```javascript
-	 if (rnd() < 0.05) { }
-	 ```
+	   if (rnd() < 0.05) { }
+	   ```
    - Accurate implementation of game rules
    - Clear and concise code structure
    - Retention of descriptive comments
