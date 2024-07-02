@@ -16,7 +16,7 @@ Your task is to design an innovative, intuitive, and fun one-button action mini-
 
    Avoid complex mechanics like:
    - power-ups
-   - rhythm games
+   - rhythm
    - maze
    - scoring systems
    - win/lose conditions
