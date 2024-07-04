@@ -207,9 +207,12 @@ Your task is to design an innovative, intuitive, and fun one-button action mini-
    - Proper use of crisp-game-lib functions, define game objects and structure your update() function as demonstrated in pinclimb.js
    - Use `isColliding` for simultaneous drawing and collision detection:
      ```javascript
+     color("red");
+     arc(obstacle.pos, 5);
      color("blue");
+     // Collision detection should be done after the target shape is drawn
      if (box(player.pos, player.size).isColliding.rect.red) {
-       // Handle collision with drawn red rectangles
+       // Handle collision with drawn red shapes
      }
      ```
    - Implement scrolling with a scrollingSpeed Vector:
