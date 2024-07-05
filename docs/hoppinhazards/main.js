@@ -1,6 +1,6 @@
 title = `
-Hoppin' 
-Hazards
+HOPPIN' 
+HAZARDS
 `;
 
 description = `
@@ -10,7 +10,7 @@ description = `
 options = {
   isPlayingBgm: true,
   isReplayEnabled: true,
-  audioSeed: 6,
+  audioSeed: 80,
 };
 
 // オブジェクトの変数を定義
