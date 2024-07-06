@@ -2,8 +2,6 @@
 
 I used the AI chatbot [Claude](https://claude.ai/) to generate a one-button game using the [crisp-game-lib](https://github.com/abagames/crisp-game-lib) library. By providing appropriate prompts and files to [Claude 3.5 Sonnet](https://www.anthropic.com/news/claude-3-5-sonnet), it can generate unique game ideas and create the corresponding game code in JavaScript.
 
-This is the Claude version of the [one-button-game-builder](https://github.com/abagames/one-button-game-builder) using GPTs (GPT-4).
-
 # How to use
 
 By dropping [set of 5 files in the knowledge directory](./knowledge/) into the chat session of Claude and starting a chat, game generation can be performed.
@@ -37,10 +35,12 @@ Click the image below to play directly in the browser.
 <a href="https://abagames.github.io/claude-one-button-game-creation/?bridgecross"><img src="./docs/bridgecross/screenshot.gif" width="300px">
 [![jpaddle screenshot](./docs/jpaddle/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?jpaddle)
 
-# Impression
-
-Claude's ideas are diverse and include many unique variations. In this regard, I felt that Claude was superior to ChatGPT. When it comes to turning ideas into source code, Claude generates code and data structures that are generally reasonable. However, in many cases, Claude fails to correctly implement some of the key game mechanics, requiring manual rewriting. Additionally, it is challenging for Claude to achieve a proper game balance with appropriate risks and rewards, necessitating further manual adjustments. Overall, while Claude demonstrates sufficient performance in generating ideas, there still seems to be significant room for improvement in the implementation of those ideas.
-
 # Prompt
 
 See [prompt.txt](./knowledge/prompt.txt).
+
+# Generative Reroll Game Development
+
+LLMs like Claude can now generate simple games. While often flawed, occasional gems emerge. By iterating and refining LLM outputs, developers can create unique, playable games—a process called Generative Reroll Game Development.
+
+- [Generative Reroll Game Development Using LLMs](https://dev.to/abagames/generative-reroll-game-development-using-llms-22m3)
