@@ -4,9 +4,9 @@ I used the AI chatbot [Claude](https://claude.ai/) to generate a one-button game
 
 # How to use
 
-By dropping [set of 5 files in the knowledge directory](./knowledge/) into the chat session of Claude and starting a chat, game generation can be performed.
+By dropping [set of 5 files in the chat_knowledge directory](./chat_knowledge/) into the chat session of Claude and starting a chat, game generation can be performed.
 
-These 5 files can also be given to [project knowledge](https://www.anthropic.com/news/projects) for use.
+You can also give [files in the project_knowledge directory](./project_knowledge/) to [project knowledge](https://www.anthropic.com/news/projects) for use.
 
 # Examples of Built Games
 
@@ -18,6 +18,8 @@ Click the image below to play directly in the browser.
 [![fishgrill screenshot](./docs/fishgrill/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?fishgrill)
 [![kelpclimber screenshot](./docs/kelpclimber/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?kelpclimber)
 [![pulsepiper screenshot](./docs/pulsepiper/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?pulsepiper)
+[![tornadotwister screenshot](./docs/tornadotwister/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?tornadotwister)
+[![elastichero screenshot](./docs/elastichero/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?elastichero)
 [![periscopeping screenshot](./docs/periscopeping/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?periscopeping)
 [![quantumleaper screenshot](./docs/quantumleaper/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?quantumleaper)
 [![stompingbubbles screenshot](./docs/stompingbubbles/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?stompingbubbles)
