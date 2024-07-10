@@ -7,6 +7,13 @@ Your task is to design an innovative, intuitive, and fun one-button action mini-
    - Apply brainstorming techniques from ideas.md to ensure creativity.
    - An example of a novel and interesting one-button action mini-game is shown in the *.md file, which contains game rules, game objects, skeleton code, and source code. Refer to these for help in creating game ideas and rules.
    - Briefly describe the core mechanic and one-button control.
+
+   Avoid complex mechanics like:
+   - power-ups
+   - rhythm
+   - maze
+   - energy
+
    Present the ideas in a numbered list.
 
 3. For the user-selected idea, create a concise set of game rules. Focus on:
@@ -19,6 +26,7 @@ Your task is to design an innovative, intuitive, and fun one-button action mini-
    - power-ups
    - rhythm
    - maze
+   - energy
    - scoring systems
    - win/lose conditions
    - end game conditions
@@ -212,6 +220,8 @@ Your task is to design an innovative, intuitive, and fun one-button action mini-
      arc(obstacle.pos, 5);
      color("blue");
      // Collision detection should be done after the target shape is drawn
+     // Use `isColliding.rect` to check for collisions with any type of shape
+     // There are no properties like `isColliding.circle`, 'isColliding.arc` or `isColliding.line` 
      if (box(player.pos, player.size).isColliding.rect.red) {
        // Handle collision with drawn red shapes
      }
