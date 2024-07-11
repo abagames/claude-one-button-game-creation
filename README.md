@@ -43,6 +43,8 @@ Click the image below to play directly in the browser.
 
 See [prompt.txt](./knowledge/prompt.txt).
 
+By using the prompts in the [game_description_prompt directory](./game_description_prompt/), you can generate markdown files from the source code that explain the rules of the game and other information. The generated markdown files can be used as the project knowledge.
+
 # Generative Reroll Game Development
 
 LLMs like Claude can now generate simple games. While often flawed, occasional gems emerge. By iterating and refining LLM outputs, developers can create unique, playable games—a process called Generative Reroll Game Development.

@@ -1,0 +1,51 @@
+pinclimb.md is a markdown file with game rules, objects, skeleton code to implement object behavior, and final source code. Please create a similar markdown for the attached *.js file.
+
+Each item in the markdown contains the following information:
+
+# Game rules
+
+A concise set of game rules. Focus on:
+- Game Environment
+- Core Mechanics
+- Player Interaction
+- Challenge
+
+Avoid complex mechanics like:
+- power-ups
+- rhythm
+- maze
+- energy
+- scoring systems
+- win/lose conditions
+- end game conditions
+- difficulty adjustment
+
+# Game objects
+
+Details of the game objects (maximum 3 types). For each object, specify:
+- Properties (e.g., position, size, state)
+- Initial state
+- Shape (use simple geometric shapes)
+- Color (choose from: red, green, yellow, blue, purple, cyan, black)
+- Behavior (movement patterns, interactions)
+- One-button controls (if applicable)
+- Collision events
+- Spawning rules
+- Scrolling (if applicable)
+
+Avoid complex mechanics like:
+- scoring systems
+- win/lose conditions
+- end game conditions
+- difficulty adjustment
+
+# Skelton code
+
+A skeleton JavaScript code structure with comments outlining the implementation of game rules. Include:
+- Variable definitions for game objects
+- update() function structure
+- Placeholders for object behavior implementation
+
+# Source code
+
+An implemented code of the game logic using the crisp-game-lib library, translating each comment in the skeleton into functional JavaScript.
