@@ -15,7 +15,7 @@ let pins;
 
 // Define variables for the game.
 /** @type {Vector} */
-let scrollingSpeed;
+let scrollingVelocity;
 /** @type {Vector} */
 let scrolledDistance;
 const nextPinDistance = 10;
@@ -36,7 +36,7 @@ function update() {
     cord = { anchoredPin: pins[0], length: defaultCordLength, angle: 0 };
 
     // Initialize all variables.
-    scrollingSpeed = vec();
+    scrollingVelocity = vec();
     scrolledDistance = vec();
   }
   // Implement the rules of the objects.
@@ -45,9 +45,9 @@ function update() {
   // - The game world scrolls vertically
   // - Pins are removed when they move off the bottom of the screen (y > 102)
   // - The scrolling speed adjusts to keep the player's anchored pin visible on screen
-  scrollingSpeed.y = 0.01;
+  scrollingVelocity.y = -0.01;
   if (cord.anchoredPin.pos.y < 80) {
-    scrollingSpeed.y += (80 - cord.anchoredPin.pos.y) * 0.1;
+    scrollingVelocity.y -= (80 - cord.anchoredPin.pos.y) * 0.1;
   }
 
   // # Cord:
@@ -85,18 +85,17 @@ function update() {
   //    - Scrolling speed increases if the anchored pin is above y=80, pulling it downward faster
   //  - Collision events:
   //    - When the cord collides with a pin, it anchors to that pin and the cord length returns to default
-  //    - The scrolling speed adjusts to keep the player's anchored pin visible on screen
   let currentAnchoredPin = cord.anchoredPin;
   color("blue");
   remove(pins, (p) => {
-    p.pos.y += scrollingSpeed.y;
+    p.pos.y -= scrollingVelocity.y;
     if (box(p.pos, 3).isColliding.rect.black && p !== currentAnchoredPin) {
       cord.anchoredPin = p;
       cord.length = defaultCordLength;
     }
     return p.pos.y > 102;
   });
-  scrolledDistance.add(scrollingSpeed);
+  scrolledDistance.sub(scrollingVelocity);
   while (scrolledDistance.y > nextPinDistance) {
     scrolledDistance.y -= nextPinDistance;
     pins.push({ pos: vec(rnd(10, 90), -2 + scrolledDistance.y) });

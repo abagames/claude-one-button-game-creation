@@ -105,7 +105,7 @@ Your task is to design an innovative, intuitive, and fun one-button action mini-
      - Pins move downward at a base speed of 0.01 units per update
      - Scrolling speed increases if the anchored pin is above y=80, pulling it downward faster
    - Collision events:
-     - When the cord collides with a pin, it anchores to that pin and the cord length returns to default
+     - When the cord collides with a pin, it anchors to that pin and the cord length returns to default
 
    #  Additional game mechanics
    - The game world scrolls vertically
@@ -137,7 +137,7 @@ Your task is to design an innovative, intuitive, and fun one-button action mini-
    
    // Define variables for the game.
    /** @type {Vector} */
-   let scrollingSpeed;
+   let scrollingVelocity;
    /** @type {Vector} */
    let scrolledDistance;
    
@@ -187,7 +187,6 @@ Your task is to design an innovative, intuitive, and fun one-button action mini-
      //    - Scrolling speed increases if the anchored pin is above y=80, pulling it downward faster
      //  - Collision events:
      //    - When the cord collides with a pin, it anchors to that pin and the cord length returns to default
-     //    - The scrolling speed adjusts to keep the player's anchored pin visible on screen
    }
    ```
 
@@ -226,11 +225,11 @@ Your task is to design an innovative, intuitive, and fun one-button action mini-
        // Handle collision with drawn red shapes
      }
      ```
-   - Implement scrolling with a scrollingSpeed Vector:
+   - Implement scrolling with a scrollingVelocity Vector:
      ```javascript
-     let scrollingSpeed = vec(0, 1);
+     let scrollingVelocity = vec(0, 1);
      // In update():
-     obstacle.pos.y += scrollingSpeed.y;
+     obstacle.pos.y -= scrollingVelocity.y;
      ```
    - Use `vec()` for Vector copying:
      ```javascript
