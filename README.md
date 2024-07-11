@@ -24,6 +24,8 @@ Click the image below to play directly in the browser.
 [![quantumleaper screenshot](./docs/quantumleaper/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?quantumleaper)
 [![stompingbubbles screenshot](./docs/stompingbubbles/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?stompingbubbles)
 [![gravitywell screenshot](./docs/gravitywell/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?gravitywell)
+[![rotatingtunnel screenshot](./docs/rotatingtunnel/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?rotatingtunnel)
+[![twinjumpers screenshot](./docs/twinjumpers/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?twinjumpers)
 [![outpostpatrol screenshot](./docs/outpostpatrol/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?outpostpatrol)
 [![monkeyt screenshot](./docs/monkeyt/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?monkeyt)
 [![fracave screenshot](./docs/fracave/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?fracave)
