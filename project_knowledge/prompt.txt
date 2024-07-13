@@ -243,6 +243,7 @@ Your task is to design an innovative, intuitive, and fun one-button action mini-
      ```javascript
 	   if (rnd() < 0.05) { }
 	   ```
+  - It is not necessary to declare the `score` and `difficulty` variables
    - Accurate implementation of game rules
    - Clear and concise code structure
    - Retention of descriptive comments
@@ -251,6 +252,83 @@ Your task is to design an innovative, intuitive, and fun one-button action mini-
      - win/lose conditions
      - end game conditions
      - difficulty adjustment
+
+8. For the JavaScript source code implemented in step 7, create a markdown similar to the example below that describes the game rules and objects. When creating markdown, use only the source code created in step 7 as a source of information, and do not use any other information.
+
+   Example:
+
+   # Game rules
+   
+   1. The player controls a stretchy, rotating cord anchored to a pin.
+   
+   2. Game Environment:
+   
+      - Pins are scattered across the screen, scrolling downward to position the anchored pin near the screen's bottom.
+      - New pins randomly appear at the top of the screen at regular scrolling distances.
+   
+   3. Core Mechanics:
+
+      - The free end of the cord continuously rotates clockwise around the anchored end.
+      - Pressing the button extends the cord; releasing retracts it to its original length.
+   
+   4. Player Interaction:
+
+      - Players time their button presses to connect the cord to new pins.
+      - Successfully connecting to a new pin moves the anchor point to that pin.
+   
+   5. Challenge:
+      - Connecting to pins higher up the screen is crucial for survival.
+   
+   # Game objects
+   
+   ## Cord
+   
+   - Properties:
+     - anchoredPin: Reference to the pin it's anchored to
+     - length: Length of the cord (number)
+     - angle: Rotation angle of the cord (number, in radians)
+   - Initial state:
+     - Anchored to the first pin at (50, 0) (the center-top of the screen)
+     - length: 7 (defaultCordLength)
+     - angle: 0 (pointing rightwards)
+   - Shape: line
+   - Color: black
+   - Behavior:
+     - Rotates clockwise (angle increases by 0.05 each update)
+     - Length extends when input is pressed, retracts when released
+   - One-button controls:
+     - When pressed: Cord length increases
+     - When released: Cord length gradually returns to default
+   
+   ## Pins
+   
+   - Properties:
+     - pos: The pin's position (Vector, x, y coordinates)
+   - Initial state:
+     - One pin at coordinates (50, 0) (the center-top of the screen) (cord's initial anchoredPin)
+   - Shape: Small box (3x3 units)
+   - Color: blue
+   - Behavior:
+     - Static, but move downward as the screen scrolls
+   - Spawning rules:
+     - New pins spawn at the top of the screen
+     - Horizontal position is random between 10 and 90
+     - Vertical spacing is 10 units (nextPinDistance)
+   - Scrolling:
+     - Pins move downward at a base speed of 0.01 units per update
+     - Scrolling speed increases if the anchored pin is above y=80, pulling it downward faster
+   - Collision events:
+     - When the cord collides with a pin, it anchors to that pin and the cord length returns to default
+   
+   ## Additional game mechanics
+   
+   - The game world scrolls vertically
+   - Pins are removed when they move off the bottom of the screen (y > 102)
+   - The scrolling speed adjusts to keep the player's anchored pin visible on screen
+
+9. Compare the markdown created in step 8 with the rules and details of the game object created in steps 3 and 4, and list any issues that are not correctly represented in the markdown.
+
+10. Improve the source code to correct the issues raised in step 9.
 
 Remember:
 - Prioritize simplicity and innovation in game mechanics
