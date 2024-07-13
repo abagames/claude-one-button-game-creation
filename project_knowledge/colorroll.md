@@ -1,14 +1,17 @@
 # Game rules
 
 1. Game Environment:
+
    - The game screen is divided into horizontal lanes.
    - Each lane contains colored bars that move horizontally.
 
 2. Core Mechanics:
+
    - Players shoot a vertical line from the bottom of the screen.
    - The line travels upwards and interacts with the colored bars.
 
 3. Player Interaction:
+
    - Players tap to shoot the line.
    - The goal is to hit bars of the same color as the shot.
 
@@ -136,7 +139,7 @@ options = {
   isPlayingBgm: true,
   isReplayEnabled: true,
   isDrawingScoreFront: true,
-  seed: 9,
+  audioSeed: 9,
 };
 
 /** @type {{x: number, y: number, vx: number, bars: {width: number, color: Color}[]}[]} */

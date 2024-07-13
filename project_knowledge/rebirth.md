@@ -1,15 +1,18 @@
 # Game rules
 
 1. Game Environment:
+
    - The game world is split into two halves: a light side and a dark side.
    - Tracks move horizontally across the screen.
    - Diamonds appear and move across the screen.
 
 2. Core Mechanics:
+
    - The player character can run, jump, and land.
    - The player can switch between the light and dark sides.
 
 3. Player Interaction:
+
    - One-button control: Tap to jump or land.
    - The player must avoid colliding with tracks.
    - The player should collect diamonds for points.
@@ -100,7 +103,7 @@ function update() {
   // Draw game background
 
   // Update and spawn tracks
-  
+
   // Update player
   // - Handle player movement
   // - Handle player state changes
@@ -183,12 +186,11 @@ l ll l
 ];
 
 options = {
-  theme: "dark",
   viewSize: { x: 200, y: 50 },
   isPlayingBgm: true,
   isReplayEnabled: true,
   isDrawingScoreFront: true,
-  seed: 2000,
+  audioSeed: 2000,
 };
 
 /** @type {{x: number, vx: number, world: -1 | 1}[]} */

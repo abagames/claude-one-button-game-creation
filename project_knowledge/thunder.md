@@ -1,17 +1,20 @@
 # Game rules
 
 1. Game Environment:
+
    - The game takes place on a vertical playing field.
    - Lightning bolts descend from the top of the screen.
    - Stars fall from the lightning bolts.
    - A player-controlled character moves at the bottom of the screen.
 
 2. Core Mechanics:
+
    - Lightning bolts branch out as they descend.
    - Stars fall from the tips of lightning bolts.
    - The player moves horizontally at the bottom of the screen.
 
 3. Player Interaction:
+
    - The player can change the direction of their character's movement by tapping.
 
 4. Challenge:
@@ -21,6 +24,7 @@
 # Game objects
 
 ## Lightning Bolts
+
 - Properties:
   - from: Starting point (Vector)
   - to: Ending point (Vector)
@@ -42,6 +46,7 @@
   - New branches spawn when a bolt's lifespan ends
 
 ## Stars
+
 - Properties:
   - pos: Position (Vector)
   - vel: Velocity (Vector)
@@ -58,6 +63,7 @@
   - Spawn from the tips of active lightning bolts
 
 ## Player
+
 - Properties:
   - x: Horizontal position
   - vx: Horizontal velocity
@@ -93,13 +99,13 @@ function update() {
   if (!ticks) {
     // Initialize game objects
   }
-  
+
   // Update and render lightning bolts
-  
+
   // Update and render player
-  
+
   // Update and render stars
-  
+
   // Handle collisions and scoring
 }
 ```
@@ -137,10 +143,9 @@ ll  ll
 ];
 
 options = {
-  theme: "dark",
   isPlayingBgm: true,
   isReplayEnabled: true,
-  seed: 3,
+  audioSeed: 3,
 };
 
 /**

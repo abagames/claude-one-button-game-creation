@@ -1,14 +1,17 @@
 # Game rules
 
 1. Game Environment:
+
    - The game takes place in a 2D environment with a water line.
    - Fish swim below the water line.
 
 2. Core Mechanics:
+
    - The player controls a fishing line with multiple nodes.
    - The line can be cast into the water and pulled back.
 
 3. Player Interaction:
+
    - Hold button to select casting power and angle.
    - Release button to cast the line.
    - Tap button to pull the line back.
@@ -110,7 +113,7 @@ options = {
   viewSize: { x: 150, y: 100 },
   isPlayingBgm: true,
   isReplayEnabled: true,
-  seed: 2,
+  audioSeed: 2,
 };
 
 /** @type {{pos: Vector, vel: Vector, nextNode: any}[]} */

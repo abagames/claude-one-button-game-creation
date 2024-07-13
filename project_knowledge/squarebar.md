@@ -1,16 +1,19 @@
 # Game rules
 
 1. Game Environment:
+
    - A square playing field with a light black border
    - Bars rotate around the square
    - Items spawn inside the square
 
 2. Core Mechanics:
+
    - The player controls a green bar that rotates around the square
    - Enemy bars (yellow or red) also rotate around the square
    - Items (spikes and gold) appear within the square
 
 3. Player Interaction:
+
    - Hold to grow the player's bar
    - Release to shrink the player's bar
 
@@ -33,7 +36,7 @@
 - Initial state:
   - One player bar and one enemy bar on opposite sides of the square
 - Shape: Line (bar)
-- Color: 
+- Color:
   - Player: green
   - Enemy: yellow (normal) or red (chasing)
 - Behavior:
@@ -70,18 +73,6 @@
 # Skeleton code
 
 ```javascript
-title = "SQUARE BAR";
-
-description = `
-[Hold] Grow
-`;
-
-characters = [];
-
-options = {
-  // Game options
-};
-
 // Define variables for game objects
 /** @type {{pos: Vector, length: number, spRatio: number, angle: number, tAngle: number, type: "player" | "enemy"}[]} */
 let bars;
@@ -137,11 +128,10 @@ description = `
 characters = [];
 
 options = {
-  theme: "dark",
   isPlayingBgm: true,
   isReplayEnabled: true,
   isDrawingScoreFront: true,
-  seed: 3,
+  audioSeed: 3,
 };
 
 /**

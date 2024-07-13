@@ -1,15 +1,18 @@
 # Game rules
 
 1. Game Environment:
+
    - The game takes place on a vertical screen with a UFO at the top and tanks at the bottom.
    - A reflector bar is attached to the UFO.
 
 2. Core Mechanics:
+
    - The UFO moves horizontally at the top of the screen.
    - Tanks appear at the bottom and shoot bullets upward.
    - The player can reflect bullets back at the tanks using the UFO's reflector.
 
 3. Player Interaction:
+
    - Tap to change the UFO's direction.
    - Hold to enforce (strengthen) the reflector.
 
@@ -20,6 +23,7 @@
 # Game objects
 
 ## UFO
+
 - Properties:
   - pos: Position (Vector)
   - vx: Horizontal velocity (number)
@@ -42,6 +46,7 @@
   - Game ends if hit by a bullet
 
 ## Tanks
+
 - Properties:
   - pos: Position (Vector)
   - vx: Horizontal velocity (number)
@@ -64,6 +69,7 @@
   - Spawning interval decreases with difficulty
 
 ## Bullets
+
 - Properties:
   - pos: Position (Vector)
   - vel: Velocity (Vector)
@@ -79,24 +85,6 @@
 # Skeleton code
 
 ```javascript
-title = "REFLECTOR";
-
-description = `
-[Tap]
- Turn
-[Hold]
- Enforce
- reflector
-`;
-
-characters = [
-  // Define character sprites
-];
-
-options = {
-  // Define game options
-};
-
 // Define variables for game objects
 /** @type {{pos: Vector, vx: number, angle: number, power: number}} */
 let ufo;
@@ -184,7 +172,7 @@ llwlwl
 options = {
   isPlayingBgm: true,
   isReplayEnabled: true,
-  seed: 2,
+  audioSeed: 2,
 };
 
 /** @type {{pos: Vector, vx: number, angle: number, power: number}} */

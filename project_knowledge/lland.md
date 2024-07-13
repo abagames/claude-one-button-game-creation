@@ -1,15 +1,18 @@
 # Game rules
 
 1. Game Environment:
+
    - The game world consists of a scrolling landscape with mountains.
    - Mountains are represented by vertical rectangles of varying heights.
 
 2. Core Mechanics:
+
    - The player controls a spaceship that can thrust upwards.
    - Gravity constantly pulls the spaceship down.
    - The landscape scrolls from right to left.
 
 3. Player Interaction:
+
    - Hold the button to thrust the spaceship upwards.
    - Release the button to let the spaceship fall.
 
@@ -21,6 +24,7 @@
 # Game objects
 
 ## Spaceship
+
 - Properties:
   - shipY: Vertical position of the spaceship
   - shipV: Vertical velocity of the spaceship
@@ -40,6 +44,7 @@
   - Colliding with red rectangle: Game over
 
 ## Mountains
+
 - Properties:
   - y: Vertical position of the mountain base
   - c: Color of the mountain (red or cyan)
@@ -56,6 +61,7 @@
   - Cyan landing platforms appear periodically
 
 ## Particles
+
 - Properties:
   - Position, size, angle, speed
 - Shape: Small particles
@@ -66,27 +72,6 @@
 # Skeleton code
 
 ```javascript
-title = "LLAND";
-
-description = `
-[Hold] Thrust up
-`;
-
-characters = [
-  `
- llll
-l    l
- llll
- l  l
-l ll l
-ll  ll
-`,
-];
-
-options = {
-  // Game options
-};
-
 // Define variables for game objects
 let mountains;
 let shipY, shipV;
@@ -146,8 +131,7 @@ ll  ll
 options = {
   isPlayingBgm: true,
   isReplayEnabled: true,
-  theme: "pixel",
-  seed: 6,
+  audioSeed: 6,
 };
 
 let mountains;
@@ -172,7 +156,13 @@ function update() {
       }
     });
     shipY = 30;
-    shipV = offset = mountainAppDist = mountainIndex = landing = isFirstLanded = 0;
+    shipV =
+      offset =
+      mountainAppDist =
+      mountainIndex =
+      landing =
+      isFirstLanded =
+        0;
     landingIndex = 7;
   }
   mountains.map((m, i) => {

@@ -1,15 +1,18 @@
 # Game rules
 
 1. Game Environment:
+
    - The game takes place on a scrolling screen with wavy water at the bottom.
    - Mines float on the water's surface.
 
 2. Core Mechanics:
+
    - The player controls a ship that floats on the water or jumps above it.
    - The screen continuously scrolls to the right.
    - The water's surface is dynamic, creating waves that affect the ship's movement.
 
 3. Player Interaction:
+
    - One-button control: Tapping makes the ship jump.
    - While in the air, holding the button slows the ship's descent.
 
@@ -20,6 +23,7 @@
 # Game objects
 
 ## Waves
+
 - Properties:
   - height: Wave amplitude
   - angle: Current phase of the wave
@@ -36,6 +40,7 @@
   - New wave segments appear on the right side of the screen as old ones move off-screen
 
 ## Ship
+
 - Properties:
   - pos: Current position (Vector)
   - pp: Previous position (Vector)
@@ -59,11 +64,12 @@
   - Colliding with mines ends the game
 
 ## Mines
+
 - Properties:
   - x: Horizontal position
   - vx: Horizontal velocity
 - Initial state: None (spawned during gameplay)
-- Shape: Asterisk ("*")
+- Shape: Asterisk ("\*")
 - Color: red
 - Behavior:
   - Float on the water surface, affected by waves
@@ -75,18 +81,6 @@
 # Skeleton code
 
 ```javascript
-title = "TURBULENT";
-
-description = `
-[Tap] Jump
-`;
-
-characters = [];
-
-options = {
-  // Game options
-};
-
 /** @type {{height: number, angle: number, va: number, x: number}[]} */
 let waves;
 /** @type {Vector[]} */
@@ -108,17 +102,17 @@ function update() {
   }
 
   // Update waves
-  
+
   // Draw water surface
-  
+
   // Spawn and update mines
-  
+
   // Update ship position and state
-  
+
   // Handle ship-water collision
-  
+
   // Handle ship-mine collision
-  
+
   // Helper function to get wave points
   function getPoints(x) {
     // Implementation
@@ -138,10 +132,9 @@ description = `
 characters = [];
 
 options = {
-  theme: "dark",
   isPlayingBgm: true,
   isReplayEnabled: true,
-  seed: 300,
+  audioSeed: 300,
 };
 
 /** @type {{height: number, angle: number, va: number, x: number}[]} */

@@ -1,14 +1,17 @@
 # Game rules
 
 1. Game Environment:
+
    - A timber log appears on the screen.
    - A saw moves horizontally across the screen.
 
 2. Core Mechanics:
+
    - The player must cut the timber log into equal pieces.
    - The saw moves automatically from left to right.
 
 3. Player Interaction:
+
    - The player taps to cut the log at the current saw position.
 
 4. Challenge:
@@ -18,6 +21,7 @@
 # Game objects
 
 ## Timber
+
 - Properties:
   - x: X-coordinate of the left edge of the timber (number)
   - width: Width of the timber (number)
@@ -29,6 +33,7 @@
 - Behavior: Static
 
 ## Saw
+
 - Properties:
   - x: X-coordinate of the saw (number)
   - vx: Horizontal velocity of the saw (number)
@@ -43,6 +48,7 @@
   - When tapped: Cuts the timber at the current position
 
 ## Pieces
+
 - Properties:
   - size: Vector (width, height)
   - pos: Vector (current x, y position)
@@ -107,7 +113,7 @@ characters = [];
 
 options = {
   isPlayingBgm: true,
-  seed: 18,
+  audioSeed: 18,
 };
 
 let timber;

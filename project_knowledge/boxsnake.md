@@ -1,16 +1,19 @@
 # Game rules
 
 1. Game Environment:
+
    - The game takes place in a square box with padded edges.
    - The box contains a snake, bullets, and balls.
 
 2. Core Mechanics:
+
    - The snake moves along the edges of the box.
    - The snake can stretch when the button is held.
    - A turret on the snake fires bullets.
    - Balls appear randomly within the box and move around.
 
 3. Player Interaction:
+
    - Players control the snake's movement by holding down a button to stretch it.
 
 4. Challenge:
@@ -21,6 +24,7 @@
 # Game objects
 
 ## Snake
+
 - Properties:
   - head: {edge: number, pos: number}
   - tail: {edge: number, pos: number}
@@ -43,6 +47,7 @@
   - When released: Snake tail catches up to head
 
 ## Bullets
+
 - Properties:
   - pos: Vector
   - angle: number
@@ -53,6 +58,7 @@
   - Disappear when hitting the box edge
 
 ## Balls
+
 - Properties:
   - pos: Vector
   - vel: Vector
@@ -88,23 +94,23 @@ function update() {
   if (!ticks) {
     // Initialize all variables.
   }
-  
+
   // Implement the rules of the objects.
-  
+
   // Draw the box
-  
+
   // Update and draw bullets
-  
+
   // Handle snake movement and stretching
-  
+
   // Draw the snake
-  
+
   // Update and fire the turret
-  
+
   // Spawn and update balls
-  
+
   // Handle collisions and scoring
-  
+
   // Display multiplier
 }
 
@@ -134,7 +140,6 @@ description = `
 characters = [];
 
 options = {
-  theme: "pixel",
   isPlayingBgm: true,
   isReplayEnabled: true,
   audioSeed: 0,

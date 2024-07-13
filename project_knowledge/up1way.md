@@ -1,14 +1,17 @@
 # Game rules
 
 1. Game Environment:
+
    - The game takes place on a vertically stacked set of floors.
    - Each floor has holes that the player must avoid.
 
 2. Core Mechanics:
+
    - The player character automatically moves to the right.
    - The screen scrolls to the left, creating an endless runner effect.
 
 3. Player Interaction:
+
    - The player can move up one floor by tapping (or clicking).
    - If the player is above a hole, they will fall down one floor.
 
@@ -21,6 +24,7 @@
 # Game objects
 
 ## Player
+
 - Properties:
   - pos: The player's position (Vector, x, y coordinates)
   - floorIndex: The current floor the player is on (number)
@@ -40,6 +44,7 @@
   - When tapped: Player moves up one floor if not already moving
 
 ## Floors
+
 - Properties:
   - y: Vertical position of the floor (number)
   - holeXs: Array of x-coordinates for holes in the floor (number[])
@@ -59,6 +64,7 @@
   - Bamboo, skulls, and power-ups spawn randomly on floors
 
 ## Collectibles and Obstacles
+
 - Bamboo:
   - Shape: Small plant-like object
   - Color: yellow
@@ -197,7 +203,7 @@ options = {
   isPlayingBgm: true,
   isReplayEnabled: true,
   isDrawingScoreFront: true,
-  seed: 12,
+  audioSeed: 12,
 };
 
 /**

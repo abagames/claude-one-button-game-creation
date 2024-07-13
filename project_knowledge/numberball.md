@@ -1,15 +1,18 @@
 # Game rules
 
 1. Game Environment:
+
    - The game takes place on a horizontal platform with moving floors.
    - Numbered balls appear on the left side of the screen.
 
 2. Core Mechanics:
+
    - Players control the angle of a numbered ball.
    - Balls are launched across the screen.
    - Floors move from right to left.
 
 3. Player Interaction:
+
    - Hold to set the launch angle.
    - Release to shoot the ball.
 
@@ -119,7 +122,7 @@ options = {
   viewSize: { x: 200, y: 60 },
   isPlayingBgm: true,
   isReplayEnabled: true,
-  seed: 8,
+  audioSeed: 8,
 };
 
 /**

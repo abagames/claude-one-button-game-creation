@@ -1,14 +1,17 @@
 # Game rules
 
 1. Game Environment:
+
    - The game takes place on a scrolling platform with a ground level.
    - Rectangular obstacles appear on the platform.
 
 2. Core Mechanics:
+
    - The player controls a stretchy tape that can be extended and released.
    - The tape can wrap around rectangular obstacles.
 
 3. Player Interaction:
+
    - Hold the button to extend the tape.
    - Release the button to retract the tape.
 
@@ -19,6 +22,7 @@
 # Game objects
 
 ## Tape
+
 - Properties:
   - from: Starting position (Vector)
   - to: Ending position (Vector)
@@ -42,6 +46,7 @@
   - Wraps around rectangles when colliding
 
 ## Rectangles
+
 - Properties:
   - x: Horizontal position
   - size: Size of the rectangle (Vector)
@@ -58,6 +63,7 @@
   - Move left at a speed based on difficulty and tape position
 
 ## Fireballs
+
 - Properties:
   - pos: Position (Vector)
   - vel: Velocity (Vector)
@@ -123,7 +129,7 @@ options = {
   viewSize: { x: 200, y: 100 },
   isPlayingBgm: true,
   isReplayEnabled: true,
-  seed: 3,
+  audioSeed: 3,
 };
 
 /** @type {{x: number, size: Vector}[]} */

@@ -1,16 +1,19 @@
 # Game rules
 
 1. Game Environment:
+
    - The game takes place on a 100x100 unit screen.
    - The player controls a character at the center of the screen.
    - Enemies spawn from the edges and move towards the center.
 
 2. Core Mechanics:
+
    - The player has an arc-shaped weapon that rotates continuously.
    - Holding the button sets the starting point of the arc.
    - Releasing the button fires the arc as a projectile.
 
 3. Player Interaction:
+
    - Hold the button to set the arc's range and angle.
    - Release the button to fire the arc projectile.
    - The player's character moves after firing, based on the arc's direction.
@@ -37,7 +40,7 @@
 - Shape: Character ('a' or 'b')
 - Color: black
 - Behavior:
-  - Rotates continuously (angle increases by 0.07 * difficulty each update)
+  - Rotates continuously (angle increases by 0.07 \* difficulty each update)
   - Moves after firing based on moveAngle and moveDist
 - One-button controls:
   - When pressed: Sets arc starting point
@@ -172,8 +175,7 @@ llll
 options = {
   isPlayingBgm: true,
   isReplayEnabled: true,
-  seed: 16,
-  theme: "crt",
+  audioSeed: 16,
 };
 
 let pos;

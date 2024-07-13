@@ -1,15 +1,18 @@
 # Game rules
 
 1. Game Environment:
+
    - The game takes place on a horizontal plane with a width of 100 units.
    - There are three horizontal lines across the screen.
 
 2. Core Mechanics:
+
    - The player controls a character that moves horizontally.
    - Dots are scattered across the play area.
    - An enemy character chases or flees from the player.
 
 3. Player Interaction:
+
    - Players can change the direction of their character's movement by tapping.
 
 4. Challenge:
@@ -19,6 +22,7 @@
 # Game objects
 
 ## Player
+
 - Properties:
   - x: Horizontal position
   - vx: Horizontal velocity
@@ -36,6 +40,7 @@
   - Collects dots on contact
 
 ## Enemy
+
 - Properties:
   - x: Horizontal position
   - eyeVx: Horizontal eye velocity (determines state)
@@ -52,6 +57,7 @@
   - Flees when collided with player (when vulnerable)
 
 ## Dots
+
 - Properties:
   - x: Horizontal position
   - isPower: Boolean indicating if it's a power dot
@@ -69,20 +75,6 @@
 # Skeleton code
 
 ```javascript
-title = "PAKU PAKU";
-
-description = `
-[Tap] Turn
-`;
-
-characters = [
-  // Define character sprites
-];
-
-options = {
-  // Define game options
-};
-
 /** @type {{x: number, vx: number}} */
 let player;
 /** @type {{x: number, eyeVx: number}} */
@@ -97,21 +89,21 @@ function update() {
   if (!ticks) {
     // Initialize game state
   }
-  
+
   // Update animation ticks
-  
+
   // Handle player input and movement
-  
+
   // Draw game elements
-  
+
   // Update and check dot collisions
-  
+
   // Update enemy behavior and position
-  
+
   // Check player-enemy collision
-  
+
   // Update power mode timer
-  
+
   // Check if all dots are collected
 }
 
@@ -189,11 +181,10 @@ llll
 ];
 
 options = {
-  theme: "dark",
   viewSize: { x: 100, y: 50 },
   isPlayingBgm: true,
   isReplayEnabled: true,
-  seed: 9,
+  audioSeed: 9,
 };
 
 /** @type {{x: number, vx: number}} */

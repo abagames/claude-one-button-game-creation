@@ -1,15 +1,18 @@
 # Game rules
 
 1. Game Environment:
+
    - The game takes place on a vertical scrolling screen.
    - Circular platforms with protruding bars appear from the top of the screen.
 
 2. Core Mechanics:
+
    - The player controls a small box that can move between circular platforms.
    - Platforms continuously scroll downward.
    - Each platform has a number of rotating bars attached to it.
 
 3. Player Interaction:
+
    - The player taps to move from one platform to the next connected platform.
 
 4. Challenge:
@@ -19,6 +22,7 @@
 # Game objects
 
 ## Circles (Platforms)
+
 - Properties:
   - p: Position (Vector)
   - r: Radius (number)
@@ -41,6 +45,7 @@
   - Circles move downward at a speed based on difficulty and player position
 
 ## Player
+
 - Properties:
   - Current circle (reference to the circle object)
 - Initial state:
@@ -70,7 +75,7 @@ function update() {
   }
 
   // Spawn new circles
-  
+
   // Update game difficulty and scoring
 
   // Check for game over condition
@@ -112,9 +117,8 @@ characters = [];
 
 options = {
   isPlayingBgm: true,
-  seed: 27,
   isReplayEnabled: true,
-  theme: "shape",
+  audioSeed: 27,
 };
 
 let circles;
