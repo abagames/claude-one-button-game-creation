@@ -8,6 +8,8 @@ By dropping [set of 5 files in the chat_knowledge directory](./chat_knowledge/) 
 
 You can also give [files in the project_knowledge directory](./project_knowledge/) to [project knowledge](https://www.anthropic.com/news/projects) for use.
 
+If necessary, type 'proceed' to proceed to the next step.
+
 # Examples of Built Games
 
 Click the image below to play directly in the browser.
@@ -16,6 +18,7 @@ Click the image below to play directly in the browser.
 [![wavybird screenshot](./docs/wavybird/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?wavybird)
 [![skyraftsman screenshot](./docs/skyraftsman/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?skyraftsman)
 [![fishgrill screenshot](./docs/fishgrill/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?fishgrill)
+[![catchingwheel screenshot](./docs/catchingwheel/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?catchingwheel)
 [![windowwasher screenshot](./docs/windowwasher/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?windowwasher)
 [![kelpclimber screenshot](./docs/kelpclimber/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?kelpclimber)
 [![pulsepiper screenshot](./docs/pulsepiper/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?pulsepiper)
