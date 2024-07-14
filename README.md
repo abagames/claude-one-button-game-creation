@@ -8,7 +8,7 @@ By dropping [set of 5 files in the chat_knowledge directory](./chat_knowledge/) 
 
 You can also give [files in the project_knowledge directory](./project_knowledge/) to [project knowledge](https://www.anthropic.com/news/projects) for use.
 
-If necessary, type 'proceed' to proceed to the next step.
+First, enter the theme of the game you want to create. If necessary, type 'proceed' to proceed to the next step.
 
 # Examples of Built Games
 
@@ -31,6 +31,7 @@ Click the image below to play directly in the browser.
 [![bladedancer screenshot](./docs/bladedancer/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?bladedancer)
 [![rotatingtunnel screenshot](./docs/rotatingtunnel/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?rotatingtunnel)
 [![twinjumpers screenshot](./docs/twinjumpers/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?twinjumpers)
+[![slimestretcher screenshot](./docs/slimestretcher/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?slimestretcher)
 [![outpostpatrol screenshot](./docs/outpostpatrol/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?outpostpatrol)
 [![monkeyt screenshot](./docs/monkeyt/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?monkeyt)
 [![fracave screenshot](./docs/fracave/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?fracave)
