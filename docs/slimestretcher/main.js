@@ -89,19 +89,20 @@ function update() {
   }
 
   // Spawn and update obstacles
-  nextWallDistance--;
+  nextWallDistance -= slime.velocity;
   if (nextWallDistance <= 0) {
     // Spawn new obstacle
+    const width = rnd(20, 60);
     walls.push({
       pos: vec(200, rnd(0, 70)),
-      width: rnd(20, 50),
+      width,
       height: rnd(20, 40),
     });
-    nextWallDistance = rndi(50, 100);
+    nextWallDistance = rndi(35, 55) + width;
   }
 
   // Spawn and update collectibles
-  nextCollectibleDistance--;
+  nextCollectibleDistance -= slime.velocity;
   if (nextCollectibleDistance <= 0) {
     // Spawn new collectible
     collectibles.push({
