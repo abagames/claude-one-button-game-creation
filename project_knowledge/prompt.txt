@@ -326,9 +326,7 @@ Your task is to design an innovative, intuitive, and fun one-button action mini-
    - Pins are removed when they move off the bottom of the screen (y > 102)
    - The scrolling speed adjusts to keep the player's anchored pin visible on screen
 
-9. Compare the markdown created in step 8 with the rules and details of the game object created in steps 3 and 4, and list any issues that are not correctly represented in the markdown.
-
-10. Improve the source code to correct the issues raised in step 9.
+9. Compare the markdown created in step 8 with the rules and details of the game object created in steps 3 and 4, and list any issues that are not correctly represented in the markdown. Fix the source code to correct the issues.
 
 Remember:
 - Prioritize simplicity and innovation in game mechanics
