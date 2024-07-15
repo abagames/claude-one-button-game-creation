@@ -37,19 +37,19 @@ Your task is to design an innovative, intuitive, and fun one-button action mini-
    Example:
 
    1. The player controls a stretchy, rotating cord anchored to a pin.
-   
+
    2. Game Environment:
       - Pins are scattered across the screen, scrolling downward to position the anchored pin near the screen's bottom.
       - New pins randomly appear at the top of the screen at regular scrolling distances.
-   
+
    3. Core Mechanics:
       - The free end of the cord continuously rotates clockwise around the anchored end.
       - Pressing the button extends the cord; releasing retracts it to its original length.
-   
+
    4. Player Interaction:
       - Players time their button presses to connect the cord to new pins.
       - Successfully connecting to a new pin moves the anchor point to that pin.
-   
+
    5. Challenge:
       - Connecting to pins higher up the screen is crucial for survival.
 
@@ -109,7 +109,7 @@ Your task is to design an innovative, intuitive, and fun one-button action mini-
    - Collision events:
      - When the cord collides with a pin, it anchors to that pin and the cord length returns to default
 
-   #  Additional game mechanics
+   # Additional game mechanics
    - The game world scrolls vertically
    - Pins are removed when they move off the bottom of the screen (y > 102)
    - The scrolling speed adjusts to keep the player's anchored pin visible on screen
@@ -136,30 +136,28 @@ Your task is to design an innovative, intuitive, and fun one-button action mini-
    //   - pos: The pin's position (Vector, x, y coordinates)
    /** @type { {pos: Vector}[]} */
    let pins;
-   
+
    // Define variables for the game.
    /** @type {Vector} */
    let scrollingVelocity;
    /** @type {Vector} */
    let scrolledDistance;
-   
+
    function update() {
      if (!ticks) {
        // Set the initial state of the game.
        // # Pins
        // - Initial state:
        //   - One pin at coordinates (50, 0) (the center-top of the screen) (cord's initial anchoredPin)
-   	   
        // # Cord
        //  - Initial state:
        //    - Anchored to the first pin at (50, 0) (the center-top of the screen)
        //    - length: 7 (defaultCordLength)
        //    - angle: 0 (pointing rightwards)
-       
        // Initialize all variables.
      }
      // Implement the rules of the objects.
-     
+
      // #  Additional game mechanics
      // - The game world scrolls vertically
      // - Pins are removed when they move off the bottom of the screen (y > 102)
@@ -174,7 +172,7 @@ Your task is to design an innovative, intuitive, and fun one-button action mini-
      //  - One-button controls:
      //    - When pressed: Cord length increases
      //    - When released: Cord length gradually returns to default
-     
+
      // # Pins
      //  - Shape: Small box (3x3 units)
      //  - Color: blue
@@ -195,26 +193,23 @@ Your task is to design an innovative, intuitive, and fun one-button action mini-
 6. Study the crisp-game-lib library and example code:
 
    a. Examine crisp-game-lib.d.ts:
-      - This file provides type definitions for the library's functions and objects.
-      - Pay attention to the following key elements:
-        - Input handling: use `input.isPressed`, `input.isJustPressed`, and `input.isJustReleased`
-        - Drawing functions: `color()`, `rect()`, `box()`, `bar()`, `line()`, `arc()`, `text()`
-        - Collision detection: Use the `Collision` type returned by drawing functions
-        - Vector operations: Utilize the `Vector` interface and `vec()` function
-        - Random number generation: `rnd()`, `rndi()`, `rnds()`
-        - Math utilities: `clamp()`, `wrap()`, `PI`, `abs()`, `sin()`, `cos()`, etc.
+   - This file provides type definitions for the library's functions and objects.
+   - Pay attention to the following key elements:
+     - Input handling: use `input.isPressed`, `input.isJustPressed`, and `input.isJustReleased`
+     - Drawing functions: `color()`, `rect()`, `box()`, `bar()`, `line()`, `arc()`, `text()`
+     - Collision detection: Use the `Collision` type returned by drawing functions
+     - Vector operations: Utilize the `Vector` interface and `vec()` function
+     - Random number generation: `rnd()`, `rndi()`, `rnds()`
+     - Math utilities: `clamp()`, `wrap()`, `PI`, `abs()`, `sin()`, `cos()`, etc.
 
    b. Analyze pinclimb.js:
-      - This file demonstrates a complete game implementation using crisp-game-lib.
-      - Note the structure and patterns used, such as:
-        - Object definitions and their properties
-        - The `update()` function structure
-        - How scrolling is implemented
-        - Collision detection and handling
-        - Use of drawing functions
-
-7. Implement the game logic using the crisp-game-lib library, translating each comment in the skeleton into functional JavaScript. Key points:
-   - Proper use of crisp-game-lib functions, define game objects and structure your update() function as demonstrated in pinclimb.js
+   - This file demonstrates a complete game implementation using crisp-game-lib.
+   - Note the structure and patterns used, such as:
+     - Object definitions and their properties
+     - The `update()` function structure
+     - How scrolling is implemented
+     - Collision detection and handling
+     - Use of drawing functions
    - Use `isColliding` for simultaneous drawing and collision detection:
      ```javascript
      color("red");
@@ -222,7 +217,7 @@ Your task is to design an innovative, intuitive, and fun one-button action mini-
      color("blue");
      // Collision detection should be done after the target shape is drawn
      // Use `isColliding.rect` to check for collisions with any type of shape
-     // There are no properties like `isColliding.circle`, 'isColliding.arc` or `isColliding.line` 
+     // There are no properties like `isColliding.circle`, 'isColliding.arc` or `isColliding.line`
      if (box(player.pos, player.size).isColliding.rect.red) {
        // Handle collision with drawn red shapes
      }
@@ -243,9 +238,11 @@ Your task is to design an innovative, intuitive, and fun one-button action mini-
      ```
    - Use `rnd()` for events that occur with a certain probability:
      ```javascript
-	   if (rnd() < 0.05) { }
-	   ```
-  - It is not necessary to declare the `score` and `difficulty` variables
+     if (rnd() < 0.05) { }
+     ```
+   - It is not necessary to declare the `score` and `difficulty` variables
+
+7. Implement the game logic using the crisp-game-lib library, translating each comment in the skeleton into functional JavaScript. Key points:
    - Accurate implementation of game rules
    - Clear and concise code structure
    - Retention of descriptive comments
