@@ -44,7 +44,7 @@ function update() {
   // #  Additional game mechanics
   // - The game world scrolls vertically
   // - Pins are removed when they move off the bottom of the screen (y > 102)
-  // - The scrolling speed adjusts to keep the player's anchored pin visible on screen
+  // - The scrolling speed adjusts to keep the player's anchored pin visible on screen near the screen's bottom
   scrollingVelocity.y = -0.01;
   if (cord.anchoredPin.pos.y < 80) {
     scrollingVelocity.y -= (80 - cord.anchoredPin.pos.y) * 0.1;
@@ -58,7 +58,7 @@ function update() {
   //    - Length extends when input is pressed, retracts when released
   //  - One-button controls:
   //    - When pressed: Cord length increases
-  //    - When released: Cord length gradually returns to default
+  //    - When released: Cord length returns to default
   if (input.isPressed) {
     cord.length += 1;
   } else {
@@ -75,7 +75,7 @@ function update() {
   //  - Shape: Small box (3x3 units)
   //  - Color: blue
   //  - Behavior:
-  //    - Static, but move downward as the screen scrolls
+  //    - Static, but move downward as the screen scrolls upward
   //  - Spawning rules:
   //    - New pins spawn at the top of the screen
   //    - Horizontal position is random between 10 and 90

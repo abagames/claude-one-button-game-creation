@@ -39,7 +39,7 @@ Your task is to design an innovative, intuitive, and fun one-button action mini-
    1. The player controls a stretchy, rotating cord anchored to a pin.
 
    2. Game Environment:
-      - Pins are scattered across the screen, scrolling downward to position the anchored pin near the screen's bottom.
+      - Pins are scattered across the screen, scrolling upward to position the anchored pin near the screen's bottom.
       - New pins randomly appear at the top of the screen at regular scrolling distances.
 
    3. Core Mechanics:
@@ -88,7 +88,7 @@ Your task is to design an innovative, intuitive, and fun one-button action mini-
      - Length extends when input is pressed, retracts when released
    - One-button controls:
      - When pressed: Cord length increases
-     - When released: Cord length gradually returns to default
+     - When released: Cord length returns to default
 
    # Pins
    - Properties:
@@ -98,7 +98,7 @@ Your task is to design an innovative, intuitive, and fun one-button action mini-
    - Shape: Small box (3x3 units)
    - Color: blue
    - Behavior:
-     - Static, but move downward as the screen scrolls
+     - Static, but move downward as the screen scrolls upward
    - Spawning rules:
      - New pins spawn at the top of the screen
      - Horizontal position is random between 10 and 90
@@ -112,7 +112,7 @@ Your task is to design an innovative, intuitive, and fun one-button action mini-
    # Additional game mechanics
    - The game world scrolls vertically
    - Pins are removed when they move off the bottom of the screen (y > 102)
-   - The scrolling speed adjusts to keep the player's anchored pin visible on screen
+   - The scrolling speed adjusts to keep the player's anchored pin visible on screen near the screen's bottom
 
 5. Provide a skeleton JavaScript code structure with comments outlining the implementation of game rules. Include:
    - Variable definitions for game objects
@@ -161,7 +161,7 @@ Your task is to design an innovative, intuitive, and fun one-button action mini-
      // #  Additional game mechanics
      // - The game world scrolls vertically
      // - Pins are removed when they move off the bottom of the screen (y > 102)
-     // - The scrolling speed adjusts to keep the player's anchored pin visible on screen
+     // - The scrolling speed adjusts to keep the player's anchored pin visible on screen near the screen's bottom
 
      // # Cord:
      //  - Shape: line
@@ -171,13 +171,13 @@ Your task is to design an innovative, intuitive, and fun one-button action mini-
      //    - Length extends when input is pressed, retracts when released
      //  - One-button controls:
      //    - When pressed: Cord length increases
-     //    - When released: Cord length gradually returns to default
+     //    - When released: Cord length returns to default
 
      // # Pins
      //  - Shape: Small box (3x3 units)
      //  - Color: blue
      //  - Behavior:
-     //    - Static, but move downward as the screen scrolls
+     //    - Static, but move downward as the screen scrolls upward
      //  - Spawning rules:
      //    - New pins spawn at the top of the screen
      //    - Horizontal position is random between 10 and 90
@@ -210,6 +210,10 @@ Your task is to design an innovative, intuitive, and fun one-button action mini-
      - How scrolling is implemented
      - Collision detection and handling
      - Use of drawing functions
+   - If the screen size is 100x100, the coordinates (x, y) of the four corners of the screen are as follows:
+     - upper left (0, 0), upper right (99, 0), lower left (99, 0), lower right (99, 99)
+   - Velocity vectors (vx, vy) in the four directions are:
+     - up (0, -1), down (0, 1), left (-1, 0), right (1, 0)
    - Use `isColliding` for simultaneous drawing and collision detection:
      ```javascript
      color("red");
