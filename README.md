@@ -24,6 +24,7 @@ Click the image below to play directly in the browser.
 [![pulsepiper screenshot](./docs/pulsepiper/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?pulsepiper)
 [![tornadotwister screenshot](./docs/tornadotwister/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?tornadotwister)
 [![elastichero screenshot](./docs/elastichero/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?elastichero)
+[![blockstacker screenshot](./docs/blockstacker/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?blockstacker)
 [![zipfall screenshot](./docs/zipfall/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?zipfall)
 [![periscopeping screenshot](./docs/periscopeping/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?periscopeping)
 [![quantumleaper screenshot](./docs/quantumleaper/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?quantumleaper)
