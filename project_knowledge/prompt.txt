@@ -53,7 +53,7 @@ Your task is to design an innovative, intuitive, and fun one-button action mini-
    5. Challenge:
       - Connecting to pins higher up the screen is crucial for survival.
 
-4. Detail the game objects (maximum 3 types). For each object, specify:
+4. Detail the game objects (maximum 3 types) that implement the game rules. For each object, specify:
    - Properties (e.g., position, size, state)
    - Initial state
    - Shape (use simple geometric shapes)
