@@ -148,7 +148,7 @@ function update() {
       size: rnd(5, 15),
       vel: vec((side ? -1 : 1) * rnd(0.5, 0.8), rnd(-15, 0)).mul(zoom / 2),
     });
-    nextDebrisSpawn = rnd(120, 160);
+    nextDebrisSpawn = rnd(120, 160) / sqrt(zoom);
   }
 
   color("light_black");
