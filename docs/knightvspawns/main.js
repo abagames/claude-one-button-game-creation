@@ -1,6 +1,7 @@
 title = `KNIGHT
   VS.
-PAWNS`;
+PAWNS
+`;
 
 description = `
 [Tap] Move knight
