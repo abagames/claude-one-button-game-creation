@@ -26,6 +26,7 @@ Click the image below to play directly in the browser.
 [![stompingbubbles screenshot](./docs/stompingbubbles/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?stompingbubbles)
 [![twinjumpers screenshot](./docs/twinjumpers/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?twinjumpers)
 [![slimestretcher screenshot](./docs/slimestretcher/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?slimestretcher)
+[![knightvspawns screenshot](./docs/knightvspawns/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?knightvspawns)
 [![stageseparation screenshot](./docs/stageseparation/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?stageseparation)
 [![windowwasher screenshot](./docs/windowwasher/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?windowwasher)
 [![kelpclimber screenshot](./docs/kelpclimber/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?kelpclimber)
