@@ -22,6 +22,7 @@ Click the image below to play directly in the browser.
 [![sunflowersway screenshot](./docs/sunflowersway/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?sunflowersway)
 [![bladedancer screenshot](./docs/bladedancer/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?bladedancer)
 [![windpower screenshot](./docs/windpower/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?windpower)
+[![rotationrod screenshot](./docs/rotationrod/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?rotationrod)
 [![fishgrill screenshot](./docs/fishgrill/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?fishgrill)
 [![elastichero screenshot](./docs/elastichero/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?elastichero)
 [![stompingbubbles screenshot](./docs/stompingbubbles/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?stompingbubbles)
@@ -52,12 +53,12 @@ Click the image below to play directly in the browser.
 
 # Prompt
 
-See [prompt.txt](./chat_knowledge/prompt.txt)
+See [prompt.txt](./project_knowledge/prompt.txt)
 
 By using the prompts in the [game_description_prompt directory](./game_description_prompt/), you can generate markdown files from the source code that explain the rules of the game and other information. The generated markdown files can be used as the project knowledge.
 
-# Generative Reroll Game Development
+# Can AI Chatbots Create New Games?
 
-LLMs like Claude can now generate simple games. While often flawed, occasional gems emerge. By iterating and refining LLM outputs, developers can create unique, playable games—a process called Generative Reroll Game Development.
+Recent improvements in LLM performance have enabled them to handle many aspects of small game development. I wrote the article about the small game development process using chatbots.
 
-- [Generative Reroll Game Development Using LLMs](https://dev.to/abagames/generative-reroll-game-development-using-llms-22m3)
+- [Can AI Chatbots Create New Games?](https://abagames.github.io/joys-of-small-game-development-en/generation/can_ai_chatbot_create_game.html)
