@@ -34,6 +34,7 @@ Click the image below to play directly in the browser.
 [![stageseparation screenshot](./docs/stageseparation/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?stageseparation)
 [![windowwasher screenshot](./docs/windowwasher/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?windowwasher)
 [![kelpclimber screenshot](./docs/kelpclimber/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?kelpclimber)
+[![plasmasplitter screenshot](./docs/plasmasplitter/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?plasmasplitter)
 [![pulsepiper screenshot](./docs/pulsepiper/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?pulsepiper)
 [![tornadotwister screenshot](./docs/tornadotwister/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?tornadotwister)
 [![zipfall screenshot](./docs/zipfall/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?zipfall)
