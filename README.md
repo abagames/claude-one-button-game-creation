@@ -14,45 +14,28 @@ First, enter the theme of the game you want to create. If necessary, type 'proce
 
 Click the image below to play directly in the browser.
 
-[![grapplingh screenshot](./docs/grapplingh/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?grapplingh)
 [![wavybird screenshot](./docs/wavybird/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?wavybird)
-[![skyraftsman screenshot](./docs/skyraftsman/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?skyraftsman)
 [![catchingwheel screenshot](./docs/catchingwheel/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?catchingwheel)
+[![grapplingh screenshot](./docs/grapplingh/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?grapplingh)
+[![fracave screenshot](./docs/fracave/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?fracave)
 [![blockstacker screenshot](./docs/blockstacker/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?blockstacker)
 [![sunflowersway screenshot](./docs/sunflowersway/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?sunflowersway)
-[![bladedancer screenshot](./docs/bladedancer/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?bladedancer)
-[![windpower screenshot](./docs/windpower/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?windpower)
-[![rotationrod screenshot](./docs/rotationrod/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?rotationrod)
+[![skyraftsman screenshot](./docs/skyraftsman/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?skyraftsman)
 [![neonpollinator screenshot](./docs/neonpollinator/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?neonpollinator)
-[![baserunnerdash screenshot](./docs/baserunnerdash/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?baserunnerdash)
-[![fishgrill screenshot](./docs/fishgrill/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?fishgrill)
-[![elastichero screenshot](./docs/elastichero/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?elastichero)
-[![stompingbubbles screenshot](./docs/stompingbubbles/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?stompingbubbles)
-[![twinjumpers screenshot](./docs/twinjumpers/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?twinjumpers)
-[![slimestretcher screenshot](./docs/slimestretcher/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?slimestretcher)
-[![knightvspawns screenshot](./docs/knightvspawns/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?knightvspawns)
-[![stageseparation screenshot](./docs/stageseparation/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?stageseparation)
-[![windowwasher screenshot](./docs/windowwasher/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?windowwasher)
-[![kelpclimber screenshot](./docs/kelpclimber/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?kelpclimber)
-[![plasmasplitter screenshot](./docs/plasmasplitter/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?plasmasplitter)
-[![pulsepiper screenshot](./docs/pulsepiper/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?pulsepiper)
-[![tornadotwister screenshot](./docs/tornadotwister/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?tornadotwister)
-[![zipfall screenshot](./docs/zipfall/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?zipfall)
-[![periscopeping screenshot](./docs/periscopeping/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?periscopeping)
-[![quantumleaper screenshot](./docs/quantumleaper/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?quantumleaper)
-[![gravitywell screenshot](./docs/gravitywell/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?gravitywell)
-[![rotatingtunnel screenshot](./docs/rotatingtunnel/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?rotatingtunnel)
-[![monkeyt screenshot](./docs/monkeyt/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?monkeyt)
-[![fracave screenshot](./docs/fracave/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?fracave)
-[![outpostpatrol screenshot](./docs/outpostpatrol/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?outpostpatrol)
-[![cleaner screenshot](./docs/cleaner/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?cleaner)
-[![turtletide screenshot](./docs/turtletide/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?turtletide)
-[![hoardspout screenshot](./docs/hoardspout/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?hoardspout)
-[![feedingfrenzy screenshot](./docs/feedingfrenzy/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?feedingfrenzy)
-[![fallbounce screenshot](./docs/fallbounce/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?fallbounce)
-<a href="https://abagames.github.io/claude-one-button-game-creation/?bridgecross"><img src="./docs/bridgecross/screenshot.gif" width="300px">
-[![hoppinhazards screenshot](./docs/hoppinhazards/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?hoppinhazards)
-[![jpaddle screenshot](./docs/jpaddle/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?jpaddle)
+
+[BLADE DANCER](https://abagames.github.io/claude-one-button-game-creation/?bladedancer) /
+[WIND POWER](https://abagames.github.io/claude-one-button-game-creation/?windpower) /
+[ROTATION ROD](https://abagames.github.io/claude-one-button-game-creation/?rotationrod) /
+[BASERUNNER DASH](https://abagames.github.io/claude-one-button-game-creation/?baserunnerdash) /
+[FISH GRILL](https://abagames.github.io/claude-one-button-game-creation/?fishgrill) /
+[ELASTIC HERO](https://abagames.github.io/claude-one-button-game-creation/?elastichero) /
+[STOMPING BUBBLES](https://abagames.github.io/claude-one-button-game-creation/?stompingbubbles) /
+[TWIN JUMPERS](https://abagames.github.io/claude-one-button-game-creation/?twinjumpers) /
+[SLIME STRETCHER](https://abagames.github.io/claude-one-button-game-creation/?slimestretcher) /
+[KNIGHT SPAWNS](https://abagames.github.io/claude-one-button-game-creation/?knightvspawns) /
+[STAGE SEPARATION](https://abagames.github.io/claude-one-button-game-creation/?stageseparation)
+
+The game code is in [the docs directory](./docs/).
 
 # Prompt
 
