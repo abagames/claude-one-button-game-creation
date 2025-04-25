@@ -23,7 +23,7 @@ Click the image below to play directly in the browser.
 [![skyraftsman screenshot](./docs/skyraftsman/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?skyraftsman)
 [![neonpollinator screenshot](./docs/neonpollinator/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?neonpollinator)
 
-[TROJAN DEFENSE](https://abagames.github.io/claude-one-button-game-creation/?torojan-defense) /
+[TROJAN DEFENSE](https://abagames.github.io/claude-one-button-game-creation/?trojan-defense) /
 [LEVITATION](https://abagames.github.io/claude-one-button-game-creation/?levitation) /
 [TURBO TUNNEL](https://abagames.github.io/claude-one-button-game-creation/?turbotunnel) /
 [VINE CLIMBER](https://abagames.github.io/claude-one-button-game-creation/?vineclimber) /
@@ -45,7 +45,7 @@ The game code is in [the docs directory](./docs/).
 
 See [prompt.txt](./project_knowledge/prompt.txt).
 
-For prompts for Cursor's agent mode, see [cursor_knowledge/prompt.txt](./cursor_knowledge/prompt.txt). This prompt contains a mechanism for simulation-based concept selection, realized in [ChatCraftClick](https://github.com/abagames/chat-craft-click).
+For prompts for Cursor's agent mode, see [cursor_knowledge/prompt.txt](./cursor_knowledge/prompt.md). This prompt contains a mechanism for simulation-based concept selection, realized in [ChatCraftClick](https://github.com/abagames/chat-craft-click).
 
 By using the prompts in the [game_description_prompt directory](./game_description_prompt/), you can generate markdown files from the source code that explain the rules of the game and other information. The generated markdown files can be used as the project knowledge.
 
