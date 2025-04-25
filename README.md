@@ -1,12 +1,14 @@
 # Claude's One-Button Game Creation
 
-I used the AI chatbot [Claude](https://claude.ai/) to generate a one-button game using the [crisp-game-lib](https://github.com/abagames/crisp-game-lib) library. By providing appropriate prompts and files to [Claude 3.5 Sonnet](https://www.anthropic.com/news/claude-3-5-sonnet), it can generate unique game ideas and create the corresponding game code in JavaScript.
+I used the AI chatbot [Claude](https://claude.ai/) to generate a one-button game using the [crisp-game-lib](https://github.com/abagames/crisp-game-lib) library. By providing appropriate prompts and files to [Claude 3.5 Sonnet](https://www.anthropic.com/news/claude-3-5-sonnet) or [Claude 3.7 Sonnet](https://www.anthropic.com/news/claude-3-7-sonnet), it can generate unique game ideas and create the corresponding game code in JavaScript.
 
 # How to use
 
 By dropping [set of 5 files in the chat_knowledge directory](./chat_knowledge/) into the chat session of Claude and starting a chat, game generation can be performed.
 
 You can also give [files in the project_knowledge directory](./project_knowledge/) to [project knowledge](https://www.anthropic.com/news/projects) for use.
+
+For [Cursor's agent mode](https://docs.cursor.com/chat/agent), you can use [cursor_knowledge/prompt.md](./cursor_knowledge/prompt.md). This prompt contains a mechanism for simulation-based concept selection, realized in [ChatCraftClick](https://github.com/abagames/chat-craft-click).
 
 First, enter the theme of the game you want to create. If necessary, type 'proceed' to proceed to the next step.
 
@@ -44,8 +46,6 @@ The game code is in [the docs directory](./docs/).
 # Prompt
 
 See [prompt.txt](./project_knowledge/prompt.txt).
-
-For prompts for Cursor's agent mode, see [cursor_knowledge/prompt.txt](./cursor_knowledge/prompt.md). This prompt contains a mechanism for simulation-based concept selection, realized in [ChatCraftClick](https://github.com/abagames/chat-craft-click).
 
 By using the prompts in the [game_description_prompt directory](./game_description_prompt/), you can generate markdown files from the source code that explain the rules of the game and other information. The generated markdown files can be used as the project knowledge.
 
