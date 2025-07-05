@@ -17,6 +17,18 @@ The `cursor_knowledge/` directory contains essential reference files including g
 
 Simply provide a theme and Claude Code will handle the entire development process.
 
+### From Toys to Games
+
+Claude Code creates initial game prototypes in the `./tmp/games/` directory. These creations are designed as "toys" rather than complete games - they focus on core mechanics and safe experimentation without traditional game-over conditions.
+
+To develop these into full games:
+
+1. **Explore the toys** - Play through the generated prototypes to understand their mechanics
+2. **Select promising concepts** - Choose the most interesting and engaging toy prototypes  
+3. **Refine with Vibe Coding** - Use an iterative, intuitive development approach to enhance the selected toys into polished games with proper challenge, progression, and game feel
+
+This workflow encourages creative experimentation and iterative refinement from initial concept to final game.
+
 ## For Other Claude Interfaces
 
 By dropping [set of 5 files in the chat_knowledge directory](./chat_knowledge/) into the chat session of Claude and starting a chat, game generation can be performed.
