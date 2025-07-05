@@ -1,8 +1,23 @@
 # Claude's One-Button Game Creation
 
-I used the AI chatbot [Claude](https://claude.ai/) to generate a one-button game using the [crisp-game-lib](https://github.com/abagames/crisp-game-lib) library. By providing appropriate prompts and files to [Claude 3.5 Sonnet](https://www.anthropic.com/news/claude-3-5-sonnet) or [Claude 3.7 Sonnet](https://www.anthropic.com/news/claude-3-7-sonnet), it can generate unique game ideas and create the corresponding game code in JavaScript.
+I used the AI chatbot [Claude](https://claude.ai/) to generate a one-button game using the [crisp-game-lib](https://github.com/abagames/crisp-game-lib) library. By providing appropriate prompts and files to [Claude 4](https://www.anthropic.com/news/claude-4), it can generate unique game ideas and create the corresponding game code in JavaScript.
 
 # How to use
+
+## For Claude Code Users
+
+If you're using [Claude Code](https://claude.ai/code), ensure both the [CLAUDE.md](./CLAUDE.md) file and the [cursor_knowledge/](./cursor_knowledge/) directory are in your project directory. This file contains comprehensive instructions that enable Claude Code to:
+
+- Generate 8 unique game ideas based on your theme
+- Create complete game implementations with full source code
+- Generate playable HTML files for each game
+- Follow structured workflow from concept to completion
+
+The `cursor_knowledge/` directory contains essential reference files including game design guides, API documentation, and implementation examples that Claude Code needs to create high-quality games.
+
+Simply provide a theme and Claude Code will handle the entire development process.
+
+## For Other Claude Interfaces
 
 By dropping [set of 5 files in the chat_knowledge directory](./chat_knowledge/) into the chat session of Claude and starting a chat, game generation can be performed.
 
@@ -42,12 +57,6 @@ Click the image below to play directly in the browser.
 [STAGE SEPARATION](https://abagames.github.io/claude-one-button-game-creation/?stageseparation)
 
 The game code is in [the docs directory](./docs/).
-
-# Prompt
-
-See [prompt.txt](./project_knowledge/prompt.txt).
-
-By using the prompts in the [game_description_prompt directory](./game_description_prompt/), you can generate markdown files from the source code that explain the rules of the game and other information. The generated markdown files can be used as the project knowledge.
 
 # Can AI Chatbots Create New Games?
 
