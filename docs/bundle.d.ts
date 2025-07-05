@@ -1,6 +1,7 @@
 declare let title: string;
 declare let description: string;
 declare let characters: string[];
+declare let audioFiles: { [key: string]: string };
 declare type ThemeName =
   | "simple"
   | "pixel"
@@ -28,6 +29,18 @@ declare type Options = {
   seed?: number;
   audioVolume?: number;
   theme?: ThemeName;
+  colorPalette?: number[][];
+  textEdgeColor?: {
+    score?: Color | number;
+    floatingScore?: Color | number;
+    title?: Color | number;
+    description?: Color | number;
+    gameOver?: Color | number;
+  };
+  bgmName?: string;
+  bgmVolume?: number;
+  audioTempo?: number;
+  isRecording?: boolean;
 };
 declare let options: Options;
 declare function update(): void;
@@ -67,7 +80,7 @@ declare type Color =
   | "light_purple"
   | "light_cyan"
   | "light_black";
-declare function color(colorName: Color): void;
+declare function color(colorNameOrColorIndex: Color | number): void;
 
 // Draw functions return a collision info.
 type Collision = {
@@ -187,12 +200,13 @@ declare function arc(
 
 // Draw letters
 declare type LetterOptions = {
-  color?: Color;
-  backgroundColor?: Color;
+  color?: Color | number;
+  backgroundColor?: Color | number;
   rotation?: number;
   mirror?: { x?: 1 | -1; y?: 1 | -1 };
   scale?: { x?: number; y?: number };
   isSmallText?: boolean;
+  edgeColor?: Color | number;
 };
 
 declare function text(
@@ -230,6 +244,7 @@ declare function particle(
     speed?: number;
     angle?: number;
     angleWidth?: number;
+    edgeColor?: Color | number;
   }
 ): void;
 declare function particle(
@@ -239,6 +254,7 @@ declare function particle(
     speed?: number;
     angle?: number;
     angleWidth?: number;
+    edgeColor?: Color | number;
   }
 ): void;
 declare function particle(
@@ -516,7 +532,7 @@ declare type SoundEffectType =
   | "synth"
   | "tone";
 declare function play(
-  type: SoundEffectType,
+  type: SoundEffectType | string,
   options?: {
     seed?: number;
     numberOfSounds?: number;
@@ -528,6 +544,8 @@ declare function play(
 ): void;
 declare function playBgm(): void;
 declare function stopBgm(): void;
+declare function startRecording(): void;
+declare function stopRecording(): void;
 
 // sounds-some-sounds interface
 // https://github.com/abagames/sounds-some-sounds
@@ -691,4 +709,5 @@ declare function init(settings: {
   description?: string;
   characters?: string[];
   options?: Options;
+  audioFiles?: { [key: string]: string };
 });
