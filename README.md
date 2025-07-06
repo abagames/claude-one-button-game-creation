@@ -24,7 +24,7 @@ Claude Code creates initial game prototypes in the `./tmp/games/` directory. The
 To develop these into full games:
 
 1. **Explore the toys** - Play through the generated prototypes to understand their mechanics
-2. **Select promising concepts** - Choose the most interesting and engaging toy prototypes  
+2. **Select promising concepts** - Choose the most interesting and engaging toy prototypes
 3. **Refine with Vibe Coding** - Use an iterative, intuitive development approach to enhance the selected toys into polished games with proper challenge, progression, and game feel
 
 This workflow encourages creative experimentation and iterative refinement from initial concept to final game.
@@ -56,6 +56,7 @@ https://github.com/user-attachments/assets/0c9a459e-52c2-44bb-b87b-81066f2e3239
 [![skyraftsman screenshot](./docs/skyraftsman/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?skyraftsman)
 [![neonpollinator screenshot](./docs/neonpollinator/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?neonpollinator)
 
+[Marble Bounce](https://abagames.github.io/claude-one-button-game-creation/?marble-bounce) /
 [TROJAN DEFENSE](https://abagames.github.io/claude-one-button-game-creation/?trojan-defense) /
 [LEVITATION](https://abagames.github.io/claude-one-button-game-creation/?levitation) /
 [TURBO TUNNEL](https://abagames.github.io/claude-one-button-game-creation/?turbotunnel) /
