@@ -26,7 +26,7 @@ function update() {
     pins = [];
     ground = { pos: vec(50, 95), size: vec(100, 5) };
     marbleVelocity = vec(0, 0);
-    gravity = 0.1;
+    gravity = 0.15;
     pinSpawnTimer = 0;
     multiplier = 1;
     baseSpawnInterval = 360;
