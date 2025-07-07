@@ -41,11 +41,15 @@ First, enter the theme of the game you want to create. If necessary, type 'proce
 
 # Examples of Built Games
 
-Click the image below to play directly in the browser.
+[Jet Stream](https://abagames.github.io/claude-one-button-game-creation/?jet-stream)
+
+https://github.com/user-attachments/assets/12ddf60b-f65a-4976-9c34-4e0db514aea4
 
 [Pod Migration](https://abagames.github.io/claude-one-button-game-creation/?pod-migration)
 
 https://github.com/user-attachments/assets/0c9a459e-52c2-44bb-b87b-81066f2e3239
+
+Click the image below to play directly in the browser.
 
 [![wavybird screenshot](./docs/wavybird/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?wavybird)
 [![catchingwheel screenshot](./docs/catchingwheel/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?catchingwheel)
