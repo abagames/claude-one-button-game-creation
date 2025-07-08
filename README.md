@@ -61,6 +61,7 @@ Click the image below to play directly in the browser.
 [![neonpollinator screenshot](./docs/neonpollinator/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?neonpollinator)
 
 [Marble Bounce](https://abagames.github.io/claude-one-button-game-creation/?marble-bounce) /
+[Rocket Trail](https://abagames.github.io/claude-one-button-game-creation/?rocket-trail) /
 [TROJAN DEFENSE](https://abagames.github.io/claude-one-button-game-creation/?trojan-defense) /
 [LEVITATION](https://abagames.github.io/claude-one-button-game-creation/?levitation) /
 [TURBO TUNNEL](https://abagames.github.io/claude-one-button-game-creation/?turbotunnel) /
