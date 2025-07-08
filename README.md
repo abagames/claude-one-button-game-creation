@@ -45,10 +45,6 @@ First, enter the theme of the game you want to create. If necessary, type 'proce
 
 https://github.com/user-attachments/assets/12ddf60b-f65a-4976-9c34-4e0db514aea4
 
-[Pod Migration](https://abagames.github.io/claude-one-button-game-creation/?pod-migration)
-
-https://github.com/user-attachments/assets/0c9a459e-52c2-44bb-b87b-81066f2e3239
-
 Click the image below to play directly in the browser.
 
 [![wavybird screenshot](./docs/wavybird/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?wavybird)
@@ -60,6 +56,7 @@ Click the image below to play directly in the browser.
 [![skyraftsman screenshot](./docs/skyraftsman/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?skyraftsman)
 [![neonpollinator screenshot](./docs/neonpollinator/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?neonpollinator)
 
+[Pod Migration](https://abagames.github.io/claude-one-button-game-creation/?pod-migration) /
 [Marble Bounce](https://abagames.github.io/claude-one-button-game-creation/?marble-bounce) /
 [Rocket Trail](https://abagames.github.io/claude-one-button-game-creation/?rocket-trail) /
 [TROJAN DEFENSE](https://abagames.github.io/claude-one-button-game-creation/?trojan-defense) /
