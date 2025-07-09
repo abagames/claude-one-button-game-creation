@@ -23,7 +23,6 @@ let lastWindY;
 let nextBubbleDistance;
 let windAnimOffset;
 let windParticles;
-let hazardStars;
 let blinkTimer;
 let multiplier;
 let holdTime;
@@ -44,7 +43,6 @@ function update() {
     nextBubbleDistance = rnd(10, 40); // Distance until next bubble spawn
     windAnimOffset = 0;
     windParticles = [];
-    hazardStars = [];
     blinkTimer = 0;
     multiplier = 1;
     holdTime = 0;
@@ -358,14 +356,6 @@ function update() {
       });
       nextBubbleDistance = rnd(5, 55); // Set next spawn distance
     }
-  }
-
-  // Spawn hazard stars occasionally
-  if (scrollSpeed > 0 && rnd() < 0.008 && hazardStars.length < 3) {
-    // Very rare spawn
-    hazardStars.push({
-      pos: vec(rnd(15, 85), -5),
-    });
   }
 
   // Display multiplier
