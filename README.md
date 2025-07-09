@@ -59,6 +59,7 @@ Click the image below to play directly in the browser.
 [Pod Migration](https://abagames.github.io/claude-one-button-game-creation/?pod-migration) /
 [Marble Bounce](https://abagames.github.io/claude-one-button-game-creation/?marble-bounce) /
 [Rocket Trail](https://abagames.github.io/claude-one-button-game-creation/?rocket-trail) /
+[Blaze Thrust](https://abagames.github.io/claude-one-button-game-creation/?blaze-thrust) /
 [TROJAN DEFENSE](https://abagames.github.io/claude-one-button-game-creation/?trojan-defense) /
 [LEVITATION](https://abagames.github.io/claude-one-button-game-creation/?levitation) /
 [TURBO TUNNEL](https://abagames.github.io/claude-one-button-game-creation/?turbotunnel) /
