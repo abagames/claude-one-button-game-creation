@@ -47,6 +47,10 @@ https://github.com/user-attachments/assets/12ddf60b-f65a-4976-9c34-4e0db514aea4
 
 Click the image below to play directly in the browser.
 
+[![Pod Migration screenshot](./docs/pod-migration/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?pod-migration)
+[![Marble Bounce screenshot](./docs/marble-bounce/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?marble-bounce)
+[![Rocket Trail screenshot](./docs/rocket-trail/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?rocket-trail)
+[![Blaze Thrust screenshot](./docs/blaze-thrust/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?blaze-thrust)
 [![wavybird screenshot](./docs/wavybird/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?wavybird)
 [![catchingwheel screenshot](./docs/catchingwheel/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?catchingwheel)
 [![grapplingh screenshot](./docs/grapplingh/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?grapplingh)
@@ -56,10 +60,6 @@ Click the image below to play directly in the browser.
 [![skyraftsman screenshot](./docs/skyraftsman/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?skyraftsman)
 [![neonpollinator screenshot](./docs/neonpollinator/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?neonpollinator)
 
-[Pod Migration](https://abagames.github.io/claude-one-button-game-creation/?pod-migration) /
-[Marble Bounce](https://abagames.github.io/claude-one-button-game-creation/?marble-bounce) /
-[Rocket Trail](https://abagames.github.io/claude-one-button-game-creation/?rocket-trail) /
-[Blaze Thrust](https://abagames.github.io/claude-one-button-game-creation/?blaze-thrust) /
 [TROJAN DEFENSE](https://abagames.github.io/claude-one-button-game-creation/?trojan-defense) /
 [LEVITATION](https://abagames.github.io/claude-one-button-game-creation/?levitation) /
 [TURBO TUNNEL](https://abagames.github.io/claude-one-button-game-creation/?turbotunnel) /
