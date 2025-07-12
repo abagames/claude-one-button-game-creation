@@ -3,11 +3,11 @@
 Before starting any task, you MUST read these files in the following order:
 
 1. **cursor_knowledge/game-design-guide.md** - Comprehensive design principles, interaction patterns, and evaluation criteria
-2. **cursor_knowledge/sample-games/pinclimb.md** - Critical implementation example and code patterns
-3. **cursor_knowledge/crisp-game-lib.d.ts** - Complete API reference for the game library
-4. **cursor_knowledge/crisp-game-lib-main.js** - Complete working game implementation example
-5. **cursor_knowledge/crisp-game-lib-index.html** - HTML structure and library setup example
-6. **cursor_knowledge/crisp-game-lib-readme.md** - Library documentation and usage guide
+2. **cursor_knowledge/crisp-game-lib.d.ts** - Complete API reference for the game library
+3. **cursor_knowledge/crisp-game-lib-main.js** - Complete working game implementation example
+4. **cursor_knowledge/crisp-game-lib-index.html** - HTML structure and library setup example
+5. **cursor_knowledge/crisp-game-lib-readme.md** - Library documentation and usage guide
+6. **cursor_knowledge/sample-games/pinclimb.md** - Implementation example and code patterns (for technical reference only)
 
 **VERIFICATION CHECKPOINT**: After reading these files, you must be able to:
 
@@ -15,11 +15,13 @@ Before starting any task, you MUST read these files in the following order:
 - Understand environmental interaction types and movement patterns from game-design-guide.md
 - Apply design principles for novel yet intuitive game concepts
 - Recognize evaluation criteria for balance, visual design, and player engagement
+- Apply SCAMPER method and natural phenomena inspiration from game-design-guide.md
 - Understand the crisp-game-lib API structure and key functions
-- Recognize the implementation patterns from pinclimb.md
 - Understand the complete game implementation structure from crisp-game-lib-main.js
 - Know how to set up HTML structure and library integration from crisp-game-lib-index.html
 - Understand library documentation and usage from crisp-game-lib-readme.md
+- Recognize the implementation patterns from pinclimb.md (for technical reference only)
+- **CRITICAL**: Understand that sample-games are for implementation patterns only, not creative constraints
 
 ---
 
@@ -32,23 +34,48 @@ Your task is to design innovative, intuitive, and fun one-button action mini-gam
    **REQUIRED READING BEFORE THIS STEP:**
 
    - MUST have read `cursor_knowledge/game-design-guide.md` for comprehensive design principles and interaction patterns
-   - MUST have reviewed `cursor_knowledge/sample-games/*.md` files for implementation patterns
+   - FOCUS PRIMARILY on game-design-guide.md for creative inspiration and principles
+   - **MINIMIZE initial reference to sample-games** - use these only for implementation patterns later
+
+   **CREATIVE DIVERSITY ENFORCEMENT:**
+
+   **A. Mandatory Diversity Constraints:**
+
+   - Each idea MUST use a different control mechanic from the design guide
+   - Each idea MUST use a different environment type from the design guide
+
+   **B. Creative Exploration Requirements:**
+
+   - Apply SCAMPER method to at least 3 ideas (Substitute, Combine, Adapt, Modify, Put to other uses, Eliminate, Reverse/Rearrange)
+   - Draw inspiration from natural phenomena for at least 3 ideas (waves, growth, orbits, magnetism, etc.)
+   - Implement creative constraints for at least 2 ideas (remove expected elements like gravity, direct control, static surfaces, etc.)
+   - Question physics assumptions: "What if gravity changed?", "What if time flowed differently?", "What if scale was dynamic?"
+
+   **C. Bias Avoidance Checklist:**
+
+   - Consciously avoid replicating patterns from sample-games
+   - Prioritize peaceful/constructive themes over combat/conflict
+   - Explore abstract mathematical/geometric concepts
+   - Consider non-obvious interpretations of the given theme
+   - Challenge your first instinct - if an idea feels familiar, push further
 
    **IMPLEMENTATION:**
 
-   - Apply interaction patterns from `cursor_knowledge/game-design-guide.md` (press, hold, release mechanics)
-   - Use environmental interaction types and movement patterns from the design guide
-   - Apply idea generation methods from the design guide (SCAMPER, natural phenomena, creative constraints)
-   - An example of a novel and interesting one-button action mini-game is shown in the `cursor_knowledge/sample-games/*.md` file, which contains game rules, game objects, skeleton code, and source code. Refer to these for help in creating game ideas and rules.
+   - Apply all design principles from `cursor_knowledge/game-design-guide.md` (interaction patterns, environmental types, idea generation methods)
+   - **DEFER sample-games reference** - focus on novel concept creation first
    - Briefly describe the core mechanic and one-button control.
 
-   Avoid complex mechanics like:
+   **AVOID COMPLEX MECHANICS:**
 
    - power-ups
    - rhythm
    - maze
    - energy, fuel or time limit
    - balance
+   - scoring systems
+   - win/lose conditions
+   - end game conditions
+   - difficulty adjustment
 
    **INDEPENDENCE GUIDELINES:**
 
@@ -61,36 +88,44 @@ Your task is to design innovative, intuitive, and fun one-button action mini-gam
 
    **B. Varied Environmental Interactions:**
 
-   - Apply different environment types (central anchor/orbit, defined path/track, open space physics, scrolling landscape, lane-based, dynamic surface)
+   - Apply different environment types (central anchor/orbit, defined path/track, open space physics, scrolling landscape, lane-based, dynamic surface, etc.)
    - Use different movement patterns (stationary action, automatic movement, controlled trajectory, gravity & thrust, etc.)
 
    **C. Independent Core Action Mechanics:**
 
-   - Use different objectives (target destruction, item collection, hazard avoidance, precision matching, accurate timing, traversal/progression)
-   - Apply different action verbs (build, destroy, avoid, collect, transform, navigate)
+   - Use different objectives (target destruction, item collection, hazard avoidance, precision matching, accurate timing, traversal/progression, etc.)
+   - Apply different action verbs (build, destroy, avoid, collect, transform, navigate, etc.)
 
    **D. Distinct Visual and Physical Laws:**
 
-   - Apply different physics principles per game (gravity, inertia, momentum, magnetism, fluid dynamics)
+   - Apply different physics principles per game (gravity, inertia, momentum, magnetism, fluid dynamics, etc.)
    - Use distinct visual approaches and color palettes
    - Create unique movement and interaction patterns
 
-   **VERIFICATION CHECKLIST:**
+   **DIVERSITY VERIFICATION:**
+
+   After generating all 8 ideas, perform this comprehensive self-check:
 
    - [ ] All games use different player control mechanics from design guide
    - [ ] All games apply different environmental interaction types
    - [ ] All games feature different core action objectives
    - [ ] All games implement different movement patterns
    - [ ] All games employ different visual and physical approaches
+   - [ ] At least 3 ideas applied SCAMPER method
+   - [ ] At least 3 ideas drew from natural phenomena
+   - [ ] At least 2 ideas implemented creative constraints
+   - [ ] Ideas avoid obvious similarities to sample-games
+   - [ ] Multiple peaceful/constructive themes included
+   - [ ] Abstract/mathematical concepts explored
+   - [ ] Non-obvious theme interpretations present
+
+   **If any verification fails, regenerate ideas until all criteria are met.**
 
    Present the ideas in a numbered list.
 
 3. For ALL game ideas, create concise game rules for each. Focus on:
 
-   **REQUIRED READING BEFORE THIS STEP:**
-
-   - MUST have read `cursor_knowledge/game-design-guide.md` for design principles
-   - MUST have read `cursor_knowledge/sample-games/pinclimb.md` for implementation reference
+   **REQUIRED READING**: As per prerequisite files above.
 
    **IMPLEMENTATION:**
 
@@ -101,24 +136,9 @@ Your task is to design innovative, intuitive, and fun one-button action mini-gam
    - Player Interaction
    - Challenge
 
-   Apply design principles from game-design-guide.md:
+   Apply all design principles from game-design-guide.md (as referenced above).
 
-   - Novel yet intuitive game concepts
-   - Clear visual feedback
-   - Simple shapes and visuals
-   - Avoiding unnecessary complexity
-
-   Avoid complex mechanics like:
-
-   - power-ups
-   - rhythm
-   - maze
-   - energy, fuel or time limit
-   - balance
-   - scoring systems
-   - win/lose conditions
-   - end game conditions
-   - difficulty adjustment
+   **AVOID COMPLEX MECHANICS** (as defined above).
 
 4. For ALL games, detail the game objects (maximum 3 types per game) that implement the game rules. For each object in each game, specify:
 
@@ -132,12 +152,7 @@ Your task is to design innovative, intuitive, and fun one-button action mini-gam
    - Spawning rules
    - Scrolling (if applicable)
 
-   Avoid complex mechanics like:
-
-   - scoring systems
-   - win/lose conditions
-   - end game conditions
-   - difficulty adjustment
+   **AVOID COMPLEX MECHANICS** (as defined above).
 
 5. For ALL games, provide skeleton JavaScript code structure with comments outlining the implementation of game rules. Include:
 
@@ -150,10 +165,10 @@ Your task is to design innovative, intuitive, and fun one-button action mini-gam
    **REQUIRED READING BEFORE THIS STEP:**
 
    - MUST have read `cursor_knowledge/crisp-game-lib.d.ts` for complete API reference
-   - MUST have read `cursor_knowledge/sample-games/pinclimb.md` for implementation patterns
    - MUST have read `cursor_knowledge/crisp-game-lib-main.js` for complete implementation example
    - MUST have read `cursor_knowledge/crisp-game-lib-index.html` for HTML setup structure
    - MUST have read `cursor_knowledge/crisp-game-lib-readme.md` for library documentation
+   - NOW reference `cursor_knowledge/sample-games/pinclimb.md` for technical implementation patterns only
 
    a. Examine crisp-game-lib.d.ts:
 
@@ -164,7 +179,7 @@ Your task is to design innovative, intuitive, and fun one-button action mini-gam
      - Collision detection: Use the `Collision` type returned by drawing functions
      - Vector operations: Utilize the `Vector` interface and `vec()` function
      - Random number generation: `rnd()`, `rndi()`, `rnds()`
-     - Math utilities: `clamp()`, `wrap()`, `PI`, `abs()`, `sin()`, `cos()`, etc.
+     - Math utilities: `clamp()`, `wrap()`, `PI`, `abs()`, `sin()`, `cos()`, `Math.max()`, `Math.min()`, etc.
 
    b. Analyze the source code section of `cursor_knowledge/sample-games/pinclimb.md`:
 
@@ -214,12 +229,7 @@ Your task is to design innovative, intuitive, and fun one-button action mini-gam
 
 7. For ALL games, implement the game logic using the crisp-game-lib library, translating each comment in the skeleton into functional JavaScript. Key points:
 
-   **REQUIRED READING VERIFICATION:**
-
-   - MUST confirm understanding of `cursor_knowledge/crisp-game-lib.d.ts` API functions
-   - MUST confirm understanding of implementation patterns from `cursor_knowledge/sample-games/pinclimb.md`
-   - MUST confirm understanding of complete game structure from `cursor_knowledge/crisp-game-lib-main.js`
-   - MUST confirm understanding of HTML setup from `cursor_knowledge/crisp-game-lib-index.html`
+   **REQUIRED READING VERIFICATION**: As per prerequisite files above.
 
    **IMPLEMENTATION:**
 
@@ -228,19 +238,11 @@ Your task is to design innovative, intuitive, and fun one-button action mini-gam
    - Accurate implementation of game rules
    - Clear and concise code structure
    - Retention of descriptive comments
-   - Avoid complex mechanics like:
-     - scoring systems
-     - win/lose conditions
-     - end game conditions
-     - difficulty adjustment
+   - **AVOID COMPLEX MECHANICS** (as defined above).
 
 8. Create the game files in the proper directory structure for ALL games:
 
-   **REQUIRED READING REFERENCE:**
-
-   - Use `cursor_knowledge/crisp-game-lib-index.html` as template for HTML structure
-   - Use `cursor_knowledge/crisp-game-lib-main.js` as reference for game structure
-   - Follow patterns from `cursor_knowledge/crisp-game-lib-readme.md` for setup
+   **REQUIRED READING REFERENCE**: As per prerequisite files above.
 
    **IMPLEMENTATION:**
 
@@ -335,9 +337,16 @@ Your task is to design innovative, intuitive, and fun one-button action mini-gam
 **FINAL VERIFICATION CHECKPOINT:**
 Before presenting the completed games, confirm you have:
 
+**CREATIVE VERIFICATION:**
+
+- Applied design principles from `cursor_knowledge/game-design-guide.md` to all games
+- Confirmed diversity verification criteria met (as specified in Step 2)
+- Challenged conventional game design assumptions
+
+**TECHNICAL VERIFICATION:**
+
 - Successfully read and applied concepts from all prerequisite files
-- Applied design principles and evaluation criteria from `cursor_knowledge/game-design-guide.md` to all games
-- Implemented ALL games with mechanics following patterns from `cursor_knowledge/sample-games/pinclimb.md`
+- Used technical patterns from `cursor_knowledge/sample-games/pinclimb.md` for implementation only
 - Used API functions correctly per `cursor_knowledge/crisp-game-lib.d.ts` in all games
 - Used complete implementation structure from `cursor_knowledge/crisp-game-lib-main.js` for all games
 - Applied HTML setup patterns from `cursor_knowledge/crisp-game-lib-index.html` for all games
@@ -345,11 +354,21 @@ Before presenting the completed games, confirm you have:
 - Created separate directories for each of the all games
 - Ensured all games are complete and playable
 - Tested each game implementation individually
+
+**EXPERIENCE VERIFICATION:**
+
 - Applied quality evaluation criteria from game-design-guide.md
 - Converted all games to toy experiences with no game over conditions
 - Implemented comprehensive recovery systems for all failure scenarios
 - Added screen boundary protection to prevent players from becoming lost
 - Verified that all games provide safe, continuous exploration experiences
+
+**META-COGNITIVE VERIFICATION:**
+
+- Consciously questioned and avoided first instincts that led to familiar patterns
+- Actively sought non-obvious interpretations of the given theme
+- Deliberately explored underrepresented mechanical territories
+- Confirmed that the final game collection represents genuine creative diversity
 
 Remember:
 
