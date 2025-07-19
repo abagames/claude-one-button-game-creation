@@ -175,6 +175,7 @@ Your task is to design innovative, intuitive, and fun one-button action mini-gam
    - This file provides type definitions for the library's functions and objects.
    - Pay attention to the following key elements:
      - Input handling: use `input.isPressed`, `input.isJustPressed`, and `input.isJustReleased`
+     - NEVER use `input.pos` - this creates mouse/touch position dependencies that violate one-button game principles. Use only button state (pressed/released) for pure one-button control.
      - Drawing functions: `color()`, `rect()`, `box()`, `bar()`, `line()`, `arc()`, `text()`
      - Collision detection: Use the `Collision` type returned by drawing functions
      - Vector operations: Utilize the `Vector` interface and `vec()` function
@@ -238,6 +239,7 @@ Your task is to design innovative, intuitive, and fun one-button action mini-gam
    - Accurate implementation of game rules
    - Clear and concise code structure
    - Retention of descriptive comments
+   - **AVOID VARIABLE NAME CONFLICTS**: Never use variable names that match crisp-game-lib function names (e.g., avoid `arc`, `rect`, `line`, `box`, `text`, `color`, `input`, `vec`, etc.)
    - **AVOID COMPLEX MECHANICS** (as defined above).
 
 8. Create the game files in the proper directory structure for ALL games:
@@ -249,6 +251,8 @@ Your task is to design innovative, intuitive, and fun one-button action mini-gam
    For each of the games:
 
    - Create a new directory: ./tmp/games/[game-name] (where [game-name] is the name of your game)
+     - ✅ CORRECT: `./tmp/games/[game-name]` (relative to project root)
+     - ❌ INCORRECT: `/tmp/games/[game-name]` (system temp directory)
    - Place two files in this directory:
      - index.html: A complete HTML file that includes the crisp-game-lib library and runs the game
      - main.js: The game logic implementation from step 7
