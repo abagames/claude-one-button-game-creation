@@ -26,15 +26,37 @@ let driftingObjects;
 let streamPhase;
 let bubbleSpawnIndex;
 let pulseSpawnIndex;
-let laneUsageCount;
 let disabledLanes;
 let laneRecoveryProgress;
 let lastTapTime;
 let autoTapTimer;
 let rapidTapRate;
+let pulseLaneSequence;
+let pulseLaneIndex;
 
 // Recovery settings
 const TAPS_TO_RECOVER = 36;
+
+// Shuffle function using Fisher-Yates algorithm
+function shuffleArray(array) {
+  let shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    let j = rndi(0, i + 1);
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
+
+// Create lane sequence (0,1,2,3,4 repeated 3 times)
+function createLaneSequence() {
+  let sequence = [];
+  for (let repeat = 0; repeat < 3; repeat++) {
+    for (let lane = 0; lane < 5; lane++) {
+      sequence.push(lane);
+    }
+  }
+  return shuffleArray(sequence);
+}
 
 function update() {
   if (!ticks) {
@@ -58,31 +80,29 @@ function update() {
     streamPhase = 0;
     bubbleSpawnIndex = 0;
     pulseSpawnIndex = 0;
-    laneUsageCount = [0, 0, 0, 0, 0]; // Track usage for each lane
     disabledLanes = [false, false, false, false, false]; // Track disabled lanes
     laneRecoveryProgress = [0, 0, 0, 0, 0]; // Track recovery progress (0-TAPS_TO_RECOVER) for each lane
     lastTapTime = ticks;
     autoTapTimer = 0;
     rapidTapRate = 0;
+    pulseLaneSequence = createLaneSequence(); // Create shuffled lane sequence
+    pulseLaneIndex = 0; // Start from beginning of sequence
   }
 
   streamPhase += 0.05;
 
   // Spawn pulse waves naturally from left (environment-driven)
   if (ticks % 36 === 0) {
-    // Weighted random selection favoring less-used lanes
-    let laneWeights = laneUsageCount.map((count) => Math.max(1, 10 - count));
-    let totalWeight = laneWeights.reduce((sum, weight) => sum + weight, 0);
-    let randomValue = rnd() * totalWeight;
-
-    let selectedLane = 0;
-    let cumulativeWeight = 0;
-    for (let i = 0; i < laneWeights.length; i++) {
-      cumulativeWeight += laneWeights[i];
-      if (randomValue <= cumulativeWeight) {
-        selectedLane = i;
-        break;
-      }
+    // Get next lane from shuffled sequence
+    let selectedLane = pulseLaneSequence[pulseLaneIndex];
+    pulseLaneIndex++;
+    
+    // If we've used all lanes in sequence, create new shuffled sequence
+    if (pulseLaneIndex >= pulseLaneSequence.length) {
+      pulseLaneSequence = createLaneSequence();
+      pulseLaneIndex = 0;
+      selectedLane = pulseLaneSequence[pulseLaneIndex];
+      pulseLaneIndex++;
     }
 
     // If selected lane is disabled, find an active lane
@@ -104,12 +124,6 @@ function update() {
 
     if (selectedLane !== -1) {
       let streamChoice = streamCurrents[selectedLane];
-      laneUsageCount[selectedLane]++;
-
-      // Reset usage counts periodically for continued randomness
-      if (ticks % 600 === 0) {
-        laneUsageCount = [0, 0, 0, 0, 0];
-      }
 
       pulseWaves.push({
         pos: vec(-5, streamChoice.y),
