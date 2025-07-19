@@ -47,6 +47,7 @@ https://github.com/user-attachments/assets/12ddf60b-f65a-4976-9c34-4e0db514aea4
 
 Click the image below to play directly in the browser.
 
+[![Pulse Stream screenshot](./docs/pulse-stream/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?pulse-stream)
 [![Pod Migration screenshot](./docs/pod-migration/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?pod-migration)
 [![Marble Bounce screenshot](./docs/marble-bounce/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?marble-bounce)
 [![Rocket Trail screenshot](./docs/rocket-trail/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?rocket-trail)
