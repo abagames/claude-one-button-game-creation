@@ -373,6 +373,10 @@ declare function floor(v: number): number;
 declare function round(v: number): number;
 /** Returns the smallest integer greater than or equal to a number. */
 declare function ceil(v: number): number;
+/** Returns the smaller of two numbers. */
+declare function min(a: number, b: number): number;
+/** Returns the larger of two numbers. */
+declare function max(a: number, b: number): number;
 /** Constrains a value within a specified range. */
 declare function clamp(v: number, low?: number, high?: number): number;
 /** Wraps a value around within a specified range. */

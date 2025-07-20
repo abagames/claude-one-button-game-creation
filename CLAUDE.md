@@ -180,7 +180,7 @@ Your task is to design innovative, intuitive, and fun one-button action mini-gam
      - Collision detection: Use the `Collision` type returned by drawing functions
      - Vector operations: Utilize the `Vector` interface and `vec()` function
      - Random number generation: `rnd()`, `rndi()`, `rnds()`
-     - Math utilities: `clamp()`, `wrap()`, `PI`, `abs()`, `sin()`, `cos()`, `Math.max()`, `Math.min()`, etc.
+     - Math utilities: `clamp()`, `wrap()`, `PI`, `abs()`, `sin()`, `cos()`, `max()`, `min()`, etc.
 
    b. Analyze the source code section of `cursor_knowledge/sample-games/pinclimb.md`:
 

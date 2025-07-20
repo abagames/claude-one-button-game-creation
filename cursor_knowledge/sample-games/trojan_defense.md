@@ -345,7 +345,7 @@ function update() {
     waveCount++;
 
     // Increase number of enemies with difficulty
-    const enemyCount = Math.min(5, Math.floor(1 + waveCount / 3));
+    const enemyCount = min(5, Math.floor(1 + waveCount / 3));
 
     // Randomly determine base angle for enemy group spawn
     const baseAngle = rnd(0, Math.PI * 2);

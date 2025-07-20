@@ -140,7 +140,7 @@ function update() {
     const c = clamp(
       floor(scoreCountTicks / 20),
       0,
-      Math.max(cutCount, pieces.length)
+      max(cutCount, pieces.length)
     );
     times(c, (i) => {
       color("black");
