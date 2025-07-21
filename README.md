@@ -13,9 +13,17 @@ If you're using [Claude Code](https://claude.ai/code), ensure both the [CLAUDE.m
 - Generate playable HTML files for each game
 - Follow structured workflow from concept to completion
 
-The `cursor_knowledge/` directory contains essential reference files including game design guides, API documentation, and implementation examples that Claude Code needs to create high-quality games.
+To start the autonomous game creation process, provide a theme using the following format:
 
-Simply provide a theme and Claude Code will handle the entire development process.
+```
+theme: [Your Chosen Theme]
+```
+
+Claude Code will then autonomously generate unique games based on your theme, placing them in the `./tmp/games/` directory.
+
+## For Gemini CLI Users
+
+If you are using the [Gemini CLI](https://github.com/google-gemini/gemini-cli), use the [GEMINI.md](./GEMINI.md) file instead. This file provides the necessary context and instructions for the agent to perform its game generation task.
 
 ### From Toys to Games
 

@@ -2,5 +2,6 @@ node_modules/
 .vscode/
 .claude/
 tmp/
+.env
 package-lock.json
 npm-debug.log
