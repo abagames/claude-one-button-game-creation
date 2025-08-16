@@ -6,24 +6,21 @@ I used the AI chatbot [Claude](https://claude.ai/) to generate a one-button game
 
 ## For Claude Code Users
 
-If you're using [Claude Code](https://claude.ai/code), ensure both the [CLAUDE.md](./CLAUDE.md) file and the [cursor_knowledge/](./cursor_knowledge/) directory are in your project directory. This file contains comprehensive instructions that enable Claude Code to:
+If you're using [Claude Code](https://claude.ai/code), ensure both the [CLAUDE.md](./CLAUDE.md) file and the [cc_knowledge/](./cc_knowledge/) directory are in your project directory. This file provides guidance for working with the comprehensive documentation guides:
 
-- Generate 8 unique game ideas based on your theme
-- Create complete game implementations with full source code
-- Generate playable HTML files for each game
-- Follow structured workflow from concept to completion
+- **Design Phase**: Use `cc_knowledge/one-button-game-design-guide.md` for systematic idea generation using verb matrices and validation frameworks
+- **Implementation Phase**: Use `cc_knowledge/one-button-game-implementation-guide.md` and `cc_knowledge/crisp-game-lib-guide.md` for development
 
-To start the autonomous game creation process, provide a theme using the following format:
+The repository now focuses on documentation and methodology rather than autonomous generation.
 
-```
-theme: [Your Chosen Theme]
-```
+## Archived Game Creation Prompts
 
-Claude Code will then autonomously generate unique games based on your theme, placing them in the `./tmp/games/` directory.
+Previous autonomous game creation prompts have been moved to the [toy-creation-prompts/](./toy-creation-prompts/) directory:
 
-## For Gemini CLI Users
+- `toy-creation-prompts/CLAUDE.md` - Original comprehensive game creation workflow
+- `toy-creation-prompts/GEMINI.md` - Gemini CLI-specific instructions
 
-If you are using the [Gemini CLI](https://github.com/google-gemini/gemini-cli), use the [GEMINI.md](./GEMINI.md) file instead. This file provides the necessary context and instructions for the agent to perform its game generation task.
+These can still be used for automated game generation by referencing the appropriate prompt file.
 
 ### From Toys to Games
 

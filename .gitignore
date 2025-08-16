@@ -1,6 +1,7 @@
 node_modules/
 .vscode/
 .claude/
+.serena/
 tmp/
 .env
 package-lock.json
