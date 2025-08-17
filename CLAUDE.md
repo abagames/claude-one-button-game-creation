@@ -9,38 +9,40 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a comprehensive documentation project for one-button game design and implementation. The repository contains guides for:
+This is a comprehensive documentation project for one-button game design and implementation through strategic human-LLM collaboration. The repository contains guides for:
 
-- **Game Design**: Systematic 30-second idea generation using verb matrices and validation frameworks
-- **Implementation**: Step-by-step development process from concept to playable game
+- **Game Design**: 5-phase systematic workflow for designing fun, understandable, and innovative games
+- **Implementation**: Human-LLM collaborative development process from concept to playable game
 - **Technical Reference**: Complete crisp-game-lib JavaScript library guide for LLM-assisted development
 
 ## Repository Structure
 
 ```
 cc_knowledge/
-├── one-button-game-design-guide.md         # Core design methodology
-├── one-button-game-implementation-guide.md # Development workflow and templates
+├── one-button-game-design-guide.md         # 5-phase collaborative design methodology
+├── one-button-game-implementation-guide.md # 3-phase collaborative development workflow
 └── crisp-game-lib-guide.md                 # Technical JavaScript library documentation
 ```
 
 ## Content Architecture
 
-### Design Framework
+### Design Framework (Human-LLM Collaborative)
 
-- **Verb Matrix System**: 30-second idea generation using combinations of basic verbs, transformation verbs, and world effects
-- **Three-Layer Engagement**: Immediate understanding → Progressive discovery → Clear risk/reward
-- **Seven Innovation Methods**: Systematic approaches for creating unique game mechanics
-- **Validation Checklists**: Structured evaluation criteria for game concepts
+- **5-Phase Workflow**: Theme Inspiration → Problem-Solution Design → SCAMPER Innovation → Experience Integration → Final Validation
+- **Strategic Collaboration**: LLM autonomous processing (70%) + Human validation checkpoints (30%)
+- **Problem-First Approach**: Start with player problems, not "interesting mechanics"
+- **SCAMPER-Enhanced Innovation**: Early creativity application with 3-second rule validation
+- **Conceptual Walkthrough**: Logical validation replacing impossible simulation
+- **User Feedback Integration**: Multiple validation options with human judgment
 
-### Implementation Process
+### Implementation Process (Human-LLM Collaborative)
 
 - **Standardized Input Format**: Structured template for game concepts from design phase
-- **Minimal Implementation**: Start with core mechanics, expand through playtesting
-- **Target Platform**: JavaScript with HTML5 Canvas using crisp-game-lib
-- **Progressive Development**: Three phases - Core → Enhancement → Polish
-- **AI-Human Collaboration**: Structured workflow with clear role separation and communication protocols
-- **Ambiguity Management**: Systematic approach to handling specification uncertainties during implementation
+- **3-Phase Progressive Development**: Minimal Implementation → Core Mechanics → Final Polish
+- **Feedback-Driven Adjustment**: Single implementation → Experience feedback → Targeted adjustments
+- **Universal Execution Protocol**: Consistent LLM auto-execute → Human validate → LLM adjust cycle
+- **Ambiguity Detection System**: Systematic question management and assumption clarification
+- **Experience-First Validation**: Human play-testing drives all parameter decisions
 
 ### Technical Stack
 
@@ -48,21 +50,46 @@ cc_knowledge/
 - **Development Approach**: LLM-assisted development with functional API design
 - **Game Loop**: 60fps update cycle with integrated collision detection
 - **Platform**: Browser-based with mobile-first responsive design
+- **Coding Requirements**: Functional design only, no classes, global state management
 
-## Documentation Conventions
+## Human-LLM Collaboration Protocol
 
-- **Structure**: Numbered chapters with clear subsections
-- **Examples**: Code blocks, bullet points, emoji indicators (✅/❌)
-- **Validation**: Checklists and before/after comparisons
-- **Templates**: Standardized formats for idea generation and implementation planning
+### Design Phase Collaboration (45-60 minutes total)
+
+**Essential Human Checkpoints:**
+1. **Phase 1**: Problem definition and solution logic validation
+2. **Phase 2**: Innovation complexity check
+3. **Phase 3**: Experience walkthrough approval
+4. **Phase 4**: Implementation readiness confirmation
+
+**Collaboration Execution:**
+- 🤖 **LLM AUTO-EXECUTE**: Template completion, constraint checking, systematic processing
+- 🤝 **HUMAN CHECKPOINT**: Problem clarity, solution logic, complexity assessment, final validation
+- 🚫 **FORBIDDEN**: Starting with "interesting mechanics" before problem definition
+- ✅ **REQUIRED**: Problem → Solution → Innovation → Experience → Implementation flow
+
+### Implementation Phase Collaboration (30-45 minutes total)
+
+**Universal Execution Protocol (All Phases):**
+- 🤖 **LLM AUTO**: Implementation/Enhancement → Present for testing
+- 🤝 **HUMAN**: Experience feedback → Specific adjustment requests
+- 🤖 **LLM AUTO**: Parameter adjustment → Next cycle preparation
+- 🚫 **FORBIDDEN**: Multiple implementation options, complex parameter choices
+- ✅ **REQUIRED**: Single implementation → Feedback → Adjustment → Validation flow
+
+**Essential Human Checkpoints:**
+1. **Phase 1**: Basic functionality and reachability validation
+2. **Phase 2**: Core mechanics understanding and balance feedback
+3. **Phase 3**: Final experience evaluation and completion approval
 
 ## Key Design Principles
 
-- **One-Button Constraint**: All games must use single input method
-- **30-Second Rule**: Core gameplay loop should be understandable within 30 seconds
-- **Innovation Focus**: Each game should introduce novel mechanics not found in existing games
-- **Systematic Validation**: Multiple checkpoint evaluations throughout design process
-- **Platform-Agnostic Design**: Concepts applicable beyond JavaScript/crisp-game-lib
+- **One-Button Constraint**: All games must use single input method (Press/Hold/Release combinations)
+- **3-Second Rule**: Core gameplay mechanics should be understandable within 3 seconds
+- **Problem-Solution Foundation**: Every game starts with a clear player problem and solution logic
+- **Innovation Through SCAMPER**: Apply creativity methods early in design process
+- **Physical Phenomenon Grounding**: Innovation based on intuitive physical concepts
+- **Human Experience Validation**: All design decisions validated through human play-testing
 
 ## Working with This Repository
 
@@ -70,8 +97,9 @@ When editing documentation:
 
 1. Use guides as primary reference for Claude Code operations
 2. Preserve numbered section structure and formatting
-3. Ensure examples and checklists remain actionable
-4. Validate cross-references between guides remain accurate
+3. Maintain human-LLM collaboration protocols
+4. Ensure examples and checklists remain actionable
+5. Validate cross-references between guides remain accurate
 
 ## Game Implementation Workflow
 
@@ -89,8 +117,8 @@ tmp/games/[game-name]/
 
 ### Implementation Steps
 
-1. **Design Phase**: Use `cc_knowledge/one-button-game-design-guide.md` to generate and validate game concepts
-2. **Development Phase**: Follow `cc_knowledge/one-button-game-implementation-guide.md` for structured development workflow
+1. **Design Phase**: Use `cc_knowledge/one-button-game-design-guide.md` for 5-phase collaborative design workflow
+2. **Development Phase**: Follow `cc_knowledge/one-button-game-implementation-guide.md` for 3-phase collaborative implementation
 3. **Technical Implementation**: Reference `cc_knowledge/crisp-game-lib-guide.md` for library-specific implementation details
 4. **File Creation**:
    - Create directory: `./tmp/games/[game-name]` (relative to project root)
@@ -100,7 +128,30 @@ tmp/games/[game-name]/
 
 ### Game Development Principles
 
-- **Toy Experience**: Create safe experimentation environments without traditional game-over conditions
-- **Recovery Systems**: Implement graceful failure handling and player recovery mechanisms
+- **Problem-First Design**: Always start with player problems, not mechanics
+- **Collaborative Validation**: Use human checkpoints for all critical decisions
+- **Feedback-Driven Implementation**: Adjust based on human play experience
 - **One-Button Focus**: Maintain single input constraint throughout development
-- **Iterative Refinement**: Use playtesting to evolve from core mechanics to polished experiences
+- **Iterative Refinement**: Use structured feedback cycles to evolve from core mechanics to polished experiences
+- **Experience Optimization**: Prioritize player understanding and engagement over technical complexity
+
+## Collaboration Guidelines
+
+### For LLM Autonomous Work
+- Complete template-based tasks systematically
+- Apply constraint checking automatically
+- Execute parameter adjustments based on human feedback
+- Present single implementations for validation
+
+### For Human Validation Points
+- Confirm problem-solution logic makes sense
+- Validate complexity levels and understanding
+- Provide specific play experience feedback
+- Guide final design decisions
+
+### Expected Outcomes
+- **Higher Success Rate**: Early validation prevents late-stage redesigns
+- **Clearer Designs**: Human intuition catches ambiguity LLM might miss
+- **Better Innovation**: Human judgment prevents innovation for its own sake
+- **Implementable Results**: Human validation ensures practical feasibility
+- **Efficient Development**: Optimized time allocation between human and LLM work
