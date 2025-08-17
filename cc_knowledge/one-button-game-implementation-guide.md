@@ -1,14 +1,40 @@
-# One-Button Game Implementation Guide
+# One-Button Game Implementation Guide (Human-LLM Collaborative Version)
 
-This guide shows the step-by-step implementation and verification process from idea to completion.
+This guide shows the step-by-step implementation and verification process from idea to completion through strategic human-LLM collaboration.
 
 ## Chapter 0: How to Use This Guide
+
+### 🤝 Human-LLM Collaboration Protocol
+
+**Strategic Collaboration:**
+
+- **LLM Strengths**: Technical implementation, crisp-game-lib API usage, parameter adjustment execution
+- **Human Strengths**: Play experience evaluation, feedback-based direction guidance, final validation
+- **Collaboration Style**: Single implementation → Experience feedback → Adjustment execution cycle
+
+**Session Time**: 30-45 minutes | LLM autonomous: ~70% | Human validation: ~30%
+
+**Universal Execution Protocol (All Phases):**
+
+```markdown
+🤖 LLM AUTO: Implementation/Enhancement → Present for testing
+🤝 HUMAN: Experience feedback → Specific adjustment requests
+🤖 LLM AUTO: Parameter adjustment → Next cycle preparation
+🚫 FORBIDDEN: Multiple implementation options, complex parameter choices
+✅ REQUIRED: Single implementation → Feedback → Adjustment → Validation flow
+```
+
+**Essential Human Checkpoints:**
+
+1. **Phase 1**: Basic functionality and reachability validation
+2. **Phase 2**: Core mechanics understanding and balance feedback
+3. **Phase 3**: Final experience evaluation and completion approval
 
 ### Prerequisites
 
 - **Input**: Game concept from the idea generation guide
 - **Output**: Balanced, fully playable game
-- **Approach**: Start with minimal implementation, improve progressively through playtesting
+- **Approach**: Start with minimal implementation, improve progressively through feedback cycles
 - **Tech Stack**: crisp-game-lib (see `crisp-game-lib-guide.md` for details)
 
 ### Standardized Input Format
@@ -37,7 +63,7 @@ At implementation start, expect to receive ideas in this format:
 
 - Primary failure condition: [Single, understandable condition]
 - Visual feedback: [How failure is displayed]
-- Avoidability: [Avoidable through player skill]
+- Avoidance: [Avoidable through player skill]
 
 ## Innovative Elements
 
@@ -161,7 +187,11 @@ Improvement (Phase 3): Refines the experience
 
 ### 1.3 Implementation Process Management
 
-#### 1.3.1 Ambiguity Detection & Question Management System
+#### 1.3.1 Collaborative Implementation Protocol
+
+_Refer to Universal Execution Protocol in Chapter 0 for all phases_
+
+#### Ambiguity Detection & Question Management System
 
 When specification uncertainties arise during implementation, respond according to these principles:
 
@@ -201,17 +231,51 @@ Assumption: When reaching screen edge, player warps to opposite side
 4. Record assumption in comments
 ```
 
-#### Question Management System
+#### Human Feedback Collection System
 
-For mini-game creation, when questions arise, immediate confirmation is recommended:
+**Primary Implementation Approach: Feedback-Driven Adjustment**
 
 ```markdown
-【Response When Questions Arise】
+【Feedback Collection Protocol】
 
-All questions should pause implementation for immediate confirmation
+1. LLM completes single implementation
+2. LLM presents specific feedback collection questions
+3. Human provides experiential feedback
+4. LLM executes targeted adjustments
+5. Cycle repeats until satisfaction
+
+【Feedback Collection Templates】
+
+Phase 1: "Implementation completed. Please test and provide feedback:
+
+- Can you understand the objective within 3 seconds?
+- Can you reach the goal using the button?
+- Any aspect of controls that feels uncomfortable?"
+
+Phase 2: "Core mechanics added. Please test and provide feedback:
+
+- Do you understand how the unique system works?
+- Does the difficulty feel appropriate?
+- Any parameters that feel too fast/slow/strong/weak?"
+
+Phase 3: "Final version ready. Please test and provide feedback:
+
+- Does this feel fun to replay?
+- Any remaining issues with balance or controls?
+- Does the experience feel complete?"
+```
+
+#### Question Management System
+
+For critical specification uncertainties that block implementation:
+
+```markdown
+【Response When Blocker Questions Arise】
+
+All blocker questions should pause implementation for immediate confirmation
 
 - Blocker questions: Critical matters preventing implementation continuation
-- Detail confirmations: Items adjustable after implementation completion
+- Parameter questions: Use feedback cycle instead of asking
 
 【Example】
 "Confirmation: When colliding with enemies, does the player immediately get game over?"
@@ -276,7 +340,21 @@ Always execute the following steps before starting implementation:
 
 ## Chapter 2: Phase 1 - Minimal Implementation
 
-### 2.1 Basic Implementation by Input Pattern
+**Phase Input:** Game concept from design guide
+**Phase Output:** Working minimal implementation with basic functionality
+**Completion Criteria:** ✅ LLM completes implementation, ✅ Human validates basic functionality, ✅ Feedback cycle executed
+
+### ⚠️ Phase 1 Execution Protocol
+
+**EXECUTION ORDER:**
+
+```markdown
+🤖 LLM AUTO: Basic implementation completion → Environment setup → Input pattern implementation
+🤝 HUMAN: Functionality validation → Reachability feedback → Control comfort assessment
+🤖 LLM AUTO: Parameter adjustment based on feedback → Cycle preparation
+```
+
+### 2.1 Basic Implementation by Input Pattern (LLM Autonomous)
 
 Perform basic implementation according to the pattern specified in input format (Press/Hold/Release). See Chapter 6 for detailed templates.
 
@@ -288,7 +366,7 @@ if (input.isPressed) {
 }
 ```
 
-### 2.2 Basic Setup by Environment Type
+### 2.2 Basic Setup by Environment Type (LLM Autonomous)
 
 Perform initial setup according to environment type specified in input format (central fixed point/open space etc.). See Chapter 6 for specific implementation examples.
 
@@ -323,11 +401,13 @@ function update() {
 }
 ```
 
-### 2.2 Understanding Feedback Collection
+### 2.2 Phase 1 Human Feedback Collection (COLLABORATIVE)
 
-Question: "What happened when you looked at the screen first? What did you think you should do?"
+_Use Universal Feedback Template (see Section 5.3) with Phase 1 focus:_
 
-Expected response: "I thought I should go to the glowing place" "Move with button to get the flag"
+- Can you understand the objective within 3 seconds?
+- Can you reach the goal using only the button?
+- Do the controls feel responsive?
 
 ### 2.3 Basic Action Implementation
 
@@ -480,7 +560,13 @@ Recommend [Option X] for these reasons:
 
 ## Chapter 3: Phase 2 - Core Mechanics Implementation
 
-### 3.1 Adding Unique Mechanics
+**Phase Input:** Working minimal implementation from Phase 1
+**Phase Output:** Complete game with unique mechanics implemented
+**Completion Criteria:** ✅ LLM implements core mechanics, ✅ Human validates understanding and balance, ✅ Feedback cycle executed
+
+_Follow Universal Execution Protocol from Chapter 0_
+
+### 3.1 Adding Unique Mechanics (LLM Autonomous)
 
 Implement the "innovative elements" from ideas with crisp-game-lib:
 
@@ -566,13 +652,13 @@ When combining multiple mechanics:
 - Control complexity with energy/timer conditional branching
 - Expand mechanics through gradual evolution
 
-### 3.3 Mechanics Understanding Feedback
+### 3.3 Phase 2 Human Feedback Collection (COLLABORATIVE)
 
-Question: "What could you do using the unique system? What didn't you understand?"
+_Use Universal Feedback Template (see Section 5.3) with Phase 2 focus:_
 
-Expected response: "Could use enemies as platforms by stopping time" "Understood energy management is important"
-
-**If problems exist → See Chapter 5 "Feedback Response Methods"**
+- Do you understand how the unique system works?
+- Does the difficulty feel appropriate?
+- Are there any parameters that feel too fast/slow/strong/weak?
 
 ### 3.4 Risk Element Implementation
 
@@ -636,63 +722,28 @@ Expected response: "Played safe in easy situations, took risks in difficult situ
 
 **If problems exist → See Chapter 5 "Feedback Response Methods"**
 
-## Chapter 4: Phase 3 - Parameter Adjustment
+## Chapter 4: Phase 3 - Final Adjustment and Polish
 
-### 4.1 Identifying Mechanics-Specific Parameters
+**Phase Input:** Complete game with core mechanics from Phase 2
+**Phase Output:** Polished, balanced game ready for play
+**Completion Criteria:** ✅ LLM implements final adjustments, ✅ Human validates final experience, ✅ Completion confirmed
 
-Extract parameters according to game's core mechanics:
+_Follow Universal Execution Protocol from Chapter 0_
 
-```javascript
-// Parameter adjustment example with crisp-game-lib
-// Manage parameters with global variables
+### 4.1 Identifying Mechanics-Specific Parameters (LLM Autonomous)
 
-// Time stop system parameters
-let timeStopParams = {
-  energyCost: 2, // per frame (1-5)
-  recoveryRate: 1, // per frame (0.5-2)
-  overheatedRecovery: 0.2, // per frame (0.1-0.5)
-};
+_Refer to Parameter Adjustment Guidelines in Section 4.2 for implementation patterns_
 
-// Physics parameters
-let physicsParams = {
-  gravity: 0.3, // (0.1-0.8)
-  jumpPower: -4, // (-2 to -6)
-  moveSpeed: 1, // (0.5-3)
-};
-
-// Enemy-related parameters
-let enemyParams = {
-  speed: 1, // velocity magnitude (0.5-3)
-  count: 3, // number of enemies (2-6)
-  size: 12, // collision box size (8-20)
-};
-
-function update() {
-  // Game logic using parameters
-  if (input.isPressed && timeStopEnergy > 0) {
-    timeStopEnergy -= timeStopParams.energyCost;
-  } else {
-    timeStopEnergy += timeStopParams.recoveryRate;
-  }
-
-  // Physics update
-  player.vy += physicsParams.gravity;
-  if (input.isPressed) {
-    player.pos.x += physicsParams.moveSpeed;
-  }
-}
-```
-
-### 4.2 Gradual Adjustment Process
+### 4.2 Parameter Adjustment Guidelines
 
 **Basic Adjustment Policy:**
 
 1. **Change only 1 parameter at a time**
 2. **Small incremental changes** (±10-20%)
-3. **Experiential confirmation through playtesting**
+3. **Experiential confirmation through play testing**
 4. **Feedback collection and reflection**
 
-**Adjustment Order:**
+**Standard Adjustment Order:**
 
 ```markdown
 1. Movement speed/responsiveness (establish control feel)
@@ -701,29 +752,34 @@ function update() {
 4. Enemy speed/placement (difficulty adjustment)
 ```
 
-### 4.3 Play Feel Feedback
+**Parameter Management Pattern:**
 
-```markdown
-Question: "What emotions did you feel while playing? Where did you get stuck? Why do/don't you want to play again?"
+```javascript
+// Centralized parameter management
+let gameParams = {
+  playerSpeed: 1.2, // Movement (0.5-3)
+  gravity: 0.4, // Physics (0.1-0.8)
+  energyCost: 1.5, // Resource (1-5)
+  recoveryRate: 0.6, // Recovery (0.5-2)
+  enemySpeed: 1, // Challenge (0.5-3)
+};
 
-【User Feedback Examples and Responses】
-
-❌ Difficulty Problem Patterns:
-"Cleared too easily, unsatisfying" "Couldn't do it at all, frustrating"
-→ Response: Parameter adjustment (speed, timing, obstacle placement)
-
-❌ Monotony Patterns:
-"Same thing over and over" "Got bored" "No variation"
-→ Response: Add variation, gradual difficulty increase
-
-❌ Unfairness Patterns:
-"Random luck game" "Unreasonable" "Don't know how to deal with it"
-→ Response: Improve predictability, fair failure factors
-
-✅ Good Feedback Patterns:
-"Fun once you get the hang of it" "Almost cleared it" "Enjoyable in short time"
-→ Good balance, ready for release
+function update() {
+  // Use centralized parameters
+  if (input.isPressed) {
+    player.pos.x += gameParams.playerSpeed;
+    energy -= gameParams.energyCost;
+  }
+}
 ```
+
+### 4.3 Phase 3 Human Feedback Collection (COLLABORATIVE)
+
+_Use Universal Feedback Template (see Section 5.3) with Phase 3 focus:_
+
+- Does this feel fun to replay?
+- Are there any remaining issues with balance or controls?
+- Does the experience feel complete and polished?
 
 ### 4.4 Phase 3 Completion Comprehensive Evaluation Check (Playable Game Standards)
 
@@ -803,6 +859,44 @@ Question: "What emotions did you feel while playing? Where did you get stuck? Wh
 2. **Visual representation enhancement** (for understanding problems)
 3. **Parameter adjustment** (for balance problems)
 4. **Feedback enhancement** (for detailed experience improvement)
+
+### 5.3 Universal Feedback Template
+
+**LLM Feedback Request Format:**
+
+```markdown
+"Phase [X] implementation completed. Please test and provide feedback:
+
+[Phase-specific questions]
+
+Please respond with specific feedback like:
+
+- '[Parameter] too fast/slow/strong/weak'
+- '[Feature] works well'
+- 'Need more [visual/audio] feedback for [state]'
+
+What needs adjustment?"
+```
+
+**Expected Response Patterns:**
+
+```markdown
+✅ Good feedback examples:
+"Movement feels too slow" → Increase moveSpeed parameter
+"Energy drains quickly" → Reduce energyCost parameter
+"Jump power perfect" → Maintain current setting
+"Need energy warning" → Add visual warning system
+
+❌ Problem Indicators:
+"Too easy/hard" → Parameter adjustment needed
+"Gets repetitive" → Variation/progression needed
+"Feels unfair" → Predictability improvement needed
+
+✅ Completion Indicators:
+"Fun to replay" → Good balance achieved
+"Almost got it" → Appropriate challenge level
+"Want to try again" → Engagement successful
+```
 
 ## Chapter 6: Implementation Template Collection
 
@@ -1112,7 +1206,7 @@ function update() {
 **Phase 2: Core Mechanics Addition**
 
 ```javascript
-// === Time stop system to use enemies as platforms ===
+// === Complete Time Stop Platform Game ===
 title = "TIME STOP PLATFORM";
 description = `[Hold] Stop time & use enemies as platforms`;
 
@@ -1182,58 +1276,7 @@ function update() {
 }
 ```
 
-**Phase 3: Parameter Adjustment and Polish**
-
-```javascript
-// === crisp-game-lib Phase 3: Balance adjustment and polish ===
-
-// Balance adjustment and polish
-let params = {
-  playerSpeed: 1.2,
-  gravity: 0.4,
-  energyCost: 1.5,
-  recoveryRate: 0.6,
-};
-
-function update() {
-  let timeStopActive = input.isPressed && timeStopEnergy > 0;
-
-  if (timeStopActive) {
-    timeStopEnergy -= params.energyCost;
-    player.pos.x += params.playerSpeed;
-
-    // Time stop effect
-    if (ticks % 3 === 0) {
-      particle(vec(rnd(0, 100), rnd(0, 100)), {
-        count: 2,
-        speed: 1,
-        angle: rnd(0, 2 * PI),
-      });
-    }
-  } else {
-    timeStopEnergy = min(100, timeStopEnergy + params.recoveryRate);
-  }
-
-  player.vy += params.gravity;
-  player.pos.y += player.vy;
-
-  if (player.pos.y > 90) {
-    player.pos.y = 90;
-    player.vy = 0;
-  }
-
-  // Enemy and goal processing... (same as above)
-
-  // Improved UI
-  color(timeStopEnergy < 20 ? "red" : timeStopEnergy < 50 ? "yellow" : "green");
-  rect(10, 10, timeStopEnergy, 5);
-
-  if (timeStopActive) {
-    color("cyan");
-    text("TIME STOPPED", vec(15, 90));
-  }
-}
-```
+_Phase 3 focuses on parameter adjustment using the centralized approach shown in Section 4.2_
 
 ### 6.5 Implementation Points
 
@@ -1263,125 +1306,38 @@ function update() {
 }
 ```
 
-## Chapter 7: Implementation Communication
+## Summary: Collaborative Implementation Principles
 
-### 7.1 Initial Implementation Interaction
+### 🎯 Optimized Human-LLM Partnership for Implementation
 
-```markdown
-LLM: "Created minimal implementation of [Game Name].
-First, please confirm the objective is clearly visible and achievable.
+**Key Success Factors:**
 
-[Executable code]
+1. **Single Implementation Approach**: No complex multiple choice presentations
+2. **Feedback-Driven Adjustment**: Human provides direction, LLM executes changes
+3. **Phase-Based Validation**: Clear checkpoints using Universal Feedback Template
+4. **Immediate Adjustment Cycle**: Fast iteration based on play experience
+5. **Experience-First Decision Making**: Human judgment drives parameter decisions
 
-Did you understand what to do within 3 seconds?
-Could you actually achieve the objective?"
+### Implementation Guidelines
 
-User: "Understood the objective but too difficult to achieve"
+**✅ Best Practices:**
 
-LLM: "Let me adjust the basic action.
-Current: 5px movement per button press
-A) 3px - finer control
-B) 5px - current
-C) 8px - faster movement
-D) 10px - bold movement"
-```
+- Start with minimal working version
+- Use Universal Execution Protocol for all phases
+- Apply Universal Feedback Template with phase-specific questions
+- Make single parameter adjustments based on human feedback
+- Focus on play experience over technical perfection
 
-### 7.2 Problem Resolution
+**❌ What to Avoid:**
 
-```markdown
-User: "Don't understand what's happening"
+- Multiple implementation options or complex parameter choices
+- Assumption-based implementation without clarification
+- Complex feedback collection processes
+- Skipping human validation cycles
 
-LLM: "Adding visual feedback:
+### Expected Outcomes
 
-1. Effects when button is pressed
-2. State change visualization
-3. Clear success/failure display
-
-Which should we improve first?"
-```
-
-### 7.3 AI Collaborative Implementation Workflow
-
-#### Human and AI Role Division in Implementation Phase
-
-```markdown
-【Human Responsibility Areas】
-□ Game design direction decisions
-□ Qualitative experience evaluation ("fun" or "boring")
-□ Specification ambiguity resolution
-□ Final implementation decisions
-
-【AI Responsibility Areas】
-□ Technical implementation execution
-□ Proper use of crisp-game-lib API
-□ Initial parameter value proposals
-□ Analysis and presentation of implementation options
-□ Code quality assurance
-```
-
-#### Effective Feedback Methods
-
-```markdown
-【Recommended Feedback Examples】
-
-✅ Good examples:
-"Enemy movement too fast to avoid"
-"Jump height could be a bit higher for perfect feel"
-"Sound timing delayed by 0.5 seconds"
-
-❌ Examples to avoid:
-"Somehow unsatisfying"
-"Make it more fun"
-"Just make it normally"
-
-【Feedback Template】
-Problem: [Specifically what's problematic]
-Expectation: [What should happen]
-Impact: [How this problem affects game experience]
-```
-
-### 7.4 Continuous Improvement Process
-
-```markdown
-【Iteration Strategy】
-
-Phase 1: Working minimal version
-→ Human: Evaluate basic experience
-→ AI: Present adjustment proposals
-
-Phase 2: Core mechanics
-→ Human: Evaluate uniqueness
-→ AI: Propose balance adjustments
-
-Phase 3: Experience refinement
-→ Human: Comprehensive completion evaluation
-→ AI: Final adjustments and polish
-
-【Confirmation Items for Each Phase】
-□ Goal achievement time (ideal: within 30 seconds)
-□ Recovery time from failure (ideal: within 5 seconds)
-□ Operation responsiveness (no input delay)
-□ Visual clarity (immediately understand what to do)
-```
-
-## Summary: Implementation Principles
-
-### What to Do
-
-1. **Start minimal**: Objective visualization and achievability
-2. **One at a time**: Adjust parameters one by one
-3. **Play and decide**: Practice over theory
-4. **Welcome failure**: Early discovery, early fix
-
-### What Not to Do
-
-1. **Aim for perfection**: Get something working first
-2. **Multiple simultaneous changes**: Won't know what worked
-3. **Discuss without playing**: Judge by actually touching
-4. **Hide failures**: Be clear about what's not working
-
-### Final Goal
-
-```markdown
-Create a game that makes players say "One more time!"
-```
+- **Efficient Development**: 30-45 minute sessions with 70% LLM autonomous work
+- **Better Player Experience**: Human play-testing ensures engagement
+- **Higher Success Rate**: Direct feedback prevents over-engineering
+- **Replay Motivation**: Create games that make players say "One more time!"
