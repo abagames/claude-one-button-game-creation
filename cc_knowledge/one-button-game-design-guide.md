@@ -14,15 +14,14 @@ This guide provides a systematic 5-phase workflow for designing games that are f
 - **Human Strengths**: Intuitive validation, experience judgment, ambiguity resolution, creative feedback
 - **Collaboration Triggers**: Uncertainty detection, constraint violations, complexity issues, final validation
 
-**Session Time**: 45-60 minutes | LLM autonomous: ~70% | Human validation: ~30%
+**Session Time**: 35-50 minutes | LLM autonomous: ~70% | Human validation: ~30%
 
 **Essential Human Checkpoints:**
 
-1. **Phase 1**: Problem definition and solution logic validation
-2. **Phase 2**: Innovation complexity check
-3. **Phase 3**: Experience walkthrough approval
-4. **Phase 4**: Implementation readiness confirmation
-   (Phase 0 is fully automated - no human checkpoint required)
+1. **Phase 0**: Theme concreteness and appeal validation
+2. **Phase 1**: Simple solution logic validation
+3. **Phase 2**: Experience walkthrough approval
+4. **Phase 3**: Implementation readiness confirmation
 
 **Collaboration Execution:**
 
@@ -39,58 +38,67 @@ This guide provides a systematic 5-phase workflow for designing games that are f
 
 | Phase | Purpose                             | Input                                   | Output                           | Completion Check                                              |
 | ----- | ----------------------------------- | --------------------------------------- | -------------------------------- | ------------------------------------------------------------- |
-| 0     | Theme Inspiration (Automated)       | Theme categories                        | Selected inspirational theme     | ✅ Theme selected for creative stimulus                       |
-| 1     | Constrained Problem-Solution Design | Problem categories + Verb tools + Theme | Validated problem-solution pairs | ✅ Problem category selected + Verb applied + Logic validated |
-| 2     | SCAMPER-Enhanced Innovation         | Problem-solution base                   | Creative, feasible mechanics     | ✅ SCAMPER applied + 3-second rule validated                  |
-| 3     | Player Experience Integration       | Creative mechanics                      | Engaging, understandable game    | ✅ Conceptual walkthrough + User feedback                     |
-| 4     | Final Validation & Documentation    | Complete experience                     | Implementation-ready spec        | ✅ All warning signs checked + Spec complete                  |
+| 0     | Concrete Theme Inspiration (Human-Validated) | Theme categories                        | Selected concrete theme     | ✅ Concrete theme selected + Human validation obtained + Clear constraints identified |
+| 1     | Simple Problem-Solution Design | Problem categories + Theme | Clear problem-solution pairs | ✅ Problem defined + Simple verb + Logic validated |
+| 2     | Player Experience Integration       | Simple, clear mechanics              | Engaging, understandable game    | ✅ Conceptual walkthrough + User feedback                     |
+| 3     | Final Validation & Documentation    | Complete experience                     | Implementation-ready spec        | ✅ All warning signs checked + Spec complete                  |
 
 ---
 
 ## Phase 0: Theme Inspiration (Automated)
 
 **Phase Input:** Theme categories (provided below)
-**Phase Output:** Selected inspirational theme to guide creative thinking
-**Completion Criteria:** ✅ Theme selected from systematic approach for maximum creative stimulus
+**Phase Output:** Selected concrete, relatable theme to guide creative thinking
+**Completion Criteria:** ✅ Concrete professional/historical theme selected ✅ Human validation obtained ✅ Theme provides clear constraints and universal appeal
 
 ### ⚠️ Phase 0 Execution Protocol
 
 **EXECUTION ORDER:**
 
 ```markdown
-🤖 LLM AUTO: Theme category selection → Theme generation → Best theme selection
+🤖 LLM AUTO: Theme category selection → Theme generation → 3-stage validation → Best theme selection
+🤝 HUMAN: Theme appeal confirmation → Alternative preference → Final approval
 ⚠️ IMPORTANT: Theme serves as INSPIRATION only, not as design constraint
 ⚠️ CRITICAL: Problem-solution logic always takes priority over theme adherence
+⚠️ NEW: Concrete professions/scenarios preferred over abstract concepts
 ```
 
 ### 0.1 Theme Category Selection
 
-**LLM automatically generates 3-5 themes (e.g. Circus, Lightning, etc.) from across all categories below:**
+**LLM automatically generates 3-5 themes from across all categories below, prioritizing concrete and relatable experiences:**
 
 ```markdown
-🎪 **Experience/Event Contexts**
-Examples: Circus, Olympics, Fireworks show, Art museum, Library
-Effect: Provides unique situational constraints and environmental goals
+🏛️ **Historical Professions & Roles**
+Examples: Lighthouse keeper, Telegraph operator, Blacksmith, Town crier, Mail carrier, Night watchman
+Effect: Concrete professional experiences with clear responsibilities, time-period constraints, and job-specific limitations
 
-⚡ **Natural Phenomena**
-Examples: Lightning, Magnet, Black hole, Echo, Snowflake
-Effect: Suggests physical mechanics and natural force interactions
+🌍 **Specific Places & Facilities**
+Examples: Library operations, Museum security, Observatory work, Dam control room, Radio station, Fire tower
+Effect: Real-world locations with specific operational constraints, environmental factors, and facility-based responsibilities
 
-🔧 **Mechanism/Tool Systems**
-Examples: Clock, Pulley, Seesaw, Spring, Spinning top
-Effect: Implies specific movement patterns and mechanical relationships
+📚 **Historical Events & Scenarios**
+Examples: Apollo moon landing, Medieval castle siege, Early telephone switching, 1960s computer operation, Ship navigation pre-GPS
+Effect: Time-period constraints, technological limitations, urgency, and historical context create natural game constraints
 
-🎮 **Game/Competition References**
-Examples: Pac-Man, Billiards, Rubik's cube, Arcade, Chess board
+🔧 **Everyday Tools & Machines**
+Examples: Analog watch repair, Manual printing press, Record player adjustment, Old-style camera operation, Hand-crank drill
+Effect: Tactile understanding, precision requirements, familiar mechanical interactions with clear operational constraints
+
+🎪 **Cultural Events & Performances**
+Examples: Circus preparation, Orchestra tuning, Theater lighting, Festival coordination, Art gallery setup, Wedding planning
+Effect: Performance pressure, timing requirements, coordination challenges, and perfectionism constraints
+
+⚡ **Everyday Natural Phenomena**
+Examples: Surface tension effects, Plant growth cycles, Ice melting patterns, Sand flow dynamics, Steam condensation, Water pressure
+Effect: Daily-life physics experiences, intuitive understanding, natural timing constraints
+
+🎮 **Classic Game Reinterpretation**
+Examples: Pac-Man maze navigation, Billiards angle calculation, Chess strategic thinking, Arcade timing challenges
 Effect: Provides familiar interaction patterns to reinterpret with one-button constraint
 
-🏛️ **Historical/Cultural Concepts**
-Examples: Trojan horse, Pyramid, Ninja, Samurai, Observatory
-Effect: Offers strategic approaches and cultural problem-solving methods
-
-🔬 **Scientific/Professional Domains**
-Examples: DNA, Molecule, Architecture, Music, Surgery
-Effect: Suggests systematic processes and specialized knowledge applications
+🔬 **Professional Domain Basics**
+Examples: Medical equipment calibration, Laboratory sample preparation, Engineering measurement, Cooking temperature control
+Effect: Suggests systematic processes, specialized knowledge applications, and precision requirements
 ```
 
 ### 0.2 Theme Generation and Selection
@@ -99,47 +107,80 @@ Effect: Suggests systematic processes and specialized knowledge applications
 LLM AUTOMATED PROCESS:
 
 1. **Theme Generation**: Create 3-5 specific themes from across ALL categories above
-2. **Selection Criteria**: Choose themes that:
-   ✅ Suggest interesting physical interactions
-   ✅ Imply clear visual/spatial relationships
-   ✅ Connect to recognizable real-world phenomena
-   ✅ Feel fresh and less commonly used in games
+2. **3-Stage Selection Process**:
 
-3. **Final Selection**: Pick ONE theme as creative inspiration from the generated set
+   **Stage 1: Concreteness Check**
+   ✅ Represents a concrete profession, place, or historical scenario
+   ✅ Universally recognizable and relatable (avoid cultural specificity)
+   ✅ Can be visualized and understood by anyone
+
+   **Stage 2: Appeal Assessment**
+   ✅ Engaging enough to make people curious ("I'd like to try that")
+   ✅ Unexplored in game themes (fresh without being obscure)
+   ✅ Can be explained compellingly in one sentence
+
+   **Stage 3: Constraint Clarity**
+   ✅ Has domain-specific constraints and responsibilities
+   ✅ Natural limitations that align with one-button gameplay
+   ✅ Clear cause-and-effect relationships
+
+3. **Final Selection**: Pick ONE theme that passes all three stages as creative inspiration
+```
+
+### 0.2.1 Human Validation Checkpoint
+
+```markdown
+🤝 HUMAN VALIDATION REQUEST:
+"I've selected [THEME] as the creative inspiration. Quick validation:
+
+- Is this concrete and relatable enough?
+- Does it sound engaging to you?
+- Can you immediately imagine the constraints this profession/scenario would have?
+- Would you prefer a different theme from these alternatives: [list other candidates]?"
+
+HUMAN RESPONSE OPTIONS:
+✅ "Good choice, proceed" → Continue to Phase 1
+🔄 "Try [alternative] instead" → Use human suggestion
+❌ "All seem abstract/boring" → Generate new set with different approach
 ```
 
 ### 0.3 Theme Application Guidelines
 
 ```markdown
-THEME USAGE PROTOCOL:
+ENHANCED THEME USAGE PROTOCOL:
 
 ✅ **CORRECT Usage**:
 
-- Use theme to inspire problem category selection
-- Let theme suggest interesting environmental constraints
-- Allow theme to guide visual and conceptual metaphors
-- Reference theme when choosing specific verbs and mechanics
+- Use theme to inspire problem category selection based on profession-specific challenges
+- Let theme suggest natural environmental constraints (workplace limitations, tool restrictions, time pressure)
+- Allow theme to guide visual and conceptual metaphors rooted in real-world experience
+- Reference theme when choosing specific verbs and mechanics that reflect actual job duties
+- Leverage universal recognition of the profession/scenario for immediate player understanding
 
 ❌ **INCORRECT Usage**:
 
-- Force all mechanics to literally match theme
-- Abandon good problem-solution logic for theme consistency
-- Add complexity just to include more theme elements
+- Force all mechanics to literally recreate every aspect of the profession
+- Abandon good problem-solution logic for theme authenticity
+- Add complexity just to include more profession-specific details
 - Use theme as excuse for violating one-button constraint
+- Choose themes that require cultural knowledge to understand
 
-🎯 **THEME INTEGRATION PRINCIPLE**:
-"Theme inspires the problem space, logic validates the solution space"
+🎯 **ENHANCED THEME INTEGRATION PRINCIPLE**:
+"Concrete themes inspire relatable problems, universal constraints enable accessible solutions"
+
+💡 **NEW THEME QUALITY CHECK**:
+"Can someone immediately picture this job/scenario and understand why it would be challenging?"
 ```
 
 **⏭️ Proceed to Phase 1 with selected theme as creative reference**
 
 ---
 
-## Phase 1: Constrained Problem-Solution Design
+## Phase 1: Simple Problem-Solution Design
 
-**Phase Input:** Problem categories + Verb combination tools + Selected theme (from Phase 0)
-**Phase Output:** Validated problem-solution pairs with one-button mechanics
-**Completion Criteria:** ✅ Problem category selected, ✅ Problem template completed, ✅ Verb applied for solution, ✅ Reverse validation passed, ✅ Goal achievement path clear
+**Phase Input:** Problem categories + Selected theme (from Phase 0)
+**Phase Output:** Clear problem-solution pairs with simple, understandable mechanics
+**Completion Criteria:** ✅ Problem category selected, ✅ Problem template completed, ✅ Simple verb applied, ✅ Solution logic validated, ✅ Goal achievement path clear
 
 ### ⚠️ Phase 1 Execution Protocol
 
@@ -183,37 +224,60 @@ Environmental constraint: [Why normal methods don't work - can reflect theme]
 Does the theme enhance understanding without adding complexity?"
 ```
 
-### 1.2 Solution Design (Steps C-D)
+### 1.2 Simple Solution Design (Steps C-D)
 
-#### Step C: Verb Combination Selection
+**KEY PRINCIPLE: Maintain 3-second rule clarity above all else**
 
-**CONSTRAINT: Verb selection must serve the defined problem**
+#### Step C: Simple and Effective Verb Selection
+
+**STREAMLINED PROCESS: Clear mechanics with light innovation**
 
 ```markdown
-REVERSE CHECK: "Will this verb combination specifically solve [obstacle] to achieve [goal]?"
+STAGE 1: BASELINE VERB IDENTIFICATION
+- Identify obvious/expected verb for the defined problem
+- REVERSE CHECK: "Will this basic verb solve [obstacle] to achieve [goal]?"
 
-VERB CANDIDATES:
+BASELINE VERB CANDIDATES:
+- Basic: Push, pull, rotate, stop, launch, release, activate, charge, aim, time
+- Simple variations: Hold to charge, tap to release, time the action
 
-- Basic: Push, pull, rotate, stop, launch, absorb, emit, transform, vibrate, illuminate, magnetize, reflect
-- Transform: Expand, contract, split, merge, accelerate, decelerate, reverse, freeze, reveal, resonate, attract, bounce
-- Effect: Clock, Warp, Gravity, Transform, Domino, Laser, Echo, Magnet, Mirror
+STAGE 2: LIGHT IMPROVEMENT (3-SECOND RULE MAINTAINED)
+- Keep the basic verb but add ONE simple twist that enhances engagement
+- Examples:
+  - "Push" → "Push with timing" (timing adds strategy)
+  - "Launch" → "Charge and launch" (charging adds preparation)
+  - "Release" → "Release at peak moment" (timing adds skill)
+
+**Guidelines for Light Innovation:**
+- ✅ Must be instantly understandable (3-second rule)
+- ✅ Should solve the core problem more effectively
+- ✅ Can add ONE strategic element (timing, charging, rhythm)
+- ❌ No complex physics or multi-step processes
+- ❌ No abstract concepts requiring explanation
+
+STAGE 3: ONE-BUTTON COMPATIBILITY CHECK
+- Verify selected verb works with press/hold/release only
+- Ensure no hidden directional or positional input needed
+- Confirm 3-second rule compliance
 ```
 
-#### Step D: Problem-Solution Logic Validation
+#### Step D: Simple Problem-Solution Logic Validation
 
 ```markdown
-VALIDATION REQUIREMENTS:
-□ Does verb combination directly address the defined problem?
-□ Is logical connection clear: Problem → Solution → Goal Achievement?
-□ Can new player understand WHY this solution works?
-□ Does solution respect environmental constraint?
+SIMPLE VALIDATION REQUIREMENTS:
+□ Does the verb directly address the defined problem?
+□ Is the connection clear: Problem → Simple Solution → Goal Achievement?
+□ Can new player understand WHY this solution works within 3 seconds?
+□ Does the solution respect the environmental constraint?
+□ Is the mechanic immediately understandable and engaging?
 
 🤝 HUMAN CHECKPOINT:
-"Does this problem-solution logic make sense?"
+"Does this simple problem-solution logic make sense and feel fun?"
 
 - Problem: [specific obstacle]
-- Solution: [verb combination]
-- Logic: [connection explanation]
+- Simple Solution: [clear verb with light innovation]
+- Logic: [why this solution works]
+- 3-Second Test: [can new player understand instantly?]
 ```
 
 ### 1.3 Control Design (Step E)
@@ -256,85 +320,13 @@ RISK DESIGN:
 
 ---
 
-## Phase 2: SCAMPER-Enhanced Innovation
+## Phase 2: Player Experience Integration
 
-**Phase Input:** Problem-solution logic from Phase 1
-**Phase Output:** Creative, feasible mechanics that solve the problem through innovation
-**Completion Criteria:** ✅ SCAMPER methods applied, ✅ 3-second rule maintained throughout, ✅ Innovation integrated without complexity
-
-### ⚠️ Innovation Protocol
-
-```markdown
-🤖 LLM AUTOMATED CHECKS:
-□ Innovation must ENHANCE problem-solving, not replace it
-□ Each SCAMPER element must pass 3-second rule
-
-🤝 HUMAN VALIDATION TRIGGERS:
-
-- Explanation requires >3 visual elements
-- Using technical/scientific terms
-- LLM uncertainty about innovation value
-```
-
-### 2.1 SCAMPER Method Application (Early Innovation)
-
-**Critical Change:** Apply creativity methods BEFORE finalizing mechanics, not after
-
-#### SCAMPER Systematic Application
-
-| SCAMPER Element       | Application to Problem-Solution  | 3-Second Rule Check After Each |
-| --------------------- | -------------------------------- | ------------------------------ |
-| **Substitute**        | Replace expected solution method | ✅ New method still intuitive? |
-| **Combine**           | Merge multiple problem aspects   | ✅ Combined result simple?     |
-| **Adapt**             | Apply familiar concepts          | ✅ Adaptation recognizable?    |
-| **Modify**            | Change solution parameters       | ✅ Changes visible/clear?      |
-| **Put to other uses** | Repurpose problem elements       | ✅ New purpose obvious?        |
-| **Eliminate**         | Remove expected elements         | ✅ Absence immediately clear?  |
-| **Reverse/Rearrange** | Invert problem-solution logic    | ✅ Inversion understandable?   |
-
-**MANDATORY: After each SCAMPER application, validate 3-second rule**
-
-### 2.2 Physics and Natural Phenomena Integration
-
-**Ground innovations in intuitive physical concepts:**
-
-```markdown
-Light/Flashlight: Revealing, focusing, shadow creation
-Magnet/Magnetic field: Pull/push forces, polarity effects  
-Plant/Growth: Expansion, connection, transformation
-Rubber/Spring: Bounce, stretch, energy storage/release
-Gravity/Planet: Direction change, strength variation
-Ice/Steam: Phase changes, expansion/contraction
-```
-
-**Integration Rule:** Physical concept must directly serve the problem-solution logic
-
-### 2.3 Innovation Complexity Check
-
-```markdown
-🤖 LLM AUTOMATED ASSESSMENT:
-"Does this change make the core problem easier or harder to understand?"
-If HARDER → Reject change
-If EASIER → Accept change
-If SAME → Question necessity
-
-🤝 HUMAN VALIDATION:
-"Would you understand this mechanic immediately?"
-[Provide 1-sentence description]
-✅ Clear → Proceed | 🔄 Needs example → Add visual | ❌ Too complex → Simplify
-```
-
-**⏭️ Proceed to Phase 3 only after Phase 2 completion criteria are met**
-
----
-
-## Phase 3: Player Experience Integration
-
-**Phase Input:** Creative, feasible mechanics from Phase 2
+**Phase Input:** Simple, clear mechanics from Phase 1
 **Phase Output:** Engaging, understandable complete game experience
 **Completion Criteria:** ✅ Conceptual walkthrough completed, ✅ User feedback obtained, ✅ Experience validated
 
-### 3.1 Conceptual Walkthrough (Replaces Impossible Simulation)
+### 2.1 Conceptual Walkthrough (Replaces Impossible Simulation)
 
 **Critical Replacement:** Since numerical simulation is impossible without parameters, use logical validation instead
 
@@ -380,7 +372,7 @@ RED FLAGS - If any appear, return to Phase 1:
 If ANY red flag appears, the design is fundamentally flawed.
 ```
 
-### 3.2 User Feedback Integration (FLEXIBLE APPROACH)
+### 2.2 User Feedback Integration (FLEXIBLE APPROACH)
 
 **Multiple validation options based on available resources:**
 
@@ -460,17 +452,17 @@ Common User Responses → Refinements Needed:
 If users don't understand within 3 explanation sentences, redesign needed.
 ```
 
-**⏭️ Proceed to Phase 4 only after Phase 3 completion criteria are met**
+**⏭️ Proceed to Phase 3 only after Phase 2 completion criteria are met**
 
 ---
 
-## Phase 4: Final Validation & Documentation
+## Phase 3: Final Validation & Documentation
 
-**Phase Input:** Complete experience from Phase 3
+**Phase Input:** Complete experience from Phase 2
 **Phase Output:** Implementation-ready specification with all warning signs addressed
 **Completion Criteria:** ✅ All warning signs checked, ✅ Final walkthrough validated, ✅ Implementation specification complete
 
-### 4.1 Distributed Warning Signs Check (COLLABORATIVE)
+### 3.1 Distributed Warning Signs Check (COLLABORATIVE)
 
 **Instead of single overwhelming check, warnings distributed throughout phases:**
 
@@ -491,23 +483,23 @@ Problem Definition Completeness:
 If ANY detected → Automatic return to appropriate phase
 ```
 
-#### Phase 2 Human-Assisted Checks
+#### Phase 1 Human-Assisted Checks
 
 ```markdown
 🤝 HUMAN EVALUATION REQUEST:
-"Please check these potential issues with the innovation:
+"Please check these potential issues with the design:
 
-Theme Integration Depth:
+Simplicity Check:
 
-- Does the theme (magnets, sound waves, etc.) actually affect gameplay?
-- Would this work with a completely different theme?
-- Is theme explanation longer than gameplay explanation?
+- Can you understand the core mechanic within 3 seconds?
+- Does the solution feel natural and intuitive?
+- Is the theme helping or hindering understanding?
 
-Innovation Authenticity:
+Engagement Check:
 
-- Is innovation element just an afterthought gimmick?
-- Does fun depend only on 'speed increase' or 'more obstacles'?
-- Is strategy only 'timing alignment' or 'press at right moment'?
+- Does this feel fun or just repetitive?
+- Is there room for skill improvement?
+- Would you want to play this more than once?
 
 Please flag any concerns before we proceed."
 
@@ -517,7 +509,7 @@ HUMAN RESPONSE OPTIONS:
 ❌ "Major problems" → Return to appropriate phase
 ```
 
-#### Phase 3 Collaborative Checks
+#### Phase 2 Collaborative Checks
 
 ```markdown
 🤖 LLM AUTO-CHECK + 🤝 HUMAN VALIDATION:
@@ -537,7 +529,7 @@ Human Final Experience Review:
 Any red flags about gameplay depth?"
 ```
 
-#### Phase 4 Human Final Review
+#### Phase 3 Human Final Review
 
 ```markdown
 🤝 HUMAN FINAL VALIDATION:
@@ -559,7 +551,7 @@ HUMAN RESPONSE OPTIONS:
 ❌ "Major problems" → Return to appropriate phase with guidance
 ```
 
-### 4.2 Final Walkthrough Validation (AUTOMATED + HUMAN CONFIRMATION)
+### 3.2 Final Walkthrough Validation (AUTOMATED + HUMAN CONFIRMATION)
 
 **LLM Automated Final Check + Human Confirmation:**
 
@@ -588,7 +580,7 @@ HUMAN FINAL APPROVAL:
 If any element fails, return to appropriate phase for fixes.
 ```
 
-### 4.3 Implementation Specification Template
+### 3.3 Implementation Specification Template
 
 **Create implementation-ready specification:**
 
@@ -627,9 +619,9 @@ If any element fails, return to appropriate phase for fixes.
 
 ## Innovation Elements
 
-- SCAMPER Applications: [Which methods applied and how]
+- Light Innovation: [Simple twist that enhances the basic mechanic]
 - Physical Concept: [Real-world phenomenon inspiring mechanics]
-- Unexpected Element: [Surprise factor maintaining 3-second rule]
+- Engagement Factor: [What makes this more interesting than the obvious solution]
 
 ## User Validation Results
 
@@ -729,9 +721,9 @@ To preserve all critical design information while converting to the implementati
 
 [Direct copy from Innovation Elements section, preserving:
 
-- SCAMPER Applications details
+- Light Innovation details
 - Physical Concept inspirations
-- Unexpected Element specifications]
+- Engagement Factor specifications]
 ```
 
 **Step 3.2: Mechanics Integration Assessment**
@@ -768,7 +760,7 @@ To preserve all critical design information while converting to the implementati
 - ✅ All Visual Communication elements have implementation equivalents
 - ✅ Button Press/Hold/Release details are preserved in expanded specifications
 - ✅ User validation insights inform implementation priority decisions
-- ✅ Innovation elements maintain full SCAMPER and physical concept details
+- ✅ Innovation elements maintain light innovation and physical concept details
 - ✅ Problem-Solution Foundation logic is traceable in final format
 
 This staged approach ensures no critical design information is lost while producing the standardized format required for implementation.
@@ -781,16 +773,16 @@ This staged approach ensures no critical design information is lost while produc
 
 ### Time and Effort Optimization
 
-- **Total Session Time**: 45-60 minutes (reduced from 90+ minutes)
+- **Total Session Time**: 35-50 minutes (optimized 4-phase workflow)
 - **Human Involvement**: ~30% of total time (strategic validation points)
 - **LLM Autonomous Work**: ~70% of total time (systematic processing)
 
 ### Key Success Factors
 
-1. **Early Problem Validation**: Human confirms problem makes sense before complex solution design
-2. **Iterative Logic Checking**: Human validates problem-solution connections before innovation
-3. **Complexity Control**: Human catches over-complexity before it compounds
-4. **Experience Validation**: Human confirms player understanding before final specification
+1. **Concrete Theme Selection**: Human validates theme appeal and concreteness from the start
+2. **Simple Creative Problem-Solving**: Light innovation applied while maintaining 3-second rule clarity
+3. **Early Innovation Validation**: Human confirms creative logic makes sense and feels engaging
+4. **Experience Validation**: Human confirms player understanding before final specification  
 5. **Implementation Readiness**: Human ensures coherent, implementable design
 
 ### Expected Outcomes
