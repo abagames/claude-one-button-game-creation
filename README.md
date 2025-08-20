@@ -46,12 +46,9 @@ First, enter the theme of the game you want to create. If necessary, type 'proce
 
 # Examples of Built Games
 
-[Jet Stream](https://abagames.github.io/claude-one-button-game-creation/?jet-stream)
-
-https://github.com/user-attachments/assets/12ddf60b-f65a-4976-9c34-4e0db514aea4
-
 Click the image below to play directly in the browser.
 
+[![Jet Stream](./docs/jet-stream/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?jet-stream)
 [![Tectonic Tether screenshot](./docs/tectonic-tether/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?tectonic-tether)
 [![Pulse Stream screenshot](./docs/pulse-stream/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?pulse-stream)
 [![Pod Migration screenshot](./docs/pod-migration/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?pod-migration)
@@ -59,6 +56,7 @@ Click the image below to play directly in the browser.
 [![Rocket Trail screenshot](./docs/rocket-trail/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?rocket-trail)
 [![Blaze Thrust screenshot](./docs/blaze-thrust/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?blaze-thrust)
 [![Echo Bridge screenshot](./docs/echo-bridge/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?echo-bridge)
+[![switchboard screenshot](./docs/switchboard/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?switchboard)
 [![wavybird screenshot](./docs/wavybird/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?wavybird)
 [![catchingwheel screenshot](./docs/catchingwheel/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?catchingwheel)
 [![grapplingh screenshot](./docs/grapplingh/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?grapplingh)
