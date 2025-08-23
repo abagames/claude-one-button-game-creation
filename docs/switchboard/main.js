@@ -4,6 +4,7 @@ options = {
   viewSize: { x: 100, y: 100 },
   isPlayingBgm: true,
   isReplayEnabled: true,
+  textEdgeColor: { title: "light_blue" },
   audioSeed: 1,
   bgmVolume: 4,
 };
