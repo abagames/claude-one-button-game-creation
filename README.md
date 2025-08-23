@@ -57,6 +57,7 @@ Click the image below to play directly in the browser.
 [![Blaze Thrust screenshot](./docs/blaze-thrust/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?blaze-thrust)
 [![Echo Bridge screenshot](./docs/echo-bridge/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?echo-bridge)
 [![switchboard screenshot](./docs/switchboard/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?switchboard)
+[![kite-master screenshot](./docs/kite-master/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?kite-master)
 [![wavybird screenshot](./docs/wavybird/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?wavybird)
 [![catchingwheel screenshot](./docs/catchingwheel/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?catchingwheel)
 [![grapplingh screenshot](./docs/grapplingh/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?grapplingh)
