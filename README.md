@@ -71,6 +71,7 @@ Click the image below to play directly in the browser.
 [![skyraftsman screenshot](./docs/skyraftsman/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?skyraftsman)
 [![neonpollinator screenshot](./docs/neonpollinator/screenshot.gif)](https://abagames.github.io/claude-one-button-game-creation/?neonpollinator)
 
+[Barge Hop](https://abagames.github.io/claude-one-button-game-creation/?barge-hop) /
 [MICROBIAL FOCUS](https://abagames.github.io/claude-one-button-game-creation/?microbial-focus) /
 [GRAVITY BUBBLE](https://abagames.github.io/claude-one-button-game-creation/?gravity-bubble) /
 [TROJAN DEFENSE](https://abagames.github.io/claude-one-button-game-creation/?trojan-defense) /
