@@ -13,6 +13,10 @@ If you're using [Claude Code](https://claude.ai/code), ensure both the [CLAUDE.m
 
 The repository now focuses on documentation and methodology rather than autonomous generation.
 
+## For Other AI Coding Agents
+
+If you are using an AI coding agent other than Claude Code (e.g., Cursor, Codex CLI), follow the instructions in [AGENTS.md](./AGENTS.md). It defines the unified workflow, mandatory human checkpoints (Gates A–D), implementation rules, and strict HTML template compliance for crisp-game-lib. When in doubt, prefer the `cc_knowledge` guides and treat AGENTS.md as the operational source of truth for agents.
+
 ## Archived Game Creation Prompts
 
 Previous autonomous game creation prompts have been moved to the [toy-creation-prompts/](./toy-creation-prompts/) directory:
