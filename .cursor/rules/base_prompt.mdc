@@ -1,6 +1,0 @@
----
-description: Base prompt
-globs: 
-alwaysApply: true
----
-- Read `cursor_knowledge/prompt.md` and follow its instructions.
