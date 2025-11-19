@@ -1,0 +1,45 @@
+{
+  "constraints": {
+    "mandatory": {
+      "description": "At least one tag from each core category must be selected",
+      "coreCategories": [
+        "player",
+        "field",
+        "weapon",
+        "rule"
+      ],
+      "minPerCore": 1,
+      "maxPerCore": 2
+    },
+    "diversity": {
+      "description": "Total selection must span minimum number of categories",
+      "minCategories": 3,
+      "maxCategories": 6
+    },
+    "balance": {
+      "description": "Prevent single category dominance",
+      "maxDominanceRatio": 0.5,
+      "minCategoryContribution": 0.15
+    },
+    "complexity": {
+      "description": "Mix complexity levels for interesting interactions",
+      "complexityLevels": [
+        "minimal",
+        "low",
+        "medium"
+      ],
+      "minComplexityDiversity": 2,
+      "maxHighComplexity": 2
+    }
+  },
+  "categories": [
+    "player",
+    "weapon",
+    "field",
+    "rule",
+    "obstacle",
+    "input",
+    "item"
+  ],
+  "totalTags": 107
+}
