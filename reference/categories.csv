@@ -1,0 +1,11 @@
+category,description
+top,"Describe the mechanics included in action mini-games using categorized tags. Press the [Detail] button to view the details of the tag and a list of sample games tagged with it."
+player,"Category of characters controlled by the player. It pertains to the movements and forms of the player character. Actions performed by the player fall under a separate category, as indicated by the <a href='#on_pressed'>another tags</a>. This also includes the content of characters that cooperate with the player character."
+weapon,"Category of weapons used by player characters to eliminate obstacles such as enemies. This includes the behavior of bullets fired by player characters as well as the behavior of weapons used by enemies."
+obstacle,"Category of obstacles that impede player characters, with enemies that cause the game to end upon contact being the most representative example."
+field,"Category of fields in which player characters operate, including objects placed in the field and content related to the view."
+rule,"Category of rules in a game, including the game's objectives, themes, and special behaviors."
+on pressed,"Category of events that occur when a player presses a button."
+on holding,"Category of events that occur when a player holds down a button."
+on released,"Category of events that occur when a player releases a button."
+on got item,"Category of events that occur when a player character acquires an item."

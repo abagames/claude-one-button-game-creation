@@ -1,0 +1,108 @@
+tag,typical game,overview,description,priority
+player:rotate,ORBIT MAN,The player character rotates.,"Timing must be coordinated to advance or fire bullets, as the direction of movement and the firing direction of bullets change over time.",medium
+player:reciprocate,BALL TOUR,The player character reciprocates horizontally or vertically.,This is combined with mechanics that involve player-controlled movement and speed changes.,low
+player:reflect,VH WALLS,The player character reflects upon colliding with a wall or object.,"To anticipate the movement of the reflection, actions such as positioning walls should be taken.",low
+player:bounce,HOPPING P,The player character is constantly bouncing.,"Utilizing vertical movements.,it timely avoids obstacles and collects items.",minimal
+player:automatic,LADDER DROP,The player character moves automatically without requiring input.,The player character moves automatically along the terrain and avoids enemies on its own.,low
+player:string,ZARTAN,The player character has the shape of a string or spring.,Incorporating movements that involve being pulled by a string makes controlling the player character more intricate.,low
+player:bar,TWIN P,The player character  has a rod-shaped form.,"When combined with rotational motion, it adds complexity to movements such as dodging obstacles and maneuvering.",low
+player:circle,CIRCLE W,The player character has a circular shape.,"By increasing the radius, there is a trade-off between the risk and reward of larger hitboxes and attack ranges.",low
+player:multiple,SURVIVOR,There exist multiple player characters within the game.,Necessitating the simultaneous handling of multiple characters and resulting in increased complexity.,medium
+player:follow,IN TOW,To follow the player character.,"To increase the reward by attracting many characters. As a tradeoff, the risk of increasing collision detection arises.",low
+player:inverted,BOTTOP,The player character exists in a reversed state.,"There are multiple fields where the player character can move between, or in each field, there may be multiple player characters present. The player must be attentive to multiple fields simultaneously.",medium
+player:limited_vision,DARK CAVE,The player's vision is limited.,This may be due to the restricted visible area on the screen or the existence of a means to observe off-screen situations. The skill of moving while anticipating situations outside of the field of vision is required.,low
+player:scaffold,SCAFFOLD,The player character moves along the scaffolds or terrain.,The player creates scaffolding and guides the player character through their actions. The complexity arises from the inability to directly control the player character.,low
+player:step_on,UP DOWN PRESS,The player character can stomp on enemies.,Providing a reward for the risk of timing a jump to stomp on an enemy from above can be implemented.,low
+player:paint,PAINT BALL,Painting the terrain.,"Painting the terrain can have an impact on the behavior of enemies, and can also provide rewards for the player, which encourages them to think more about their movements.",low
+weapon:artillery,THROW M,The object follows a parabolic trajectory due to the effect of gravity.,It is often used in combination with the adjustment of the launch angle. Skill is required to successfully hit the intended target.,low
+weapon:chase,ACCEL B,Tracking enemies.,"The player can hit enemies without aiming directly at them, reducing their burden. However, this can be offset by increasing the number of enemies or other challenges to the player.",minimal
+weapon:vertical,FOOT LASER,"The projectile is fired in a direction that the player character is not facing, such as vertically.","This allows for variations in enemy placement and attack patterns, as it enables attacks on enemies in directions other than the player's forward direction.",low
+weapon:reflect,VH WALLS,Reflected by walls.,"The projectile is able to hit enemies who are concealed behind obstacles, allowing for strategic attacks against the enemy's position.",minimal
+weapon:auto_aiming,SIGHT ON,The projectiles are automatically aimed at the direction of the enemy and fired.,"Understanding the characteristics of the automatically controlled trajectory, such as automatically targeting nearby enemies, is crucial for effective attacks. As the enemy attacks are highly accurate, some countermeasures such as cover are necessary. This mechanism is often used in conjunction with a targeting reticle or aiming line to indicate the attack direction.",low
+weapon:explosion,FLIPBOMB,Initiate an explosion.,"By involving a large number of enemies within the radius of the explosion, one can obtain numerous rewards. Explosions can sometimes trigger chain reactions.",medium
+weapon:blow_off,BOMB UP,Propel the character away.,"By manipulating the character's movement using weapons, effects other than destruction can be achieved.",low
+weapon:wipe,LASER FORTRESS,Mow down the enemy.,"Defeat a large number of enemies at once. By holding down the button, you can adjust the attack range to mow down enemies.",low
+weapon:arc,ARCFIRE,The weapon has an arched shape.,"By considering the trade-off between range and spreading angle, there is room to devise attack ranges.",minimal
+weapon:ray,D FIGHT,The line indicating the direction of fire is displayed.,This is a useful aid for players in cases where there is automatic targeting or when it is difficult to target enemies.,minimal
+weapon:smoke,BOUNCES,The effect of smoke that obstructs the line of sight can be observed.,It allows the player to create active cover and provides alternative methods of evading attacks besides simply avoiding them.,minimal
+weapon:time_limit,V BOMB,It detonates after a set period of time.,It is important to anticipate enemy movements or lure them into the explosion. It is often used in conjunction with chain explosions.,low
+weapon:disablement,PUMP PRESS,Disable the enemy upon impact.,"This allows for various tactics such as dodging by disabling the enemy, or defeating the disabled enemy by other means.",minimal
+weapon:interference,COUNTER B,Interfere with enemy attacks.,Timing your own attack to coincide with the enemy's assault.,low
+weapon:change_field,GRENADIER,Alter the terrain.,"The game can incorporate mechanisms that create advantages and disadvantages for players, such as creating holes in the terrain for escape routes via attacks or generating spikes through attacks.",low
+obstacle:fall,TAPE J,Descend from a height.,Avoid or destroy falling obstacles.,low
+obstacle:chase,G TAIL,Pursue the player character.,Evade by skillful guidance.,low
+obstacle:bounce,BALLS BOMBS,Continuously leaping.,Evade bouncing obstacles by either maneuvering underneath or leaping over them.,low
+obstacle:split,B CANNON,Splitting occurs.,"It can occur through attacks or over time, leading to an increase in complexity. It is essential to select appropriate actions such as destruction of obstacles before the split occurs.",low
+obstacle:stack,PILEUP,Stacking occurs.,"This can restrict the range of movement or lead to game over if it stacks to a certain extent. Therefore, it is necessary to devise ways to stack that can prevent these restrictions.",minimal
+obstacle:foresee,SMILY ANGRY,Anticipate the movements of the player character.,"Observing the direction in which you are traveling and launching an attack towards their intended path. In the event that the player character maintains the same pattern of movement, they will be vulnerable to an incoming assault.",minimal
+obstacle:well_up,B BLAST,Characters are spawning.,Evade or eliminate the characters that emerge from the lower portion and travel towards the upper direction.,low
+obstacle:penalty,DIVARR,There are objects interspersed that incur penalties upon contact or destruction.,"To avoid incurring penalties, it is necessary to deftly avoid the characters that are subject to penalty when launching an attack. This acts as a constraint against player characters with powerful attacks.",medium
+field:floors,FLOORS 5,Multiple platforms are suspended in the air.,"To traverse the platforms, it is necessary to jump with precise timing to avoid falling off. Some platforms may also move, affecting the movement of the player character.",low
+field:holes,GOLFME,There are holes in the ground.,"To avoid falling into them, it is necessary to move and jump carefully. It is also possible to utilize the holes by hiding in them to evade enemy attacks.",medium
+field:bottomless,TILTED,"When the character falls off the bottom of the screen, the game is over.","To prevent this, it is necessary to navigate skillfully using the terrain and avoid falling off the bottom.",medium
+field:roughness,TURBULENT,The terrain is uneven.,The behavior of movement and jumping is affected by the slope of the terrain. The uneven terrain can also act as obstacles or cover.,medium
+field:spike,LIGHT DARK,There are terrains in the game that result in game over upon contact.,The player must avoid areas with spikes by jumping or moving to progress.,medium
+field:outpost,HEXMIN,There are points in the game where reaching an enemy or an item leads to a game over.,"Besides the player character being defeated, it is possible to set other game over conditions. These may include a time limit, which adds complexity to the game as players need to consider the placement of enemies and respond accordingly.",high
+field:lanes,UP 1 WAY,The character moves on multiple lanes.,Avoiding obstacles that flow down the lanes by moving the lanes at the right timing.,medium
+field:pins,PIN CLIMB,Multiple pins are arranged in various configurations.,"They can be used in a variety of ways, such as hooking onto a pin, walking across pins, connecting pins to each other, or falling while hitting pins.",medium
+field:rotate,R WHEEL,The field is in a state of rotation.,"To add variety to the player character's movement, besides left and right, and to create a cyclical field.",low
+field:press,PRESS M,The terrain is capable of crushing the character.,"One can search for areas that do not result in crushing, or time the movements accurately to avoid getting crushed.",minimal
+field:gravity,GRAVELER,Gravity and attraction forces are at work.,"To avoid being drawn in, one can alter direction or modify attributes of the player character.",low
+field:space,GEOCENT,The cosmos serves as a field.,Incorporate the properties of celestial bodies such as planets and meteorites into the game.,low
+field:water,SUB JUMP,The surface and the depths of water serve as the field.,"Various conditions can be created such as alterations in movement between the surface and air, changes in the surface due to the wind, and the opaque nature of the underwater environment.",low
+field:weather,KITE,Weather and wind are relevant factors.,Players can be affected by natural obstacles and the influence of wind-generated phenomena.,low
+field:connected,C NODES,Multiple objects are interconnected.,One can sever the linkages or manipulate the interconnected components.,low
+field:regenerate,REGENE,The terrain undergoes regeneration.,One must skillfully avoid the regenerated topography.,minimal
+field:1D,PAKU PAKU,The field is confined to one dimension.,"Restricting character movement to left-right (or up-down) directions only. To ensure a viable game within the limited field, it is necessary to appropriately simplify game rules.",medium
+field:3D,PILLARS 3D,An expansive three-dimensional view with depth.,"Taking advantage of the ability to see far distances, objects can be arranged over a wider area compared to 2D.",minimal
+field:multiple,UD CAVE,Multiple fields are displayed simultaneously.,"It is necessary to grasp the states of multiple fields simultaneously, and the game becomes complex.",low
+field:auto_scroll,PARKING,The field continuously scrolls to drive pacing.,"Players must adapt positioning and timing as terrain, hazards, and rewards move past at a fixed rate.",high
+rule:match,FORFOUR,"Matching colors, numbers, and shapes.",It is necessary to take actions at the appropriate timing and location while observing the arrangement of colors and other elements.,medium
+rule:find,FIND A STAR,Distinguishing the target object.,Searching for the target location based on the hints provided.,minimal
+rule:classify,BOARDING,Classifying characters.,Taking appropriate actions while confirming the classification of each character.,low
+rule:surround,TT FENCE,Enclosing with characters.,Creating enclosed spaces with blocks or strings. Additional rules such as aiming to enclose specific areas or enclosing large areas to earn more rewards can be considered.,minimal
+rule:shelter,D LASER,Hiding behind cover.,Using cover to avoid attacks that are difficult to evade.,minimal
+rule:pass_through_gap,INTERSPACE,Passing through gaps.,Quickly moving the player character to fit through narrow gaps.,low
+rule:balance,BALANCE,Achieving equilibrium.,Control the player character's inclination by observing its tilt state.,minimal
+rule:mathematics,DANGO,The subject matter pertains to mathematics and numerical elements.,It encompasses the tasks of equating numerical values and performing computations involving mathematical expressions.,low
+rule:physics,HOLES,Incorporate the principles of physics.,Manipulate objects by taking into account their collisions and rebounds.,medium
+rule:geometry,SQUARE BAR,Incorporate the principles of geometry.,The player character traces geometric patterns through interactions with the terrain.,low
+rule:time_limit,G PRESS,Depletion of time and resources leads to the game's termination.,Combine with means of restoring time and resources.,medium
+rule:gauge_management,D LASER,Manage a rising or falling gauge under pressure.,Players monitor a shared meter and take actions to vent or refill it before it reaches a fail threshold.,low
+rule:combo_multiplier,UNCTRL,Maintain score bonuses by chaining successes.,"Successive hits raise a multiplier that resets on mistakes, rewarding streak-based play.",medium
+rule:control_weapons,UNCTRL,Manipulate weapons.,Utilize weapons to aim at enemies and destroy them before their weapons approach.,low
+rule:proximity_bonus,L RAIN,Proximity to risk yields points.,Place bonus items near obstacles and earn points or resources upon approaching obstacles. Utilize as a means to balance risk and reward.,low
+rule:time_manipulation,FUTURE WAKE,The flow of time undergoes alterations.,"Skip periods of time that do not require player interaction, and slow down time during scenes that necessitate intricate maneuvers.",minimal
+rule:chain,M RIDER,An occurrence ensues from a cascading effect.,Greater rewards may be garnered through simultaneous annihilation.,medium
+rule:friendly_fire,EMBATTLED,Even allies can be hit by weapons.,Avoid entering the attack range of your own weapon and aim for the enemies to engage in friendly fire.,low
+on_pressed:turn,THUNDER,Change direction.,"By pressing the button, the direction changes by 90 or 180 degrees. Alternatively, it may turn in the direction of the pressed arrow button.",high
+on_pressed:jump,JUJUMP,Perform a jump.,"It is possible to jump multiple times. Jump to avoid holes, enemies, and obstacles. Limit the number of jumps after landing, or reduce the jumping ability each time to limit the maximum jumping height.",high
+on_pressed:flap,SCRAMBIRD,Accelerate upwards by flapping wings.,Adjust the timing and frequency of button presses to avoid obstacles.,low
+on_pressed:reverse_state,NS CLIMB,Invert attributes or states.,"Various attributes exist, such as the direction of an object, the state of a path, the lane or field to pass through, and the polarity.",high
+on_pressed:shoot,SCREEN,Fire a projectile.,The action on the game varies greatly depending on the mechanics of the projectile being fired.,medium
+on_pressed:pierce,COLOR ROLL,Pierce through in a group.,Matching colors or other criteria before piercing can yield significant rewards.,low
+on_pressed:split,DIVARR,Divide into multiple parts.,It is necessary to simultaneously control weapons or player characters that have been divided into multiple parts.,minimal
+on_pressed:select_route,JUMP ON,To determine the route of advancement.,One must adeptly select the appropriate lane on a field containing multiple lanes and pathways connecting them.,low
+on_pressed:go_forward,REVOLVE A,Propel forward in the intended direction.,"The direction of movement changes over time, hence timely determination of the direction is crucial.",low
+on_pressed:jump_into_another,CYWALL,Leap to the next waypoint. Teleport instantly.,"The next waypoint is marked by a pin, so the player must assess whether it is safe to move there and then execute the teleportation with precision timing.",low
+on_pressed:fall,LADDER DROP,"Drop down, fall.",Drop an object to a desired position or avoid obstacles by instantly dropping a jumping character to the ground.,low
+on_pressed:change_field,S SHAKE,Alter the field.,Modify the behavior of objects by altering the field.,minimal
+on_pressed:attack,T PUNCH,Attack by extending the weapon or otherwise.,Attack at the moment an enemy enters the attack range.,low
+on_holding:adjust_angle,NUMBER BALL,Adjust the direction and distance.,"While pressing, the angle and distance change, and releasing the button causes firing or movement. It is possible to alter the destination based on the timing of button operations.",medium
+on_holding:rotate,SLALOM,Rotate.,Hold the button until the character is facing the appropriate direction.,medium
+on_holding:thrust,UP DOWN PRESS,Accelerate forward or upward with the player character.,"By holding the button longer, the player can achieve higher speeds, whereas shorter presses result in lower speeds, allowing for more precise control.",medium
+on_holding:move,BALLS BOMBS,Movement.,"The object moves while being pressed, and its movement speed increases. Skillful control of the player character's position is necessary to avoid obstacles.",high
+on_holding:stop,UP SHOT,Halt.,The object comes to a complete stop either before making contact with an obstacle or when positioned in a location or direction suitable for attacking enemies.,medium
+on_holding:shoot,ZONE B,Fire a projectile.,Continuously execute an attack while the button is pressed. Cease the attack based on the status of the enemy and transition to the next action.,medium
+on_holding:extend,TAPE J,Extend and expand an object.,Ability to adjust the range of attack or movement. The risk of increasing the hitbox by expanding the range is offset by the high reward of being able to attack over a wider area.,medium
+on_holding:charge,CHARGE BEAM,Charge energy.,Charge the required amount of energy and release the button to execute the attack.,minimal
+on_holding:inhale,TR BEAM,Inhale.,"By combining with the laws of physics, complex movements can be achieved.",minimal
+on_holding:defend,EMBATTLED,Entering a defensive stance.,"While maintaining pressure, there are trade-offs such as immunity to incoming attacks but loss of mobility.",minimal
+on_holding:defenseless,HYPER LASER,The defense diminishes and weakens.,"While holding down the button, it is possible to launch attacks, but the defense becomes feeble.",minimal
+on_holding:reverse_state,SHINY,Invert attributes and statuses.,"While holding down the button, a unique state manifests, featuring a reversal of gravity or direction, among other attributes.",low
+on_holding:avoid,LIE DOWN,Capable of evading enemies and projectiles or traversing through them.,"By assuming a prone position to evade enemies or navigating through obstacles, alternate evasion strategies can be employed in addition to movement.",low
+on_released:throw,CAST N,Throw or move forward.,Combine it with holding down a button to adjust the direction and range of attack or movement.,medium
+on_released:erase,M JAMMING,Erase or nullify characters within a specified range.,Adjust and erase the range of attack by holding down the button.,minimal
+on_got_item:reverse_state,MIRROR FLOOR,"Invert attributes, status, and direction.","Upon acquisition of an item, gravity and orientation may be altered, allowing for transition to an alternate field.",low
+on_got_item:power_up,HOPPING P,Upgrade and gain power.,Enable the capability to counterattack enemies.,low
+on_got_item:spawn,T LANES,Spawn a character.,The player character increases in number or size.,low

@@ -1,0 +1,128 @@
+game,tags
+SURVIVOR,player:multiple,on_pressed:jump
+PAKU PAKU,field:1D,on_got_item:power_up,obstacle:chase,on_pressed:turn
+UP 1 WAY,field:auto_scroll,field:lanes,on_pressed:jump,on_got_item:power_up
+CHARGE BEAM,on_holding:charge,field:1D,obstacle:penalty
+THUNDER,on_pressed:turn,field:weather,rule:proximity_bonus,rule:combo_multiplier
+GROWTH,on_holding:extend,field:3D,field:auto_scroll
+FLIP O,player:multiple,rule:physics,on_pressed:reverse_state,field:auto_scroll
+SHINY,field:weather,field:holes,on_holding:reverse_state,on_holding:move
+REBIRTH,on_got_item:reverse_state,player:inverted,field:outpost,on_pressed:jump,on_pressed:fall
+IN TOW,player:follow,field:auto_scroll,field:floors,on_got_item:spawn
+CAST N,on_released:throw,obstacle:penalty,on_holding:adjust_angle,rule:time_limit,weapon:artillery,field:water
+BAMBOO,on_holding:avoid,player:reflect,field:1D,obstacle:well_up
+DESCENT S,on_holding:thrust,rule:physics,field:weather
+NUMBER BALL,on_holding:adjust_angle,on_released:throw,rule:match,rule:mathematics,weapon:artillery,field:outpost,field:auto_scroll
+COLOR ROLL,on_pressed:pierce,rule:match
+REFLECTOR,weapon:explosion,weapon:interference,player:reciprocate,on_holding:defenseless,weapon:vertical
+PIN CLIMB,field:pins,player:bar,on_holding:extend,player:rotate,field:auto_scroll
+LASER FORTRESS,weapon:wipe,on_holding:shoot,obstacle:penalty,rule:classify,field:1D,field:outpost
+FROOOOG,on_holding:adjust_angle,on_released:throw,field:auto_scroll
+R WHEEL,weapon:change_field,weapon:vertical,field:spike,field:rotate,on_pressed:jump,on_pressed:shoot,on_got_item:power_up
+BALL TOUR,player:reciprocate,on_holding:move
+ROLL HOLD,player:rotate,on_holding:stop,on_holding:shoot
+DANGO,rule:mathematics,on_pressed:pierce,rule:time_limit
+METEO PLANET,field:space,rule:proximity_bonus,obstacle:fall,field:rotate
+CLEAN ROBO,rule:pass_through_gap,rule:geometry,player:rotate,on_holding:stop,on_holding:move
+FOOT LASER,on_pressed:jump,weapon:vertical,on_pressed:fall
+PAINT BALL,player:paint,player:rotate,on_pressed:go_forward,field:outpost,field:auto_scroll
+PIZZA ARROW,on_released:throw,rule:time_manipulation,rule:time_limit
+ACCEL B,weapon:chase,on_pressed:shoot,rule:combo_multiplier,on_holding:move,field:auto_scroll
+UP DOWN PRESS,player:step_on,on_holding:thrust,field:roughness,field:auto_scroll
+LADDER DROP,player:automatic,player:scaffold,on_pressed:fall,field:auto_scroll
+COUNTER B,rule:combo_multiplier,weapon:interference,on_holding:shoot,field:auto_scroll
+M RIDER,rule:chain,on_holding:thrust,field:bottomless,field:auto_scroll
+S SHAKE,on_pressed:change_field,field:outpost,field:auto_scroll
+ZONE B,player:limited_vision,on_holding:shoot,on_pressed:turn
+M JAMMING,weapon:explosion,rule:chain,player:automatic,obstacle:chase,on_holding:extend,on_released:erase,field:auto_scroll
+T LANES,player:multiple,field:lanes,on_got_item:spawn,on_pressed:reverse_state,field:auto_scroll
+SCRAMBIRD,on_pressed:flap,on_pressed:shoot,field:auto_scroll,field:roughness,field:spike,rule:combo_multiplier,rule:time_limit
+D LASER,rule:shelter,rule:gauge_management,on_pressed:turn,on_holding:stop,field:auto_scroll
+KITE,field:weather,player:string,field:spike,field:auto_scroll
+RAID,weapon:artillery,on_pressed:shoot,on_holding:thrust,rule:chain,field:auto_scroll
+CATAPULT,on_pressed:reverse_state,rule:physics,field:bottomless,field:auto_scroll
+G PRESS,obstacle:well_up,rule:time_limit,rule:gauge_management,on_pressed:attack
+HOLES,rule:physics,on_pressed:reverse_state,field:bottomless,field:auto_scroll
+SQUARE BAR,rule:geometry,player:bar,player:rotate,on_holding:extend,on_holding:move
+NS CLIMB,on_pressed:reverse_state,field:gravity,field:auto_scroll
+SNAKY,rule:balance,field:connected,on_holding:thrust
+MIRROR FLOOR,on_got_item:reverse_state,field:bottomless,on_pressed:jump,field:auto_scroll
+SUB JUMP,field:water,field:roughness,on_pressed:jump,field:auto_scroll
+PHOTON LINE,rule:match,on_holding:rotate,field:1D
+UP SHOT,weapon:vertical,on_holding:stop,on_holding:shoot,obstacle:fall,field:auto_scroll
+ROLL S,on_holding:avoid,on_holding:shoot,on_pressed:turn,field:auto_scroll,field:lanes
+T PUNCH,on_pressed:attack,on_holding:rotate,on_holding:extend
+MORTAR,player:limited_vision,weapon:explosion,on_holding:adjust_angle,on_released:throw
+TURBULENT,field:roughness,on_pressed:jump,on_holding:thrust,rule:physics,field:water,field:auto_scroll
+GRAVELER,field:gravity,on_holding:reverse_state,field:auto_scroll
+THROW M,weapon:artillery,player:reciprocate,on_holding:adjust_angle,on_released:throw
+ORBIT MAN,player:rotate,on_pressed:go_forward,field:space,field:pins,field:auto_scroll
+AERIAL BAR,player:bar,on_pressed:jump_into_another,field:auto_scroll
+EMBATTLED,on_holding:defend,rule:friendly_fire,player:reciprocate,on_pressed:turn
+SMILY ANGRY,obstacle:foresee,on_pressed:turn
+SCAFFOLD,player:scaffold,on_pressed:turn,on_holding:extend,field:auto_scroll
+BS FISH,field:water,on_holding:move,field:auto_scroll
+SUM TEN,rule:mathematics,on_pressed:go_forward
+UD CAVE,field:multiple,player:inverted,on_holding:reverse_state
+WIPER,weapon:wipe,on_pressed:reverse_state,obstacle:fall,field:outpost
+TAPE J,on_holding:extend,obstacle:fall,field:roughness,field:auto_scroll
+ANT LION,field:gravity,field:rotate,on_holding:move
+TR BEAM,on_holding:inhale,obstacle:penalty,rule:physics,player:reciprocate,obstacle:well_up
+SWINGBY,field:gravity,on_holding:rotate,field:space
+LIFT UP,on_got_item:reverse_state,on_holding:move,field:spike,field:auto_scroll
+BOMB UP,weapon:blow_off,weapon:explosion,obstacle:well_up,on_pressed:shoot,on_pressed:attack,field:auto_scroll
+JUMP ON,on_pressed:select_route,obstacle:chase,field:auto_scroll
+HEXMIN,field:outpost,player:multiple,on_pressed:turn
+TT FENCE,rule:surround,player:bar
+GEOCENT,field:space,player:follow,on_holding:move,on_holding:rotate
+RPS,field:lanes,rule:match,weapon:blow_off,on_pressed:reverse_state,field:outpost
+GRENADIER,weapon:change_field,field:holes,weapon:artillery,on_holding:adjust_angle,on_released:throw,field:1D,field:auto_scroll
+BALLS BOMBS,obstacle:bounce,on_got_item:power_up,weapon:explosion,rule:combo_multiplier,field:auto_scroll,on_holding:move
+CATE P,on_pressed:turn,on_pressed:shoot
+SCREEN,player:inverted,on_pressed:shoot,weapon:ray,field:outpost
+FORFOUR,rule:match,on_pressed:turn
+M FIELD,weapon:time_limit,weapon:explosion,rule:chain,rule:combo_multiplier,rule:friendly_fire,on_pressed:jump,player:step_on,field:auto_scroll
+D MISSILE,rule:control_weapons,obstacle:split,on_holding:rotate,on_pressed:shoot,player:multiple,field:outpost
+HOPPING P,player:bounce,obstacle:bounce,on_got_item:power_up
+NUMBER LINE,rule:mathematics,rule:time_limit
+TILTED,on_pressed:jump,on_pressed:turn,field:floors,field:bottomless,rule:physics,field:auto_scroll
+NOT TURN,on_pressed:select_route,on_holding:move,field:lanes,field:auto_scroll
+TWO LANE,field:lanes,on_pressed:reverse_state,on_holding:thrust
+TWIN P,player:bar,player:rotate,on_pressed:reverse_state,on_holding:extend
+V BOMB,weapon:time_limit,rule:friendly_fire,on_pressed:turn
+S LANES,field:lanes,field:outpost,on_holding:shoot,on_holding:move
+TOTOGE,player:limited_vision,on_pressed:jump,field:spike,field:auto_scroll
+D PISTOLS,on_pressed:shoot,on_holding:shoot,on_pressed:turn
+LIE DOWN,on_holding:avoid,field:holes,field:auto_scroll
+CIRCLE W,player:circle,field:pins,obstacle:penalty,field:auto_scroll
+PARKING,player:multiple,on_holding:thrust,field:auto_scroll,field:spike
+UNCTRL,rule:control_weapons,rule:combo_multiplier,on_holding:rotate
+FLOORS 5,rule:match,on_pressed:jump,player:paint,field:bottomless
+LINE B,player:reflect,on_pressed:attack,field:outpost
+REVOLVE A,on_pressed:go_forward,field:connected,rule:chain,field:pins,player:rotate
+B CANNON,weapon:auto_aiming,obstacle:split,on_pressed:turn,on_holding:shoot
+SIGHT ON,weapon:auto_aiming,weapon:explosion,field:outpost,on_pressed:shoot
+LIGHT DARK,player:inverted,on_pressed:reverse_state,on_pressed:jump,field:spike,field:auto_scroll
+PORTAL J,on_pressed:jump_into_another,field:holes,field:1D
+TAPPUMP,on_holding:extend,on_pressed:flap,player:circle,field:auto_scroll
+TEETER,rule:classify,on_pressed:reverse_state,rule:physics,field:pins
+SLASHES,rule:proximity_bonus,on_pressed:turn
+PUMP PRESS,weapon:disablement,field:1D,rule:chain,on_pressed:shoot,field:auto_scroll
+TWO FACED,field:multiple,player:follow,player:inverted,on_got_item:spawn,player:rotate,on_holding:stop,on_holding:move
+SNAKE 1,player:follow,on_got_item:reverse_state,on_pressed:turn
+DIVARR,on_pressed:split,obstacle:penalty,on_pressed:turn,rule:control_weapons
+EAROCK,field:outpost,field:gravity,on_holding:thrust,field:space
+CYWALL,on_pressed:jump_into_another
+LLAND,on_holding:thrust,field:roughness,field:spike
+ARCFIRE,weapon:arc,field:outpost,on_holding:adjust_angle,player:rotate,on_released:throw
+FLIPBOMB,on_pressed:reverse_state,weapon:explosion,rule:chain,rule:physics,field:outpost
+SLALOM,on_holding:rotate,field:auto_scroll,rule:pass_through_gap
+BOARDING,rule:classify,rule:physics,field:pins,on_holding:stop,on_pressed:reverse_state,field:auto_scroll
+FLOATER,field:floors,on_pressed:jump,field:bottomless
+GOLFME,on_holding:adjust_angle,on_released:throw,field:holes,field:bottomless,field:auto_scroll
+ZARTAN,player:string,field:pins,on_pressed:jump_into_another,field:bottomless,field:auto_scroll
+BOTTOP,player:inverted,field:auto_scroll,on_pressed:jump
+TWHOLS,player:reflect,on_pressed:turn,field:holes
+JUJUMP,on_pressed:jump,on_pressed:turn,field:auto_scroll,field:floors,field:bottomless
+MONJUM,on_holding:stop,on_released:throw,field:holes
+REFBALS,player:multiple,player:reflect,field:floors,field:bottomless
