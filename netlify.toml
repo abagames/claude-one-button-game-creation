@@ -1,0 +1,16 @@
+[build]
+  command = "npm run build:dev"
+  publish = "dev/dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# Branch deploy settings
+[context.branch-deploy]
+  command = "npm run build:dev"
+  publish = "dev/dist"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

@@ -1,0 +1,34 @@
+{
+  "name": "web-coding-agent-game-dev",
+  "version": "1.0.0",
+  "description": "Challenging simple game development with a web coding agent, all on a smartphone",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --mode development",
+    "build:dev": "BUILD_MODE=dev vite build --mode development",
+    "build": "tsc && vite build --mode production",
+    "build:game": "node scripts/build_game.mjs",
+    "preview": "vite preview",
+    "generate-constraints": "node scripts/generate_cross_category_constraints.js",
+    "fetch-tag-snippets": "node scripts/fetch_tag_snippets.js",
+    "verify-prototype": "node scripts/verify_prototype.js",
+    "balance-game": "node scripts/coevolve_balance.js",
+    "scaffold": "node scripts/scaffold.js",
+    "similarity-check": "node scripts/similarity_checker.js",
+    "extract-balance-params": "node scripts/extract_balance_params.js",
+    "calculate-novelty": "node scripts/calculate_novelty_metrics.js",
+    "calculate-quality": "node scripts/calculate_quality_scores.js",
+    "generate-metadata": "node scripts/generate_metadata.js",
+    "check-style": "node scripts/check_game_style.js",
+    "simulate-game": "node scripts/simulate_game.js"
+  },
+  "author": "abagames",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.9.3",
+    "vite": "^7.2.2"
+  },
+  "dependencies": {
+    "crisp-game-lib": "^1.5.0"
+  }
+}
