@@ -24,7 +24,15 @@ This directory contains the complete archive of the previous version of this rep
 
 ## Why Archived?
 
-This version focused on documentation and methodology for human-LLM collaborative game development using crisp-game-lib. The project has been refreshed with a new focus on [to be defined in new project structure].
+This version focused on documentation and methodology for human-LLM collaborative game development using crisp-game-lib. The project has been refreshed with a new focus on **mobile-first game development workflow** combining Claude Code, Netlify branch deploys, and automated validation systems. The new version introduces:
+
+- TypeScript-based implementation (migrated from JavaScript)
+- 6-phase structured workflow with automated validation
+- Tag-based game design system with constraint verification
+- Novelty metrics and similarity checking
+- Co-evolutionary balance tuning via genetic algorithms
+- Mobile-first prototyping with instant preview URLs
+- Dual-deployment strategy (Netlify for dev, GitHub Pages for production)
 
 ## Using Archived Content
 
