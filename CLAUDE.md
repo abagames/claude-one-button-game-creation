@@ -1,111 +1,111 @@
-# game-tags プロジェクト
+# game-tags Project
 
-crisp-game-lib を使用したワンボタンゲーム自動生成プロジェクト。タグを発想のシードとして、LLM がゲームを設計・実装・改善する。
-
----
-
-## ワークフロー概要
-
-- Phase 1: タグ選択 → Phase 2: 設計 → Phase 3: 実装 → Phase 4: テスト → Phase 5: 改善
-- Phase 4 から Phase 5 は最大 3 回反復
+An automatic one-button game generation project using crisp-game-lib. LLM designs, implements, and improves games using tags as seeds for inspiration.
 
 ---
 
-## Phase 1: タグ選択
+## Workflow Overview
+
+- Phase 1: Tag Selection → Phase 2: Design → Phase 3: Implementation → Phase 4: Test → Phase 5: Improvement
+- Phase 4 to Phase 5 iterates up to 3 times
+
+---
+
+## Phase 1: Tag Selection
 
 ```bash
 node scripts/random_tag_selector.js
 ```
 
-| オプション     | 説明                 | デフォルト |
-| :------------- | :------------------- | :--------- |
-| `-n, --count`  | 選択タグ数           | 3          |
-| `-s, --seed`   | 乱数シード（再現用） | 現在時刻   |
-| `-f, --format` | text/json/markdown   | markdown   |
+| Option | Description | Default |
+| :--- | :--- | :--- |
+| `-n, --count` | Number of tags to select | 3 |
+| `-s, --seed` | Random seed (for reproduction) | Current time |
+| `-f, --format` | text/json/markdown | markdown |
 
-**重要**: タグは「設計仕様」ではなく「発想のシード」。矛盾するタグは創造的緊張として活用する。
+**Important**: Tags are "seeds for inspiration," not "design specifications." Use contradicting tags as creative tension.
 
 ---
 
-## Phase 2: ゲーム設計
+## Phase 2: Game Design
 
-**参照**: `one-button-game-design-guide.md` §7
+**Reference**: `one-button-game-design-guide.md` §7
 
-### 設計手順
+### Design Procedure
 
-1. **自由連想**: タグから浮かんだイメージを言語化
-2. **逸脱探索**: タグの「逆」「否定」「極端」を考える
-3. **コア体験決定**: プレイヤーに与えたい「瞬間の感覚」を一言で
-4. **メカニクス構築**: コア体験を実現する 1 ボタン操作を設計
-5. **整合性検証**: 下記チェックリストで確認
+1. **Free Association**: Verbalize images that come to mind from tags
+2. **Deviation Exploration**: Consider the "opposite," "negation," or "extreme" of tags
+3. **Core Experience Decision**: Define the "momentary sensation" you want to give the player in one phrase
+4. **Mechanics Construction**: Design one-button operation that realizes the core experience
+5. **Consistency Verification**: Confirm with checklist below
 
-### 設計チェックリスト
+### Design Checklist
 
-- [ ] 1 ボタンで完結するか
-- [ ] ゲームオーバー条件は単一かつ視覚的に明白か
-- [ ] 連打・放置で高スコアを獲得できないか
-- [ ] スキルのある入力が報われる設計か
-- [ ] 「これは見たことがない」と感じる瞬間があるか
+- [ ] Does it complete with one button?
+- [ ] Is the game over condition single and visually obvious?
+- [ ] Cannot achieve high scores with button mashing or idle play?
+- [ ] Is skilled input rewarded in the design?
+- [ ] Are there moments of feeling "I've never seen this before"?
 
-### 出力形式
+### Output Format
 
-`tmp/games/<slug>/README.md` に以下を記載:
+Write the following to `tmp/games/<slug>/README.md`:
 
 ```markdown
 # <GAME_NAME> (<slug>)
 
-**タグ**: #tag1, #tag2, #tag3
+**Tags**: #tag1, #tag2, #tag3
 
-## 1. コア・メカニクス
+## 1. Core Mechanics
 
-<入力 → 挙動 → 終了条件、スコアリングシステム、難度上昇の仕組み>
+<Input → Behavior → End condition, scoring system, difficulty increase mechanism>
 
-## 2. オブジェクト仕様
+## 2. Object Specifications
 
-<各オブジェクトの形状・動作・衝突処理>
+<Each object's shape, behavior, collision handling>
 
-## 3. デザインガイド分析
+## 3. Design Guide Analysis
 
-<４つのコア設計原則（シンプルさと直感性、視覚的フィードバックとゲームオーバー、スキルベースのスコアリングとリスク・リワード、斬新なメカニクス）への評価>
+<Evaluation against four core design principles (Simplicity and Intuitiveness, Visual Feedback and Game Over, Skill-Based Scoring and Risk/Reward, Novel Mechanics)>
 
-## 4. タグとの関係
+## 4. Relationship with Tags
 
-<タグからの発想展開>
+<Idea development from tags>
 
-## 5. 新規性の根拠
+## 5. Basis for Novelty
 
-<既存パターンを超えた要素>
+<Elements beyond existing patterns>
 ```
 
 ---
 
-## Phase 3: 実装
+## Phase 3: Implementation
 
-**参照**: `crisp-game-lib-guide.md`
+**Reference**: `crisp-game-lib-guide.md`
 
-### 制約
+### Constraints
 
-- **行数**: 150 行程度まで
-- **依存**: crisp-game-lib のみ
-- **構造**: `title`, `description`, `characters`, `options`, `update()` を含む
+- **Lines**: About 150 lines
+- **Dependencies**: crisp-game-lib only
+- **Structure**: Include `title`, `description`, `characters`, `options`, `update()`
 
-### 難易度設定
+### Difficulty Settings
 
-難易度上昇は `difficulty` 変数（自動増加）を活用:
+Use `difficulty` variable (auto-increasing) for difficulty increase:
 
 ```javascript
-let count = 3 * sqrt(difficulty); // 徐々に増加
-let speed = 1.0 + difficulty; // 徐々に加速
+let count = 3 * sqrt(difficulty); // Gradually increases
+let speed = 1.0 + difficulty; // Gradually accelerates
 ```
 
-### 出力先
+### Output Location
 
-`tmp/games/<slug>/` に以下を配置:
+Place the following in `tmp/games/<slug>/`:
 
-- `index.html` - HTML テンプレート
-- `main.js` - ゲームコード
+- `index.html` - HTML template
+- `main.js` - Game code
 
-### HTML テンプレート
+### HTML Template
 
 ```html
 <!DOCTYPE html>
@@ -129,7 +129,7 @@ let speed = 1.0 + difficulty; // 徐々に加速
 </html>
 ```
 
-### 実装テンプレート
+### Implementation Template
 
 ```javascript
 title = "GAME_NAME";
@@ -155,81 +155,81 @@ function update() {
     obstacles = [];
   }
 
-  // 入力処理
+  // Input handling
   if (input.isJustPressed) {
-    // ボタン押下時
+    // On button press
   }
   if (input.isPressed) {
-    // ボタン押し続け時
+    // While button held
   }
 
-  // ★重要: 衝突判定の描画順序
-  // 検出対象を「先に」描画する（後から描画したものは検出できない）
+  // ★Important: Drawing order for collision detection
+  // Draw detection targets "first" (cannot detect objects drawn later)
 
-  // 1. プレイヤーを先に描画
+  // 1. Draw player first
   color("cyan");
   box(player.pos, 6);
 
-  // 2. 障害物を後に描画し、プレイヤー(cyan)との衝突を検出
+  // 2. Draw obstacles later and detect collision with player (cyan)
   color("red");
   obstacles.forEach((obs) => {
     if (box(obs.pos, 8).isColliding.rect.cyan) {
-      end(); // プレイヤーに衝突
+      end(); // Collision with player
     }
   });
 }
 ```
 
-### 実装上の注意
+### Implementation Notes
 
-#### 衝突判定の描画順序（重要）
+#### Collision Detection Drawing Order (Important)
 
-crisp-game-lib では**先に描画したオブジェクトとしか衝突判定できない**。
+In crisp-game-lib, **collision detection only works with objects drawn earlier**.
 
 ```javascript
-// ❌ 動かない: obstacles描画時にplayer(cyan)がまだない
+// ❌ Doesn't work: player (cyan) doesn't exist yet when drawing obstacles
 obstacles.forEach(o => box(o.pos, 8));  // red
-box(player.pos, 6);                      // cyan（後）
+box(player.pos, 6);                      // cyan (later)
 
-// ✅ 正しい: 検出対象を先に描画
-box(player.pos, 6);                      // cyan（先）
+// ✅ Correct: Draw detection targets first
+box(player.pos, 6);                      // cyan (first)
 obstacles.forEach(o => {
   if (box(o.pos, 8).isColliding.rect.cyan) { ... }  // red
 });
 ```
 
-#### テスター互換性（重要）
+#### Tester Compatibility (Important)
 
-テスター（`one_button_game_tester.js`, `ga_tester.js`）は `update()` 関数のみを抽出して実行する。
-**`update()` 外で定義したヘルパー関数は認識されない。**
+Testers (`one_button_game_tester.js`, `ga_tester.js`) extract and execute only the `update()` function.
+**Helper functions defined outside `update()` are not recognized.**
 
 ```javascript
-// ❌ テスターで動かない
-function spawnEnemies() { ... }  // update外の関数
+// ❌ Doesn't work in tester
+function spawnEnemies() { ... }  // Function outside update
 function update() {
   spawnEnemies();  // ReferenceError: spawnEnemies is not defined
 }
 
-// ✅ テスター互換: ロジックをupdate内にインライン化
+// ✅ Tester compatible: Inline logic within update
 function update() {
   if (!ticks) {
-    // 初期化ロジックをここに直接記述
+    // Write initialization logic directly here
   }
-  // スポーンロジックもここに直接記述
+  // Write spawn logic directly here
 }
 ```
 
 ---
 
-## Phase 4: シミュレーション（GA 相対評価）
+## Phase 4: Simulation (GA Relative Evaluation)
 
-評価は **GA スコア / 単調スコア** の比率のみで行う。
+Evaluate using **GA Score / Monotonous Score** ratio only.
 
 ```bash
 node scripts/ga_tester.js tmp/games/<slug>/main.js
 ```
 
-### 出力形式
+### Output Format
 
 ```json
 {
@@ -258,39 +258,39 @@ node scripts/ga_tester.js tmp/games/<slug>/main.js
 }
 ```
 
-### 評価指標（LLM が計算・判断）
+### Evaluation Metrics (LLM calculates and judges)
 
 ```
-GA比率 = ga.bestScore / monotonous.summary.maxScore
+GA Ratio = ga.bestScore / monotonous.summary.maxScore
 ```
 
-| GA 比率    | 評価   | 意味                           |
-| :--------- | :----- | :----------------------------- |
-| ≤ 1.0      | 不合格 | 単調入力が最適解（スキル不要） |
-| 1.0 〜 1.5 | 要検討 | スキルの反映が不十分           |
-| > 1.5      | 合格   | スキル入力が報われる           |
+| GA Ratio | Evaluation | Meaning |
+| :--- | :--- | :--- |
+| ≤ 1.0 | Fail | Monotonous input is optimal (no skill required) |
+| 1.0 - 1.5 | Needs review | Skill reflection is insufficient |
+| > 1.5 | Pass | Skilled input is rewarded |
 
-### Phase 5 へ進む条件
+### Condition to Proceed to Phase 5
 
-- GA 比率 ≤ 1.5 程度
+- GA ratio ≤ approximately 1.5
 
 ---
 
-## Phase 5: 改善
+## Phase 5: Improvement
 
-**参照**: `game-improvement-guide.md`
+**Reference**: `game-improvement-guide.md`
 
-### 5a: 詳細ログ取得
+### 5a: Get Detailed Log
 
 ```bash
 node scripts/ga_tester.js tmp/games/<slug>/main.js --verbose
 ```
 
-`--verbose` オプションで **GA 最適化パターンの詳細ログ** を取得する。
+Get **GA-optimized pattern detailed log** with `--verbose` option.
 
-**重要**: 分析対象は `ga.detailedLog` のみ。単調入力（NoInput、HoldOnly、SpamPress）のログは「不適切なプレイ」を表すため、改善分析には使用しない。
+**Important**: Analysis target is `ga.detailedLog` only. Monotonous input logs (NoInput, HoldOnly, SpamPress) represent "inappropriate play" and are not used for improvement analysis.
 
-#### 詳細ログの構造
+#### Detailed Log Structure
 
 ```json
 {
@@ -335,110 +335,110 @@ node scripts/ga_tester.js tmp/games/<slug>/main.js --verbose
 }
 ```
 
-### 5b: ログ分析と改善
+### 5b: Log Analysis and Improvement
 
-`game-improvement-guide.md` に従い、詳細ログから問題を特定し改善する。
+Follow `game-improvement-guide.md` to identify problems from detailed log and improve.
 
-#### 分析観点（`ga.detailedLog` を参照）
+#### Analysis Perspectives (refer to `ga.detailedLog`)
 
-| 分析項目             | 確認内容                                                          | 問題の兆候                 |
-| :------------------- | :---------------------------------------------------------------- | :------------------------- |
-| **死因分析**         | `ga.detailedLog.deathAnalysis.position`, `recentFrames`           | 同一位置での死亡集中       |
-| **スポーン分析**     | `ga.detailedLog.spawnAnalysis.minInterval`, `spatialDistribution` | 間隔・空間分布の偏り       |
-| **スコアリング分析** | `ga.detailedLog.scoringAnalysis.triggers`, `scoringRate`          | 獲得手段の多様性欠如       |
-| **入力分析**         | `ga.detailedLog.inputAnalysis.pattern`                            | `spam` または `hold_heavy` |
+| Analysis Item | What to Check | Problem Indication |
+| :--- | :--- | :--- |
+| **Death Analysis** | `ga.detailedLog.deathAnalysis.position`, `recentFrames` | Deaths concentrated at same position |
+| **Spawn Analysis** | `ga.detailedLog.spawnAnalysis.minInterval`, `spatialDistribution` | Interval or spatial distribution bias |
+| **Scoring Analysis** | `ga.detailedLog.scoringAnalysis.triggers`, `scoringRate` | Lack of acquisition method diversity |
+| **Input Analysis** | `ga.detailedLog.inputAnalysis.pattern` | `spam` or `hold_heavy` |
 
-### 推奨アプローチ
+### Recommended Approaches
 
-| 優先度 | アプローチ           | 例                             |
-| :----- | :------------------- | :----------------------------- |
-| 高     | 配置ロジック改善     | 安全経路を保証するスポーン     |
-| 高     | 予告システム導入     | 障害物出現前の視覚的警告       |
-| 中     | フェーズベース難易度 | 時間経過で新メカニクス導入     |
-| 中     | 入力パターン対応     | 連打ペナルティ、リズムボーナス |
+| Priority | Approach | Example |
+| :--- | :--- | :--- |
+| High | Improve placement logic | Spawn that guarantees safe routes |
+| High | Introduce warning system | Visual warning before obstacle appears |
+| Medium | Phase-based difficulty | Introduce new mechanics over time |
+| Medium | Input pattern response | Mashing penalty, rhythm bonus |
 
-### 禁止事項
+### Prohibited Items
 
 ```javascript
-// ❌ 数値調整のみ
+// ❌ Only numerical adjustment
 speed *= 0.8;
 
-// ❌ 条件の追加のみ
+// ❌ Only adding conditions
 if (tooHard) makeEasier();
 
-// ❌ ランダム性の増加
+// ❌ Increasing randomness
 spawnY = rnd(0, 100) + rnd(-10, 10);
 ```
 
-改善後は Phase 4 に戻る（最大 3 回）。
+Return to Phase 4 after improvement (up to 3 times).
 
 ---
 
-## 成果物
+## Deliverables
 
 ```
 tmp/games/<slug>/
-├── index.html    # HTMLテンプレート
-├── main.js       # ゲームコード
-└── README.md     # ゲーム説明
+├── index.html    # HTML template
+├── main.js       # Game code
+└── README.md     # Game description
 ```
 
-### 最終レポート形式
+### Final Report Format
 
 ```markdown
-# ゲーム生成レポート: <GAME_NAME>
+# Game Generation Report: <GAME_NAME>
 
-## 選択タグ
+## Selected Tags
 
 - tag1, tag2, tag3
 
-## シミュレーション結果
+## Simulation Results
 
-| 指標       | 初回 | 改善後 |
-| :--------- | :--- | :----- |
-| 評価       | X/6  | Y/6    |
-| GA vs 単調 | X.Xx | Y.Yx   |
+| Metric | Initial | After Improvement |
+| :--- | :--- | :--- |
+| Evaluation | X/6 | Y/6 |
+| GA vs Monotonous | X.Xx | Y.Yx |
 
-## 実施した改善
+## Improvements Made
 
-1. <改善内容と理由>
+1. <Improvement content and reason>
 ```
 
 ---
 
-## プロジェクト構成
+## Project Structure
 
 ```
 game-tags/
-├── tmp/games/                      # 生成ゲーム
+├── tmp/games/                      # Generated games
 │   └── <slug>/
-│       ├── index.html              # HTMLテンプレート
-│       ├── main.js                 # ゲームコード
-│       └── README.md               # ゲーム説明
+│       ├── index.html              # HTML template
+│       ├── main.js                 # Game code
+│       └── README.md               # Game description
 ├── scripts/
-│   ├── random_tag_selector.js      # タグ選択
-│   ├── one_button_game_tester.js   # 4a: 高速テスト（単調入力）
-│   ├── ga_tester.js                # 4b: 詳細テスト（GA有効）
-│   ├── crisp_game_adapter.js       # ライブラリアダプター
-│   └── dynamic_game_injector.js    # パラメータ注入
-├── tags.csv                        # 全タグ（107個）
-├── one-button-game-design-guide.md # 設計ガイド
-├── game-improvement-guide.md       # 改善ガイド
-└── crisp-game-lib-guide.md         # API リファレンス
+│   ├── random_tag_selector.js      # Tag selection
+│   ├── one_button_game_tester.js   # 4a: Fast test (monotonous input)
+│   ├── ga_tester.js                # 4b: Detailed test (GA enabled)
+│   ├── crisp_game_adapter.js       # Library adapter
+│   └── dynamic_game_injector.js    # Parameter injection
+├── tags.csv                        # All tags (107)
+├── one-button-game-design-guide.md # Design guide
+├── game-improvement-guide.md       # Improvement guide
+└── crisp-game-lib-guide.md         # API reference
 ```
 
 ---
 
-## タグカテゴリ
+## Tag Categories
 
-| カテゴリ      | 説明             | 例                                      |
-| :------------ | :--------------- | :-------------------------------------- |
-| `player`      | プレイヤー特性   | `player-rotate`, `player-multiple`      |
-| `on_pressed`  | ボタン押下時     | `on_pressed-jump`, `on_pressed-turn`    |
-| `on_holding`  | ボタン押し続け時 | `on_holding-move`, `on_holding-charge`  |
-| `on_released` | ボタン離し時     | `on_released-throw`                     |
-| `on_got_item` | アイテム取得時   | `on_got_item-power_up`                  |
-| `field`       | フィールド特性   | `field-auto_scroll`, `field-1D`         |
-| `rule`        | ゲームルール     | `rule-physics`, `rule-combo_multiplier` |
-| `weapon`      | 武器・攻撃       | `weapon-explosion`, `weapon-reflect`    |
-| `obstacle`    | 障害物           | `obstacle-chase`, `obstacle-penalty`    |
+| Category | Description | Examples |
+| :--- | :--- | :--- |
+| `player` | Player characteristics | `player-rotate`, `player-multiple` |
+| `on_pressed` | On button press | `on_pressed-jump`, `on_pressed-turn` |
+| `on_holding` | While button held | `on_holding-move`, `on_holding-charge` |
+| `on_released` | On button release | `on_released-throw` |
+| `on_got_item` | On item acquisition | `on_got_item-power_up` |
+| `field` | Field characteristics | `field-auto_scroll`, `field-1D` |
+| `rule` | Game rules | `rule-physics`, `rule-combo_multiplier` |
+| `weapon` | Weapons/Attacks | `weapon-explosion`, `weapon-reflect` |
+| `obstacle` | Obstacles | `obstacle-chase`, `obstacle-penalty` |

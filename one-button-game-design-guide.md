@@ -1,173 +1,173 @@
-# ワンボタンミニゲームデザインガイド
+# One-Button Mini-Game Design Guide
 
-## 1. デザイン上の課題
+## 1. Design Challenges
 
-- 最小限の入力で多様なプレイ感を生み出す。
-- 適切な難易度曲線とリスク・リワードの設計。
-- プレイヤーのアクションに対する直感的なフィードバック。
-- 単調な操作（連打・放置）の防止。
+- Creating diverse gameplay experiences with minimal input.
+- Designing appropriate difficulty curves and risk/reward systems.
+- Providing intuitive feedback for player actions.
+- Preventing monotonous operations (button mashing, idle play).
 
-## 2. 4 つのコア設計原則と評価基準
+## 2. Four Core Design Principles and Evaluation Criteria
 
-「原則（すべきこと）」と「評価（確認項目）」を統合し、設計の指針を明確にせよ。
+Integrate "principles (what to do)" and "evaluation (confirmation items)" to clarify design guidelines.
 
-### (1) シンプルさと直感性
+### (1) Simplicity and Intuitiveness
 
-- 原則: 基本図形（円・三角・四角）を用い、背景をシンプルに保つ。UI や説明、複数リソース管理を排除し、プレイを通じてルールが伝わる「自己説明的」な構造にする。
-- 評価: テキストなしでルールやオブジェクトの役割を即座に理解できるか？
+- Principle: Use basic shapes (circles, triangles, squares), keep backgrounds simple. Eliminate UI, explanations, and multiple resource management. Create a "self-explanatory" structure where rules are conveyed through play.
+- Evaluation: Can rules and object roles be understood immediately without text?
 
-### (2) 視覚的フィードバックとゲームオーバー
+### (2) Visual Feedback and Game Over
 
-- 原則: 成功・失敗・危険の状態を、アニメーション、色、サイズの変化で伝える。ゲームオーバー条件は「衝突」「落下」など単一かつ一目でわかるものにする。
-- 評価: アクションの結果が視覚的に明白か？ 失敗の理由は公平かつ明確か？
+- Principle: Convey success, failure, and danger states through animation, color, and size changes. Game over conditions should be single and obvious at a glance, such as "collision" or "falling."
+- Evaluation: Are action results visually clear? Are failure reasons fair and obvious?
 
-### (3) スキルベースのスコアリングとリスク・リワード
+### (3) Skill-Based Scoring and Risk/Reward
 
-- 原則: 単純作業ではなく、意図的なアクションや高リスクな行動（例：ギリギリでの回避）に高い報酬を与える。習熟がスコアに直結する設計にする。
-- 評価: スコアはプレイヤーのスキルを反映しているか？ 常に意味のある選択肢（安全か挑戦か）があるか？
+- Principle: Reward intentional actions and high-risk behavior (e.g., close calls) rather than simple tasks. Design so mastery directly reflects in score.
+- Evaluation: Does score reflect player skill? Are there always meaningful choices (safe vs. challenging)?
 
-### (4) 斬新なメカニクス
+### (4) Novel Mechanics
 
-- 原則: 既存の概念に縛られず、物理法則（重力、磁力、慣性）や幾何学原理、あるいはそれらの否定から、驚きのある挙動を発明する。
-- 評価:
-  - プレイヤーが「これは見たことがない」と感じる瞬間があるか？
-  - 既存タグの組み合わせだけでは説明できない要素があるか？
-  - 単一のメカニクスから多様な展開が生まれているか？
+- Principle: Without being bound by existing concepts, invent surprising behaviors from physical laws (gravity, magnetism, inertia), geometric principles, or their negation.
+- Evaluation:
+  - Are there moments where players feel "I've never seen this before"?
+  - Are there elements that cannot be explained by existing tag combinations alone?
+  - Do diverse developments emerge from a single mechanic?
 
-## 3. インタラクション・パターン（参考）
+## 3. Interaction Patterns (Reference)
 
-ボタンの状態に応じたメカニクスの応用例。ただし、これらは発想の出発点であり、制約ではない。
+Examples of mechanics based on button state. However, these are starting points for ideas, not constraints.
 
-| 入力       | メカニクス | 応用例                                                            |
-| :--------- | :--------- | :---------------------------------------------------------------- |
-| **押す**   | 瞬間的変化 | 方向転換(90/180°)、ジャンプ、射撃、テレポート、分裂、属性切り替え |
-| **長押し** | 蓄積・拡張 | パワー/角度調整、伸縮、シールド展開、エネルギー充填               |
-| **離す**   | 解放・反動 | 弾の射出、チャンプ、溜め攻撃の実行、状態解除に伴うエフェクト      |
+| Input | Mechanic | Application Examples |
+| :--- | :--- | :--- |
+| **Press** | Instant change | Direction change (90/180°), jump, shoot, teleport, split, attribute toggle |
+| **Hold** | Accumulation/Extension | Power/angle adjustment, stretch, shield deployment, energy charging |
+| **Release** | Release/Recoil | Projectile firing, charged attack execution, state release effects |
 
-## 4. 移動と環境のメカニクス（参考）
+## 4. Movement and Environment Mechanics (Reference)
 
-移動パターンと地形の組み合わせ例。これらを超える発想を歓迎する。
+Examples of movement pattern and terrain combinations. Ideas beyond these are welcome.
 
-### 4.1 プレイヤーの移動・アクション
+### 4.1 Player Movement/Actions
 
-- **オート・移動**: 自動走行、常に跳ね続ける（バウンス）、一定の往復（振動）、加速
-- **特殊移動**: 重力反転、壁の反射（リフレクション）、固定点周りの回転、テレポート
-- **アクション**: 範囲攻撃(AoE)、カウンター、物理ベースの投射、連鎖反応、状態トグル
+- **Auto-movement**: Auto-run, constant bouncing, fixed oscillation, acceleration
+- **Special movement**: Gravity reversal, wall reflection, fixed-point rotation, teleport
+- **Actions**: Area attack (AoE), counter, physics-based projectiles, chain reactions, state toggle
 
-### 4.2 環境・地形との相互作用
+### 4.2 Environment/Terrain Interaction
 
-- **地形**: 不規則な地面、浮遊/動くプラットフォーム、裂け目、一時的な足場
-- **ギミック**: 挙動が変化する環境ゾーン、ハザード（トゲ・押しつぶし）、物理パズル
+- **Terrain**: Irregular ground, floating/moving platforms, chasms, temporary footholds
+- **Gimmicks**: Environment zones with changing behavior, hazards (spikes, crushers), physics puzzles
 
-## 5. タグの役割
+## 5. Role of Tags
 
-タグは設計仕様ではなく、発想の起点（シード）である。
+Tags are not design specifications but inspiration starting points (seeds).
 
-- **拘束ではなく刺激**: タグから連想を広げ、タグ自体から離れてよい
-- **矛盾は機会**: 矛盾するタグは創造的緊張として活用せよ（§8 参照）
-- **逸脱を許容**: 最終設計がタグで説明できなくても問題ない
-- **目的**: LLM の発想を既存パターンから「ずらす」乱数として機能する
+- **Stimulus, not constraint**: Expand associations from tags, feel free to depart from them
+- **Contradiction is opportunity**: Use contradicting tags as creative tension (see §8)
+- **Deviation allowed**: No problem if final design cannot be explained by tags
+- **Purpose**: Functions as randomness to "shift" LLM ideas from existing patterns
 
-## 6. 発想の起点
+## 6. Starting Points for Ideas
 
-タグに依存しない発想の出発点。行き詰まった際、または最初から新規性を追求する際に活用せよ。
+Idea starting points independent of tags. Use when stuck or when pursuing novelty from the start.
 
-### 6.1 抽象問いかけ
+### 6.1 Abstract Questions
 
-| 視点         | 問いかけ例                                                 |
-| :----------- | :--------------------------------------------------------- |
-| **否定**     | 画面がなかったら？ スコアがなかったら？ 失敗がなかったら？ |
-| **感覚**     | 心拍数が上がる瞬間とは？ 安堵とは何か？ 「惜しい」とは？   |
-| **物理外**   | 確率を操作できたら？ 因果が逆なら？ 時間が分岐したら？     |
-| **異分野**   | 音楽の緊張と解決、生態系の捕食関係、化学反応の連鎖         |
-| **感情逆算** | 「裏切り」を感じさせるには？ 「発見」の喜びとは？          |
+| Perspective | Example Questions |
+| :--- | :--- |
+| **Negation** | What if there's no screen? No score? No failure? |
+| **Sensation** | What moment raises heart rate? What is relief? What is "close call"? |
+| **Beyond physics** | What if you could manipulate probability? What if causality is reversed? What if time branches? |
+| **Cross-discipline** | Musical tension and resolution, ecosystem predation, chemical chain reactions |
+| **Reverse from emotion** | How to create feeling of "betrayal"? What is the joy of "discovery"? |
 
-### 6.2 制約からの発想
+### 6.2 Ideas from Constraints
 
-「〜がない」という制約を設け、そこから逆算する：
+Set constraints of "without ~" and work backwards:
 
-- 移動がない（画面内の変化だけで成立するゲーム）
-- 敵がいない（環境や自分自身との戦い）
-- 得点がない（状態の維持や変化が目的）
-- 視覚がない（音やリズムだけで成立）
+- No movement (game that works with only on-screen changes)
+- No enemies (battle against environment or self)
+- No scoring (goal is state maintenance or change)
+- No visuals (works with only sound or rhythm)
 
-## 7. タグからゲームを設計する手順
+## 7. Procedure for Designing Games from Tags
 
-与えられたタグ群から以下の順序で設計せよ。
+Design in the following order from given tag groups.
 
-1. **自由連想**: タグを眺め、最初に浮かんだイメージや感覚を言語化する（§6 を参照）
-2. **逸脱探索**: タグの「逆」「否定」「極端」を考え、意外な方向を探る
-3. **コア体験決定**: プレイヤーに与えたい「瞬間の感覚」を一言で定義する
-4. **メカニクス構築**: コア体験を実現する 1 ボタン操作を設計する
-5. **整合性検証**: §10 のチェックリストで設計を検証
+1. **Free Association**: Look at tags, verbalize the first images or sensations that come to mind (refer to §6)
+2. **Deviation Exploration**: Consider the "opposite," "negation," or "extreme" of tags, explore unexpected directions
+3. **Core Experience Decision**: Define the "momentary sensation" you want to give the player in one phrase
+4. **Mechanics Construction**: Design one-button operation that realizes the core experience
+5. **Consistency Verification**: Verify design with the checklist in §10
 
-※ タグは手順 1-2 の刺激として使用し、手順 3 以降ではタグに縛られない。
+※ Use tags as stimulus for steps 1-2, don't be bound by tags from step 3 onwards.
 
-## 8. タグの矛盾と創造的緊張
+## 8. Tag Contradiction and Creative Tension
 
-矛盾するタグが与えられた場合、それは制約ではなく発明の機会である。
+When contradicting tags are given, it's an opportunity for invention, not a constraint.
 
-| 矛盾例                                  | 従来の対処     | 創造的解釈                                                   |
-| :-------------------------------------- | :------------- | :----------------------------------------------------------- |
-| `field:1D` と `field:3D`                | 一方を採用     | 1 次元に見えて奥行きがある空間、または 3D 空間を 1D 的に移動 |
-| `on_pressed:jump` と `on_pressed:shoot` | 優先度で選択   | ジャンプと射撃が同一動作（跳躍の軌跡が攻撃になる等）         |
-| `player:auto_move` と `on_holding:stop` | 依存関係を整理 | 止まること自体がリスクになる設計                             |
+| Contradiction Example | Conventional Approach | Creative Interpretation |
+| :--- | :--- | :--- |
+| `field:1D` and `field:3D` | Adopt one | Space that looks 1D but has depth, or move 1D-like in 3D space |
+| `on_pressed:jump` and `on_pressed:shoot` | Select by priority | Jump and shoot as same action (jumping trajectory becomes attack, etc.) |
+| `player:auto_move` and `on_holding:stop` | Organize dependencies | Design where stopping itself is a risk |
 
-**原則**: 矛盾を解消するのではなく、矛盾を成立させる新概念を発明せよ。
+**Principle**: Don't resolve contradiction, invent a new concept that makes contradiction possible.
 
-## 9. 出力フォーマット
+## 9. Output Format
 
-`tmp/games/<slug>/README.md` に以下の形式で出力せよ。
+Output in the following format to `tmp/games/<slug>/README.md`.
 
 ```markdown
 # <GAME_NAME> (<slug>)
 
-**タグ**: #tag1, #tag2, #tag3
+**Tags**: #tag1, #tag2, #tag3
 
-## 1. コア・メカニクス
+## 1. Core Mechanics
 
-<入力 → 挙動 → 終了条件、スコアリングシステム、難度上昇の仕組み>
+<Input → Behavior → End condition, scoring system, difficulty increase mechanism>
 
-## 2. オブジェクト仕様
+## 2. Object Specifications
 
-<各オブジェクトの形状・動作・衝突処理>
+<Each object's shape, behavior, collision handling>
 
-## 3. デザインガイド分析
+## 3. Design Guide Analysis
 
-<４つのコア設計原則への評価>
+<Evaluation against four core design principles>
 
-## 4. タグとの関係
+## 4. Relationship with Tags
 
-<タグからの発想展開>
+<Idea development from tags>
 
-## 5. 新規性の根拠
+## 5. Basis for Novelty
 
-<既存パターンを超えた要素>
+<Elements beyond existing patterns>
 ```
 
-実装は `crisp-game-lib-guide.md` を参照し、150 行程度までの JavaScript で記述せよ。
+Implement in JavaScript of about 150 lines, referring to `crisp-game-lib-guide.md`.
 
-## 10. 設計品質チェックリスト
+## 10. Design Quality Checklist
 
-設計完了前に以下を確認せよ。
+Confirm the following before completing design.
 
-- [ ] 1 ボタンで完結するか（複数入力を要求していないか）
-- [ ] ゲームオーバー条件は単一かつ視覚的に明白か
-- [ ] 連打・放置で最適解にならないか
-- [ ] §2 の 4 原則すべてに根拠ある回答ができるか
-- [ ] タグから発想が始まり、既存パターンを超えた要素があるか
-- [ ] 「これは見たことがない」と感じる瞬間があるか
+- [ ] Does it complete with one button (not requiring multiple inputs)?
+- [ ] Is the game over condition single and visually obvious?
+- [ ] Is button mashing/idle play not the optimal solution?
+- [ ] Can you provide reasoned answers to all 4 principles in §2?
+- [ ] Did ideas start from tags and have elements beyond existing patterns?
+- [ ] Are there moments of feeling "I've never seen this before"?
 
-## 付録: SCAMPER 法（補助手法）
+## Appendix: SCAMPER Method (Auxiliary Technique)
 
-既存要素の変形による発想補助。ただし、これは行き詰まった際の補助であり、主要な発想法ではない。
+Idea assistance through transformation of existing elements. However, this is an auxiliary for when stuck, not the primary ideation method.
 
-- **Substitute（代用）**: ジャンプをテレポートや重力反転に置き換える。
-- **Combine（結合）**: 跳ね返りメカニクスと方向転換を組み合わせる。
-- **Adapt（適応）**: 既存のアーケードゲームや物理現象（振り子・波）を 1 ボタンに落とし込む。
-- **Modify（修正）**: 長押し時間でキャラが巨大化する。速度に応じて危険度を増す。
-- **Put to other uses（転用）**: 敵を足場や道具として利用させる。
-- **Eliminate（削除）**: 重力や直接的な移動操作など、「あって当然」の要素を消す。
-- **Rearrange（再配置）**: ステージ構成が常に変化し続けるようにする。
+- **Substitute**: Replace jump with teleport or gravity reversal.
+- **Combine**: Combine bounce mechanics with direction change.
+- **Adapt**: Adapt existing arcade games or physical phenomena (pendulum, waves) to one button.
+- **Modify**: Character grows giant with hold duration. Danger increases with speed.
+- **Put to other uses**: Use enemies as platforms or tools.
+- **Eliminate**: Remove "obvious" elements like gravity or direct movement control.
+- **Rearrange**: Stage composition constantly changes.
 
-**注意**: SCAMPER 法は既存要素の変形であり、本質的に新しい発想を生むには限界がある。§6 の抽象問いかけと併用し、変形の先にある「新概念」を目指せ。
+**Note**: SCAMPER method is transformation of existing elements and has limits for generating fundamentally new ideas. Use together with abstract questions in §6, aiming for "new concepts" beyond transformation.
