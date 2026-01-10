@@ -51,16 +51,32 @@ class Xorshift128 {
   }
 }
 
-// CSV parse (fixed 4 columns: name, overview, description, keywords)
+// CSV parse (handles quoted fields)
 function parseCSV(content) {
   const lines = content.trim().split("\n");
   return lines.slice(1).map((line) => {
-    const parts = line.split(",");
+    const fields = [];
+    let current = "";
+    let inQuotes = false;
+
+    for (let i = 0; i < line.length; i++) {
+      const char = line[i];
+      if (char === '"') {
+        inQuotes = !inQuotes;
+      } else if (char === "," && !inQuotes) {
+        fields.push(current.trim());
+        current = "";
+      } else {
+        current += char;
+      }
+    }
+    fields.push(current.trim());
+
     return {
-      name: parts[0].trim(),
-      overview: parts[1].trim(),
-      description: parts[2].trim(),
-      keywords: parts.slice(3).join(",").trim(),
+      name: fields[0] || "",
+      overview: fields[1] || "",
+      description: fields[2] || "",
+      keywords: fields[3] || "",
     };
   });
 }
