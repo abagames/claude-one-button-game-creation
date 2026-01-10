@@ -612,6 +612,57 @@ if (input.isJustPressed) {
 }
 ```
 
+### Visibility and Layout Best Practices
+
+```javascript
+// Player positioning for scrolling games
+// Place player on the opposite side from where objects spawn
+// This gives players reaction time to see and respond to incoming objects
+
+// ✅ Vertical scroll (objects come from top): Player at Y ≈ 80
+player.y = 80;  // Bottom area - objects visible before reaching player
+
+// ✅ Horizontal scroll (objects come from right): Player at X ≈ 20
+player.x = 20;  // Left area - objects visible before reaching player
+
+// ❌ Bad: Player in center of vertical scroller
+player.y = 50;  // Too little reaction time for fast-moving objects
+
+// Screen regions (100x100 default viewport)
+// ┌─────────────────────────┐
+// │   Spawn Zone (Y < 10)   │  ← Objects appear here
+// ├─────────────────────────┤
+// │                         │
+// │      Play Zone          │  ← Main action area
+// │      (Y: 10-70)         │
+// │                         │
+// ├─────────────────────────┤
+// │   Player Zone (Y > 70)  │  ← Player positioned here
+// └─────────────────────────┘
+
+// For side-scrolling games, rotate this layout 90°
+// Spawn: X > 90, Play: X 20-90, Player: X < 20
+
+// Fixed vs moving player
+// Option A: Player fixed at constant Y (simpler, recommended)
+player.y = 80;  // Always at Y=80, only X moves
+
+// Option B: Player moves within constrained zone
+player.y = clamp(player.y, 70, 90);  // Limited vertical movement
+
+// Option C: Camera follows player (player moves freely, screen adjusts)
+// Use when player needs full movement but visibility must be maintained
+let scrollMy = 0;  // Declare at top level
+
+// In update():
+scrollMy += (80 - player.y) * 0.1;  // Smoothly adjust to keep player near Y=80
+
+// Draw all objects with scroll offset
+box(enemy.x, enemy.y + scrollMy, 5, 5);      // Enemies scroll
+box(player.x, player.y + scrollMy, 4, 6);    // Player appears near Y=80 on screen
+// Player's logical Y can be anywhere, but visually stays in safe zone
+```
+
 ### Performance and Best Practices
 
 ```javascript
