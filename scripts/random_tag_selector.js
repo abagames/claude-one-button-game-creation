@@ -2,23 +2,23 @@
 /**
  * Random Tag Selector for One-Button Game Generation
  *
- * 完全ランダムでタグを選択し、ゲーム設計の「シード」として出力する。
- * タグは設計仕様ではなく発想の起点として機能する。
+ * Randomly selects tags and outputs them as "seeds" for game design.
+ * Tags function as inspiration starting points, not design specifications.
  *
  * Usage:
  *   node scripts/random_tag_selector.js [options]
  *
  * Options:
- *   -n, --count <number>   選択するタグ数 (default: 3)
- *   -s, --seed <number>    乱数シード (省略時は現在時刻)
- *   -f, --format <type>    出力形式: text, json, markdown (default: markdown)
- *   -h, --help             ヘルプを表示
+ *   -n, --count <number>   Number of tags to select (default: 3)
+ *   -s, --seed <number>    Random seed (uses current time if omitted)
+ *   -f, --format <type>    Output format: text, json, markdown (default: markdown)
+ *   -h, --help             Show help
  */
 
 const fs = require("fs");
 const path = require("path");
 
-// Xorshift128 PRNG (再現性のため)
+// Xorshift128 PRNG (for reproducibility)
 class Xorshift128 {
   constructor(seed = Date.now()) {
     this.x = seed >>> 0;
@@ -51,7 +51,7 @@ class Xorshift128 {
   }
 }
 
-// CSVパース (4カラム固定: name, overview, description, keywords)
+// CSV parse (fixed 4 columns: name, overview, description, keywords)
 function parseCSV(content) {
   const lines = content.trim().split("\n");
   return lines.slice(1).map((line) => {
@@ -65,20 +65,20 @@ function parseCSV(content) {
   });
 }
 
-// タグ読み込み
+// Load tags
 function loadTags() {
   const csvPath = path.join(__dirname, "..", "tags.csv");
   const content = fs.readFileSync(csvPath, "utf-8");
   return parseCSV(content);
 }
 
-// タグ選択
+// Select tags
 function selectTags(tags, count, rng) {
   const shuffled = rng.shuffle(tags);
   return shuffled.slice(0, count);
 }
 
-// カテゴリ抽出
+// Extract category
 function getCategory(name) {
   const parts = name.split("-");
   if (parts[0] === "on") {
@@ -87,7 +87,7 @@ function getCategory(name) {
   return parts[0];
 }
 
-// 出力フォーマット
+// Output formatting
 function formatOutput(selectedTags, seed, format) {
   switch (format) {
     case "json":
@@ -114,11 +114,11 @@ function formatOutput(selectedTags, seed, format) {
     case "markdown":
     default:
       const lines = [
-        "## 選択タグ",
+        "## Selected Tags",
         "",
-        `**シード**: ${seed}`,
+        `**Seed**: ${seed}`,
         "",
-        "| タグ | カテゴリ | 概要 | 説明 |",
+        "| Tag | Category | Overview | Description |",
         "|:---|:---|:---|:---|",
       ];
 
@@ -129,40 +129,40 @@ function formatOutput(selectedTags, seed, format) {
       });
 
       lines.push("");
-      lines.push("### キーワード");
+      lines.push("### Keywords");
       lines.push("");
       selectedTags.forEach((t) => {
         lines.push(`- **${t.name}**: ${t.keywords}`);
       });
 
       lines.push("");
-      lines.push("## 使用方法");
+      lines.push("## Usage");
       lines.push("");
       lines.push("```");
       lines.push(
-        "上記タグを one-button-game-design-guide.md §7 の手順に従い、"
+        "Use the above tags as inspiration starting points for game design,"
       );
-      lines.push("ゲーム設計の発想起点として使用してください。");
-      lines.push("タグは制約ではなく刺激です。逸脱を恐れないでください。");
+      lines.push("following the procedures in one-button-game-design-guide.md §7.");
+      lines.push("Tags are stimuli, not constraints. Don't be afraid to deviate.");
       lines.push("```");
 
       return lines.join("\n");
   }
 }
 
-// ヘルプ表示
+// Show help
 function showHelp() {
   console.log(`
-Random Tag Selector - ワンボタンゲーム生成用タグ選択ツール
+Random Tag Selector - Tag selection tool for one-button game generation
 
 Usage:
   node scripts/random_tag_selector.js [options]
 
 Options:
-  -n, --count <number>   選択するタグ数 (default: 3)
-  -s, --seed <number>    乱数シード (省略時は現在時刻ベース)
-  -f, --format <type>    出力形式: text, json, markdown (default: markdown)
-  -h, --help             このヘルプを表示
+  -n, --count <number>   Number of tags to select (default: 3)
+  -s, --seed <number>    Random seed (uses current time if omitted)
+  -f, --format <type>    Output format: text, json, markdown (default: markdown)
+  -h, --help             Show this help
 
 Examples:
   node scripts/random_tag_selector.js
@@ -172,7 +172,7 @@ Examples:
 `);
 }
 
-// 引数パース
+// Parse arguments
 function parseArgs(args) {
   const options = {
     count: 3,
@@ -205,7 +205,7 @@ function parseArgs(args) {
   return options;
 }
 
-// メイン
+// Main
 function main() {
   const options = parseArgs(process.argv.slice(2));
 
