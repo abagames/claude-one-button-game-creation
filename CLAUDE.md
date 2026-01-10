@@ -1,4 +1,4 @@
-# game-tags Project
+# claude-one-button-game-creation
 
 An automatic one-button game generation project using crisp-game-lib. LLM designs, implements, and improves games using tags as seeds for inspiration.
 
@@ -17,11 +17,11 @@ An automatic one-button game generation project using crisp-game-lib. LLM design
 node scripts/random_tag_selector.js
 ```
 
-| Option | Description | Default |
-| :--- | :--- | :--- |
-| `-n, --count` | Number of tags to select | 3 |
-| `-s, --seed` | Random seed (for reproduction) | Current time |
-| `-f, --format` | text/json/markdown | markdown |
+| Option         | Description                    | Default      |
+| :------------- | :----------------------------- | :----------- |
+| `-n, --count`  | Number of tags to select       | 3            |
+| `-s, --seed`   | Random seed (for reproduction) | Current time |
+| `-f, --format` | text/json/markdown             | markdown     |
 
 **Important**: Tags are "seeds for inspiration," not "design specifications." Use contradicting tags as creative tension.
 
@@ -264,11 +264,11 @@ node scripts/ga_tester.js tmp/games/<slug>/main.js
 GA Ratio = ga.bestScore / monotonous.summary.maxScore
 ```
 
-| GA Ratio | Evaluation | Meaning |
-| :--- | :--- | :--- |
-| ≤ 1.0 | Fail | Monotonous input is optimal (no skill required) |
-| 1.0 - 1.5 | Needs review | Skill reflection is insufficient |
-| > 1.5 | Pass | Skilled input is rewarded |
+| GA Ratio  | Evaluation   | Meaning                                         |
+| :-------- | :----------- | :---------------------------------------------- |
+| ≤ 1.0     | Fail         | Monotonous input is optimal (no skill required) |
+| 1.0 - 1.5 | Needs review | Skill reflection is insufficient                |
+| > 1.5     | Pass         | Skilled input is rewarded                       |
 
 ### Condition to Proceed to Phase 5
 
@@ -341,21 +341,21 @@ Follow `game-improvement-guide.md` to identify problems from detailed log and im
 
 #### Analysis Perspectives (refer to `ga.detailedLog`)
 
-| Analysis Item | What to Check | Problem Indication |
-| :--- | :--- | :--- |
-| **Death Analysis** | `ga.detailedLog.deathAnalysis.position`, `recentFrames` | Deaths concentrated at same position |
-| **Spawn Analysis** | `ga.detailedLog.spawnAnalysis.minInterval`, `spatialDistribution` | Interval or spatial distribution bias |
-| **Scoring Analysis** | `ga.detailedLog.scoringAnalysis.triggers`, `scoringRate` | Lack of acquisition method diversity |
-| **Input Analysis** | `ga.detailedLog.inputAnalysis.pattern` | `spam` or `hold_heavy` |
+| Analysis Item        | What to Check                                                     | Problem Indication                    |
+| :------------------- | :---------------------------------------------------------------- | :------------------------------------ |
+| **Death Analysis**   | `ga.detailedLog.deathAnalysis.position`, `recentFrames`           | Deaths concentrated at same position  |
+| **Spawn Analysis**   | `ga.detailedLog.spawnAnalysis.minInterval`, `spatialDistribution` | Interval or spatial distribution bias |
+| **Scoring Analysis** | `ga.detailedLog.scoringAnalysis.triggers`, `scoringRate`          | Lack of acquisition method diversity  |
+| **Input Analysis**   | `ga.detailedLog.inputAnalysis.pattern`                            | `spam` or `hold_heavy`                |
 
 ### Recommended Approaches
 
-| Priority | Approach | Example |
-| :--- | :--- | :--- |
-| High | Improve placement logic | Spawn that guarantees safe routes |
-| High | Introduce warning system | Visual warning before obstacle appears |
-| Medium | Phase-based difficulty | Introduce new mechanics over time |
-| Medium | Input pattern response | Mashing penalty, rhythm bonus |
+| Priority | Approach                 | Example                                |
+| :------- | :----------------------- | :------------------------------------- |
+| High     | Improve placement logic  | Spawn that guarantees safe routes      |
+| High     | Introduce warning system | Visual warning before obstacle appears |
+| Medium   | Phase-based difficulty   | Introduce new mechanics over time      |
+| Medium   | Input pattern response   | Mashing penalty, rhythm bonus          |
 
 ### Prohibited Items
 
@@ -394,10 +394,10 @@ tmp/games/<slug>/
 
 ## Simulation Results
 
-| Metric | Initial | After Improvement |
-| :--- | :--- | :--- |
-| Evaluation | X/6 | Y/6 |
-| GA vs Monotonous | X.Xx | Y.Yx |
+| Metric           | Initial | After Improvement |
+| :--------------- | :------ | :---------------- |
+| Evaluation       | X/6     | Y/6               |
+| GA vs Monotonous | X.Xx    | Y.Yx              |
 
 ## Improvements Made
 
@@ -431,14 +431,14 @@ game-tags/
 
 ## Tag Categories
 
-| Category | Description | Examples |
-| :--- | :--- | :--- |
-| `player` | Player characteristics | `player-rotate`, `player-multiple` |
-| `on_pressed` | On button press | `on_pressed-jump`, `on_pressed-turn` |
-| `on_holding` | While button held | `on_holding-move`, `on_holding-charge` |
-| `on_released` | On button release | `on_released-throw` |
-| `on_got_item` | On item acquisition | `on_got_item-power_up` |
-| `field` | Field characteristics | `field-auto_scroll`, `field-1D` |
-| `rule` | Game rules | `rule-physics`, `rule-combo_multiplier` |
-| `weapon` | Weapons/Attacks | `weapon-explosion`, `weapon-reflect` |
-| `obstacle` | Obstacles | `obstacle-chase`, `obstacle-penalty` |
+| Category      | Description            | Examples                                |
+| :------------ | :--------------------- | :-------------------------------------- |
+| `player`      | Player characteristics | `player-rotate`, `player-multiple`      |
+| `on_pressed`  | On button press        | `on_pressed-jump`, `on_pressed-turn`    |
+| `on_holding`  | While button held      | `on_holding-move`, `on_holding-charge`  |
+| `on_released` | On button release      | `on_released-throw`                     |
+| `on_got_item` | On item acquisition    | `on_got_item-power_up`                  |
+| `field`       | Field characteristics  | `field-auto_scroll`, `field-1D`         |
+| `rule`        | Game rules             | `rule-physics`, `rule-combo_multiplier` |
+| `weapon`      | Weapons/Attacks        | `weapon-explosion`, `weapon-reflect`    |
+| `obstacle`    | Obstacles              | `obstacle-chase`, `obstacle-penalty`    |
