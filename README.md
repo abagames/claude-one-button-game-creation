@@ -1,0 +1,40 @@
+# Claude One-Button Game Creation
+
+An automated one-button game generation system powered by LLM. Using [crisp-game-lib](https://github.com/abagames/crisp-game-lib), this project enables AI agents to design, implement, and iteratively improve browser-based mini-games from random tag combinations.
+
+## What It Does
+
+- **Tag-based inspiration**: Randomly selects gameplay tags (e.g., `player-rotate`, `on_pressed-jump`, `field-auto_scroll`) as creative seeds
+- **Automated design**: LLM designs game mechanics following one-button constraints
+- **Implementation**: Generates playable games using crisp-game-lib (~150 lines)
+- **GA-based evaluation**: Tests games with genetic algorithm to ensure skilled play outperforms button-mashing
+- **Iterative improvement**: Refines games based on simulation feedback
+
+## Quick Start
+
+1. Instruct your coding agent (Claude Code, etc.) to **"Create a game"**
+2. Open `tmp/games/<slug>/index.html` in your browser to play
+
+## Sample Games
+
+See [GAMES.md](./GAMES.md) for a gallery of generated games with playable demos.
+
+## Project Structure
+
+```
+├── scripts/                  # Automation tools
+│   ├── random_tag_selector.js
+│   ├── ga_tester.js
+│   └── one_button_game_tester.js
+├── docs/                     # Published games
+├── one-button-game-design-guide.md
+├── game-improvement-guide.md
+├── crisp-game-lib-guide.md
+└── tags.csv                  # 107 gameplay tags
+```
+
+## Documentation
+
+- [CLAUDE.md](./CLAUDE.md) - Complete workflow for AI agents
+- [one-button-game-design-guide.md](./one-button-game-design-guide.md) - Design principles
+- [crisp-game-lib-guide.md](./crisp-game-lib-guide.md) - API reference
