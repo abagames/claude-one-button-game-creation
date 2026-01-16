@@ -46,6 +46,7 @@ node scripts/random_tag_selector.js
 - [ ] Cannot achieve high scores with button mashing or idle play?
 - [ ] Is skilled input rewarded in the design?
 - [ ] Are there moments of feeling "I've never seen this before"?
+- [ ] Is this NOT a clone or minor variation of a widely-known existing game?
 
 ### Output Format
 
@@ -75,6 +76,10 @@ Write the following to `tmp/games/<slug>/README.md`:
 ## 5. Basis for Novelty
 
 <Elements beyond existing patterns>
+
+## 6. Similarity Check
+
+<List any known games with similar mechanics. Explain key differences that make this design distinct.>
 ```
 
 ---
