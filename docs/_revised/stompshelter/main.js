@@ -21,10 +21,20 @@ let debris;
 let lavaY;
 let combo;
 let jumpCount;
+let playerTrail;
+let wasGrounded;
 
 function update() {
   if (!ticks) {
-    player = { x: 50, y: 70, vx: 1, vy: 0, grounded: false };
+    player = {
+      x: 50,
+      y: 70,
+      vx: 1,
+      vy: 0,
+      grounded: false,
+      scaleX: 1,
+      scaleY: 1,
+    };
     platforms = [];
     enemies = [];
     nextEnemyDist = 100;
@@ -32,6 +42,8 @@ function update() {
     lavaY = 102;
     combo = 0;
     jumpCount = 0;
+    playerTrail = [];
+    wasGrounded = false;
     for (let i = 0; i < 6; i++) {
       platforms.push({
         x: rnd(20, 60),
@@ -85,6 +97,12 @@ function update() {
     player.grounded = false;
     jumpCount++;
     play("jump");
+    // Squash & Stretch: stretch vertically on jump
+    player.scaleX = 0.7;
+    player.scaleY = 1.4;
+    // Particle effect on jump
+    color("cyan");
+    particle(player.x, player.y + 3, 5, 1, -PI / 2, PI / 4);
   }
 
   // Physics
@@ -115,8 +133,16 @@ function update() {
       combo = 0;
       // Platform crumbles when standing
       p.hp -= 1;
+      // Landing effect
+      if (!wasGrounded) {
+        player.scaleX = 1.4;
+        player.scaleY = 0.6;
+        color("cyan");
+        particle(player.x, player.y + 3, 4, 0.8, PI / 2, PI / 3);
+      }
     }
   });
+  wasGrounded = player.grounded;
 
   // Scroll
   if (player.y < 60) {
@@ -133,6 +159,9 @@ function update() {
     });
     debris.forEach((d) => {
       d.y += scroll;
+    });
+    playerTrail.forEach((t) => {
+      t.y += scroll;
     });
     addScore(floor(scroll));
   }
@@ -160,9 +189,49 @@ function update() {
 
   // === DRAW ===
 
-  // Player
+  // Squash/Stretch interpolation (return to normal)
+  player.scaleX += (1 - player.scaleX) * 0.15;
+  player.scaleY += (1 - player.scaleY) * 0.15;
+
+  // Idle breathing when grounded
+  if (player.grounded && abs(player.scaleX - 1) < 0.05) {
+    let breath = sin(ticks * 0.1) * 0.05;
+    player.scaleX = 1 + breath;
+    player.scaleY = 1 - breath;
+  }
+
+  // Trail management
+  if (abs(player.vy) > 1 || abs(player.vx) > 0.5) {
+    playerTrail.push({ x: player.x, y: player.y, life: 8 });
+  }
+  playerTrail = playerTrail.filter((t) => {
+    t.life--;
+    return t.life > 0;
+  });
+
+  // Draw trail (afterimage)
+  playerTrail.forEach((t) => {
+    color("light_cyan");
+    let alpha = t.life / 8;
+    box(t.x, t.y, 4 * alpha);
+  });
+
+  // Player with squash/stretch and tilt
   color("cyan");
-  box(player.x, player.y, 6);
+  let tilt = player.vx * 0.15;
+  let pw = 6 * player.scaleX;
+  let ph = 6 * player.scaleY;
+  bar(player.x, player.y, ph / 2, pw, -PI / 2 + tilt);
+
+  // Player eyes
+  color("white");
+  let eyeOffX = player.vx > 0 ? 1 : -1;
+  let eyeOffY = player.vy > 0 ? 1 : player.vy < -1 ? -1 : 0;
+  box(player.x - 1.2, player.y - 1, 2, 2);
+  box(player.x + 1.2, player.y - 1, 2, 2);
+  color("black");
+  box(player.x - 1.2 + eyeOffX * 0.4, player.y - 1 + eyeOffY * 0.3, 1, 1);
+  box(player.x + 1.2 + eyeOffX * 0.4, player.y - 1 + eyeOffY * 0.3, 1, 1);
 
   // Lava
   if (lavaY > 100) lavaY += (100 - lavaY) * 0.5;
@@ -181,16 +250,35 @@ function update() {
     rect(p.x, p.y, p.w, 4);
   });
 
-  // Enemies
-  color("red");
+  // Enemies with eyes and rotation
   enemies = enemies.filter((e) => {
+    // Collision check first (body)
+    color("red");
     let c = box(e.x, e.y, 7);
+
+    // Tilt overlay with bar
+    let eTilt = e.dir * 0.2;
+    bar(e.x, e.y, 3.5, 7, -PI / 2 + eTilt);
+
+    // Enemy eyes looking toward player (drawn last to be visible)
+    color("white");
+    let lookX = player.x > e.x ? 1 : -1;
+    let lookY = player.y > e.y ? 1 : player.y < e.y - 5 ? -1 : 0;
+    box(e.x - 1.5, e.y - 1, 2.5, 2.5);
+    box(e.x + 1.5, e.y - 1, 2.5, 2.5);
+    color("black");
+    box(e.x - 1.5 + lookX * 0.5, e.y - 1 + lookY * 0.4, 1.2, 1.2);
+    box(e.x + 1.5 + lookX * 0.5, e.y - 1 + lookY * 0.4, 1.2, 1.2);
+
     if (c.isColliding.rect.cyan) {
       if (player.vy > 0.5 && player.y < e.y - 2) {
         player.vy = -2.2;
         combo++;
         addScore(8 + combo * 4);
         play("powerUp");
+        // Stomp particle effect
+        color("red");
+        particle(e.x, e.y, 10, 2);
         return false;
       } else {
         play("hit");
@@ -200,9 +288,13 @@ function update() {
     return true;
   });
 
-  // Debris
-  color("purple");
+  // Debris with trail
   debris = debris.filter((d) => {
+    // Trail effect for falling debris
+    color("light_purple");
+    box(d.x, d.y - 3, 2);
+    box(d.x, d.y - 6, 1);
+
     let blocked = false;
     platforms.forEach((p) => {
       if (
@@ -217,9 +309,11 @@ function update() {
       }
     });
     if (blocked) {
-      particle(d.x, d.y, 3, 0.4);
+      color("purple");
+      particle(d.x, d.y, 6, 1);
       return false;
     }
+    color("purple");
     let c = box(d.x, d.y, 4);
     if (c.isColliding.rect.cyan) {
       play("hit");

@@ -20,6 +20,8 @@ let ceiling;
 let groundY;
 let stompTimer;
 let multiplier;
+let trails;
+let prevVy;
 
 function update() {
   if (!ticks) {
@@ -27,11 +29,12 @@ function update() {
     ceiling = 3;
     player = { x: 40, y: 40, vy: 0 };
     geysers = [];
+    trails = [];
     stompTimer = 0;
-    // Initial geyser
     geysers.push({ x: 95, height: 40, vx: -1, stomped: false });
     spawnTicks = 60;
     multiplier = 1;
+    prevVy = 0;
   }
 
   let baseSpeed = sqrt(difficulty);
@@ -49,7 +52,7 @@ function update() {
     spawnTicks = 90 / sqrt(difficulty);
   }
 
-  // Ceiling pressure - must stomp to survive
+  // Ceiling pressure
   stompTimer++;
   if (stompTimer > 200) {
     ceiling += 0.1;
@@ -62,7 +65,20 @@ function update() {
     player.vy += 0.13;
   }
   player.vy = clamp(player.vy, -2.2, 3);
+
+  // Direction change particles
+  if (prevVy < 0 && player.vy > 0) {
+    color("cyan");
+    particle(player.x, player.y - 3, 5, 1, -PI / 2, PI / 4);
+  }
+  prevVy = player.vy;
+
   player.y += player.vy * sqrt(difficulty);
+
+  // Add trail
+  if (abs(player.vy) > 1) {
+    trails.push({ x: player.x, y: player.y, life: 8 });
+  }
 
   // Boundaries
   if (player.y < ceiling || player.y > groundY) {
@@ -82,9 +98,33 @@ function update() {
   color("green");
   rect(0, groundY, 100, 8);
 
-  // Draw player (target for collision)
+  // Draw trails (afterimage)
+  for (let i = trails.length - 1; i >= 0; i--) {
+    let t = trails[i];
+    t.life--;
+    if (t.life <= 0) {
+      trails.splice(i, 1);
+      continue;
+    }
+    color("light_cyan");
+    box(t.x, t.y, 4 * (t.life / 8), 4 * (t.life / 8));
+  }
+
+  // Draw player with squash & stretch
+  let stretch = clamp(-player.vy * 0.4, -1.5, 1.5);
+  let pw = 6 - stretch;
+  let ph = 6 + stretch;
   color("cyan");
-  box(player.x, player.y, 6, 6);
+  box(player.x, player.y, pw, ph);
+
+  // Player eyes
+  let eyeOffsetY = player.vy > 0 ? 0.8 : player.vy < -0.5 ? -0.8 : 0;
+  color("white");
+  box(player.x - 1.5, player.y - 0.5, 2.5, 3);
+  box(player.x + 1.5, player.y - 0.5, 2.5, 3);
+  color("black");
+  rect(player.x - 2, player.y - 0.5 + eyeOffsetY, 1, 1.5);
+  rect(player.x + 1, player.y - 0.5 + eyeOffsetY, 1, 1.5);
 
   // Process geysers
   for (let i = geysers.length - 1; i >= 0; i--) {
@@ -109,23 +149,36 @@ function update() {
     color(g.stomped ? "purple" : "yellow");
     let topCol = rect(g.x - 6, gTop, 12, 6);
 
+    // Geyser eyes (look at player)
+    if (!g.stomped) {
+      let lookX = clamp((player.x - g.x) * 0.05, -1, 1);
+      let lookY = clamp((player.y - gTop) * 0.03, -1, 1);
+      color("white");
+      box(g.x - 2.5, gTop + 3, 3, 4);
+      box(g.x + 2.5, gTop + 3, 3, 4);
+      color("black");
+      rect(g.x - 3 + lookX, gTop + 2.5 + lookY, 1, 2);
+      rect(g.x + 2 + lookX, gTop + 2.5 + lookY, 1, 2);
+    }
+
     // Water particles
     color("light_blue");
     particle(g.x, gTop, 1, 0.7, -PI / 2, PI / 5);
 
-    // Tutorial text for first geyser
+    // Tutorial text
     if (i === 0 && !g.stomped && score === 0) {
       color("black");
       text("v STOMP!", g.x, gTop - 12);
     }
 
-    // Check stomp collision (top zone)
+    // Check stomp collision
     if (!g.stomped && topCol.isColliding.rect.cyan) {
       if (player.vy > 0) {
         play("powerUp");
         addScore(multiplier, g.x, gTop);
         multiplier = min(multiplier + 1, 16);
-        particle(g.x, gTop, 25, 2, 0, PI);
+        color("yellow");
+        particle(g.x, gTop, 30, 3, 0, PI);
         player.vy = -2.8;
         g.stomped = true;
         g.height = 8;
