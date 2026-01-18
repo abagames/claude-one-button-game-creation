@@ -10,7 +10,6 @@ options = {
   isPlayingBgm: true,
   isReplayEnabled: true,
   audioSeed: 3,
-  isCapturing: true,
 };
 
 let player;
@@ -93,7 +92,7 @@ function update() {
       player.pos.x = clamp(
         plat.pos.x + sin(ticks * 0.05 + plat.phase) * 20,
         5,
-        95
+        95,
       );
       player.pos.y = plat.pos.y + 7;
       // Landing particle effect (only on first cling frame)

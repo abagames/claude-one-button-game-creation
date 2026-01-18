@@ -9,7 +9,7 @@ characters = [];
 options = {
   isPlayingBgm: true,
   isReplayEnabled: true,
-  seed: 0,
+  audioSeed: 0,
 };
 
 let player;
