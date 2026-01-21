@@ -23,10 +23,9 @@ function update() {
   if (!ticks) {
     balls = [];
     trails = [];
-    const speed = sqrt(difficulty);
     balls.push({
       pos: vec(rnd(10, 90), rnd(10, 90)),
-      vel: vec(rnds(0.5, 1) * speed, rnds(0.5, 1) * speed),
+      vel: vec(rnds(0.5, 1), rnds(0.5, 1)),
       scaleX: 1,
       scaleY: 1,
       rot: 0,
@@ -89,7 +88,7 @@ function update() {
 
   // Game over if walls reach max
   let maxWall = 43;
-  if (wallPress >= maxWall) {
+  if (wallPress >= maxWall && !frozen) {
     play("explosion");
     end();
   }
@@ -183,8 +182,8 @@ function update() {
 
   // Draw walls
   let wallColor = "light_purple";
-  if (wallPress > 35) {
-    wallColor = floor(ticks / 20) % 2 == 0 ? "light_red" : "light_purple";
+  if (wallPress > 35 && !frozen) {
+    wallColor = floor(ticks / 15) % 2 == 0 ? "light_red" : "light_purple";
   }
   color(wallColor);
   let wp = wallPress;
