@@ -1,8 +1,8 @@
 title = "PRESSBOUND";
 
 description = `
-[Hold] Charge
-[Release] Push walls
+[Hold] Narrow
+[Release] Release
 `;
 
 characters = [];
@@ -24,15 +24,13 @@ function update() {
     balls = [];
     trails = [];
     const speed = sqrt(difficulty);
-    for (let i = 0; i < 1; i++) {
-      balls.push({
-        pos: vec(rnd(30, 70), rnd(30, 70)),
-        vel: vec(rnds(0.5, 1) * speed, rnds(0.5, 1) * speed),
-        scaleX: 1,
-        scaleY: 1,
-        rot: 0,
-      });
-    }
+    balls.push({
+      pos: vec(rnd(10, 90), rnd(10, 90)),
+      vel: vec(rnds(0.5, 1) * speed, rnds(0.5, 1) * speed),
+      scaleX: 1,
+      scaleY: 1,
+      rot: 0,
+    });
     wallPress = 5;
     charge = 0;
     frozen = false;
@@ -42,22 +40,22 @@ function update() {
   wallPress += (input.isPressed ? 0.2 : 0.05) * sqrt(difficulty);
 
   // Input handling
-  if (input.isPressed) {
-    charge += 1;
-    if (charge > 9) {
-      play("select");
-      frozen = true;
-    }
+  if (input.isJustPressed) {
+    play("select");
+    frozen = true;
+    charge = 0;
+    wallPress += 2;
   }
 
   const pb = charge * 0.1;
   const sc = floor(pb * pb * balls.length * balls.length);
-  if (input.isPressed && charge > 9) {
+  if (input.isPressed && frozen) {
+    charge += 1;
     const ss = `${sc}`;
     color("black");
     text(ss, 50 - ss.length * 6 + 6, 30, { scale: { x: 2, y: 2 } });
   }
-  if (input.isJustReleased && charge > 9) {
+  if (input.isJustReleased && frozen) {
     if (sc > 0) {
       addScore(sc, 50, 50);
       play("jump");
@@ -77,10 +75,10 @@ function update() {
     balls = [];
     trails = [];
     const speed = sqrt(difficulty);
-    const newCount = rndi(1, 6);
+    const newCount = rndi(2, 5);
     for (let i = 0; i < newCount; i++) {
       balls.push({
-        pos: vec(rnd(30, 70), rnd(30, 70)),
+        pos: vec(rnd(5, 95), rnd(5, 95)),
         vel: vec(rnds(0.5, 1) * speed, rnds(0.5, 1) * speed),
         scaleX: 1,
         scaleY: 1,
@@ -121,7 +119,7 @@ function update() {
       b.scaleY += (1 - b.scaleY) * 0.15;
 
       // Bounce off current wall positions
-      let margin = 4;
+      let margin = 1;
       let minB = wallPress + margin;
       let maxB = 100 - wallPress - margin;
 
@@ -244,7 +242,7 @@ function update() {
     box(b.pos.x + 1.5 + eyeOffsetX * 0.5, b.pos.y - 1 + eyeOffsetY, 1, 1);
 
     // Collision check with walls
-    color(frozen ? "blue" : "cyan");
+    color("transparent");
     const c = box(b.pos, 1).isColliding.rect;
     if (frozen && c.light_purple) {
       play("explosion");
