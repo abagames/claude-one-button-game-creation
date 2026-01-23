@@ -49,6 +49,8 @@ See [GAMES.md](./GAMES.md) for a gallery of generated games with playable demos.
 ├── docs/                     # Published games
 ├── one-button-game-design-guide.md
 ├── game-improvement-guide.md
+├── balance-pattern-guide.md
+├── maximize-game-feel.md
 ├── crisp-game-lib-guide.md
 └── tags.csv                  # 107 gameplay tags
 ```
@@ -57,4 +59,7 @@ See [GAMES.md](./GAMES.md) for a gallery of generated games with playable demos.
 
 - [CLAUDE.md](./CLAUDE.md) - Complete workflow for AI agents
 - [one-button-game-design-guide.md](./one-button-game-design-guide.md) - Design principles
+- [game-improvement-guide.md](./game-improvement-guide.md) - GA log analysis and improvement process
+- [balance-pattern-guide.md](./balance-pattern-guide.md) - Balance adjustment patterns for automated improvement
+- [maximize-game-feel.md](./maximize-game-feel.md) - Visual polish and game feel enhancement
 - [crisp-game-lib-guide.md](./crisp-game-lib-guide.md) - API reference
