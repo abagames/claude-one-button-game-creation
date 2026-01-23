@@ -283,7 +283,7 @@ GA Ratio = ga.bestScore / monotonous.summary.maxScore
 
 ## Phase 5: Improvement
 
-**Reference**: `game-improvement-guide.md`
+**Reference**: `game-improvement-guide.md`, `balance-pattern-guide.md`
 
 ### 5a: Get Detailed Log
 
@@ -362,6 +362,26 @@ Follow `game-improvement-guide.md` to identify problems from detailed log and im
 | Medium   | Phase-based difficulty   | Introduce new mechanics over time      |
 | Medium   | Input pattern response   | Mashing penalty, rhythm bonus          |
 
+### 5c: Apply Balance Patterns
+
+Use `balance-pattern-guide.md` to systematically select improvements based on GA analysis:
+
+| Input Pattern   | Recommended Patterns                                      |
+| :-------------- | :-------------------------------------------------------- |
+| `spam`          | 5.3 Hold Accelerates Danger, 4.3 Penalty for Missed       |
+| `hold_heavy`    | 5.1 State-Dependent Speed, 2.1 Risk-Based Scoring         |
+| `no_input`      | 4.3 Penalty for Missed, 7.2 Movement Control Addition     |
+| Edge deaths     | 3.1 Screen Wrap, 3.3 Bounce Instead of Death              |
+| High diff deaths| 1.1 Linear to sqrt() Conversion                           |
+| Score inflation | 2.2 Score Scale Reduction                                 |
+
+**Process**:
+1. Identify problem from `ga.detailedLog`
+2. Select matching pattern from `balance-pattern-guide.md`
+3. Apply ONE pattern
+4. Re-run GA test
+5. Repeat until GA ratio > 1.5
+
 ### Prohibited Items
 
 ```javascript
@@ -429,6 +449,7 @@ game-tags/
 ├── tags.csv                        # All tags (107)
 ├── one-button-game-design-guide.md # Design guide
 ├── game-improvement-guide.md       # Improvement guide
+├── balance-pattern-guide.md        # Balance adjustment patterns
 └── crisp-game-lib-guide.md         # API reference
 ```
 
