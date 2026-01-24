@@ -55,12 +55,11 @@ function update() {
   }
 
   let hazardRate = 90 / sqrt(difficulty);
-  if (hazardRate < 30) hazardRate = 30;
   if (ticks % floor(hazardRate) === 0) {
     hazards.push({
       x: rnd(10, 90),
       y: -5,
-      vy: 0.5 * rnd(1, sqrt(difficulty)),
+      vy: 0.5 * rnd(1, difficulty),
       rot: 0,
     });
   }
