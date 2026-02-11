@@ -55,7 +55,11 @@ See [GAMES.md](./GAMES.md) for a gallery of generated games with playable demos.
 ├── game-improvement-guide.md
 ├── balance-pattern-guide.md
 ├── maximize-game-feel.md
-├── crisp-game-lib-guide.md
+├── .agents/skills/developing-with-crisp-game-lib/
+│   ├── SKILL.md
+│   └── reference/
+│       ├── api.md            # API reference
+│       └── examples.md       # Game examples
 └── tags.csv                  # 107 gameplay tags
 ```
 
@@ -66,4 +70,4 @@ See [GAMES.md](./GAMES.md) for a gallery of generated games with playable demos.
 - [game-improvement-guide.md](./game-improvement-guide.md) - GA log analysis and improvement process
 - [balance-pattern-guide.md](./balance-pattern-guide.md) - Balance adjustment patterns for automated improvement
 - [maximize-game-feel.md](./maximize-game-feel.md) - Visual polish and game feel enhancement
-- [crisp-game-lib-guide.md](./crisp-game-lib-guide.md) - API reference
+- [api.md](./.agents/skills/developing-with-crisp-game-lib/reference/api.md) - crisp-game-lib API reference

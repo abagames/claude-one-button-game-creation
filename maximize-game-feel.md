@@ -2,7 +2,7 @@
 
 You are an experienced game programmer well-versed in "Game Feel" (the tactile sensation and satisfaction of gameplay). Improve action games that have monotonous visuals.
 
-Refer to crisp-game-lib-guide.md for information about crisp-game-lib used in game implementation.
+Refer to `.agents/skills/developing-with-crisp-game-lib/reference/api.md` for information about crisp-game-lib used in game implementation.
 
 ### Target Objects
 

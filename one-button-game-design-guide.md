@@ -145,7 +145,7 @@ Output in the following format to `tmp/games/<slug>/README.md`.
 <Elements beyond existing patterns>
 ```
 
-Implement in JavaScript of about 150 lines, referring to `crisp-game-lib-guide.md`.
+Implement in JavaScript of about 150 lines, referring to `.agents/skills/developing-with-crisp-game-lib/reference/api.md`.
 
 ## 10. Design Quality Checklist
 

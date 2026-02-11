@@ -86,7 +86,7 @@ Write the following to `tmp/games/<slug>/README.md`:
 
 ## Phase 3: Implementation
 
-**Reference**: `crisp-game-lib-guide.md`
+**Reference**: `.agents/skills/developing-with-crisp-game-lib/SKILL.md`
 
 ### Constraints
 
@@ -222,6 +222,38 @@ function update() {
   }
   // Write spawn logic directly here
 }
+```
+
+#### Visibility and Layout Best Practices
+
+Place the player on the **opposite side** from where objects spawn to give reaction time.
+
+```
+Screen regions (100x100 default viewport)
+┌─────────────────────────┐
+│   Spawn Zone (Y < 10)   │  ← Objects appear here
+├─────────────────────────┤
+│                         │
+│      Play Zone          │  ← Main action area
+│      (Y: 10-70)         │
+│                         │
+├─────────────────────────┤
+│   Player Zone (Y > 70)  │  ← Player positioned here
+└─────────────────────────┘
+
+For side-scrolling games, rotate this layout 90°
+Spawn: X > 90, Play: X 20-90, Player: X < 20
+```
+
+```javascript
+// ✅ Vertical scroll (objects from top): Player at Y ≈ 80
+player.y = 80;
+
+// ✅ Horizontal scroll (objects from right): Player at X ≈ 20
+player.x = 20;
+
+// ❌ Bad: Player in center of vertical scroller
+player.y = 50;  // Too little reaction time
 ```
 
 ---
@@ -450,7 +482,11 @@ game-tags/
 ├── one-button-game-design-guide.md # Design guide
 ├── game-improvement-guide.md       # Improvement guide
 ├── balance-pattern-guide.md        # Balance adjustment patterns
-└── crisp-game-lib-guide.md         # API reference
+└── .agents/skills/developing-with-crisp-game-lib/
+    ├── SKILL.md                    # Skill instructions
+    └── reference/
+        ├── api.md                  # API reference
+        └── examples.md             # Game examples
 ```
 
 ---
