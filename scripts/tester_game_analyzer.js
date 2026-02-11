@@ -20,11 +20,11 @@ class GameAnalyzer {
    * @param {GameSimulator} simulator Game simulator instance
    * @param {object} gameConcept Loaded game concept module
    * @param {Object} simulationParams Parameters for the game simulation
-   * @param {Object} options Test options { verbose: boolean }
+   * @param {Object} options Test options { verbose: boolean, progressCallback?: Function }
    * @returns {Object} Results including pattern scores and optional detailed logs
    */
   static testMonotonousPatterns(simulator, gameConcept, simulationParams = {}, options = {}) {
-    const { verbose = false } = options;
+    const { verbose = false, progressCallback = null } = options;
 
     // Regenerate patterns using the new flat format
     const patterns = {
@@ -94,7 +94,7 @@ class GameAnalyzer {
    * @param {object} gameConcept Loaded game concept module
    * @param {Object} simulationParams Parameters for the game simulation
    * @param {Object} gaConfig GA configuration options
-   * @param {Object} options Test options { verbose: boolean }
+   * @param {Object} options Test options { verbose: boolean, progressCallback?: Function }
    * @returns {Object} Results including best score, pattern, and evolution history
    */
   static testGAOptimizedPatterns(
@@ -104,7 +104,7 @@ class GameAnalyzer {
     gaConfig = {},
     options = {}
   ) {
-    const { verbose = false } = options;
+    const { verbose = false, progressCallback = null } = options;
     const defaultGAConfig = {
       populationSize: 30,
       generations: 20,
@@ -152,7 +152,18 @@ class GameAnalyzer {
           simulator,
           gameConcept,
           simulationParams,
-          rangeConfig
+          rangeConfig,
+          {
+            onGeneration: (generationInfo) => {
+              if (typeof progressCallback === "function") {
+                progressCallback({
+                  ...generationInfo,
+                  rangeIndex: i,
+                  totalRanges: timeRanges.length,
+                });
+              }
+            },
+          }
         );
 
         // Simulate one more time with best pattern to get survival time and detailed log
@@ -221,11 +232,16 @@ class GameAnalyzer {
    * @param {GameSimulator} simulator Game simulator instance
    * @param {object} gameConcept Loaded game concept module { init, update, isGameOver, getScore }
    * @param {string} gameName Name of the game (derived from file path)
-   * @param {Object} options Test options { includeGA: boolean, gaConfig: object, verbose: boolean }
+   * @param {Object} options Test options { includeGA: boolean, gaConfig: object, verbose: boolean, progressCallback?: Function }
    * @returns {Object} Raw test results
    */
   static testGame(simulator, gameConcept, gameName, options = {}) {
-    const { includeGA = false, gaConfig = {}, verbose = false } = options;
+    const {
+      includeGA = false,
+      gaConfig = {},
+      verbose = false,
+      progressCallback = null,
+    } = options;
 
     const standardSimulationParams = {
       worldWidth: 100,
@@ -255,7 +271,7 @@ class GameAnalyzer {
           gameConcept,
           standardSimulationParams,
           gaConfig,
-          { verbose }
+          { verbose, progressCallback }
         );
       }
     } catch (error) {

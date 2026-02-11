@@ -26,11 +26,13 @@ const GA_CONFIG = {
 function main() {
   const args = process.argv.slice(2);
   const verbose = args.includes("--verbose") || args.includes("-v");
+  const progress = args.includes("--progress") || args.includes("-p");
   const gamePaths = args.filter((a) => !a.startsWith("-"));
 
   if (gamePaths.length < 1) {
-    console.error("Usage: node ga_tester.js <path_to_game.js> [--verbose]");
+    console.error("Usage: node ga_tester.js <path_to_game.js> [--verbose] [--progress]");
     console.error("  --verbose, -v  Output detailed logs for game improvement analysis");
+    console.error("  --progress, -p Output GA progress logs to stderr");
     process.exit(1);
   }
 
@@ -45,12 +47,23 @@ function main() {
   try {
     const simulator = new GameSimulator();
     const gameConcept = createCrispGameAdapter(gamePath);
+    const startedAt = Date.now();
+    const progressCallback = progress
+      ? ({ generation, generations, bestFitness, avgFitness, rangeIndex, totalRanges }) => {
+          const elapsedSec = ((Date.now() - startedAt) / 1000).toFixed(1);
+          console.error(
+            `[GA] range ${rangeIndex + 1}/${totalRanges} gen ${generation + 1}/${generations}` +
+              ` best=${bestFitness.toFixed(3)} avg=${avgFitness.toFixed(3)} elapsed=${elapsedSec}s`
+          );
+        }
+      : null;
 
     // Run test with GA enabled
     const result = GameAnalyzer.testGame(simulator, gameConcept, gameName, {
       includeGA: true,
       gaConfig: GA_CONFIG,
       verbose,
+      progressCallback,
     });
 
     // Output JSON to stdout
