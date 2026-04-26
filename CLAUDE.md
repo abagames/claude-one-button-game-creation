@@ -29,7 +29,7 @@ node scripts/random_tag_selector.js
 
 ## Phase 2: Game Design
 
-**Reference**: `one-button-game-design-guide.md` §7
+**Reference**: `.agents/skills/designing-one-button-games/SKILL.md` §7
 
 ### Design Procedure
 
@@ -55,7 +55,7 @@ Write the following to `tmp/games/<slug>/README.md`:
 ```markdown
 # <GAME_NAME> (<slug>)
 
-**Tags**: #tag1, #tag2, #tag3
+**Seeds**: #tag1, #tag2, #tag3
 
 ## 1. Core Mechanics
 
@@ -69,9 +69,9 @@ Write the following to `tmp/games/<slug>/README.md`:
 
 <Evaluation against four core design principles (Simplicity and Intuitiveness, Visual Feedback and Game Over, Skill-Based Scoring and Risk/Reward, Novel Mechanics)>
 
-## 4. Relationship with Tags
+## 4. Relationship with Seeds
 
-<Idea development from tags>
+<Idea development from seeds>
 
 ## 5. Basis for Novelty
 
@@ -479,14 +479,18 @@ game-tags/
 │   ├── crisp_game_adapter.js       # Library adapter
 │   └── dynamic_game_injector.js    # Parameter injection
 ├── tags.csv                        # All tags (107)
-├── one-button-game-design-guide.md # Design guide
 ├── game-improvement-guide.md       # Improvement guide
 ├── balance-pattern-guide.md        # Balance adjustment patterns
-└── .agents/skills/developing-with-crisp-game-lib/
-    ├── SKILL.md                    # Skill instructions
-    └── reference/
-        ├── api.md                  # API reference
-        └── examples.md             # Game examples
+└── .agents/skills/
+    ├── designing-one-button-games/
+    │   └── SKILL.md                # Game design skill
+    ├── developing-with-crisp-game-lib/
+    │   ├── SKILL.md                # crisp-game-lib implementation skill
+    │   └── reference/
+    │       ├── api.md              # API reference
+    │       └── examples.md         # Game examples
+    └── maximizing-game-feel/
+        └── SKILL.md                # Game feel improvement skill
 ```
 
 ---
