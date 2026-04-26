@@ -169,6 +169,11 @@ Before finalizing logic, check all rules in section 4:
 
 Treat section 4 as required validation criteria, not optional advice.
 
+For this repository's automated testers:
+- Keep game-specific helper logic inside `update()`; tester execution can miss helpers defined outside it.
+- Name moving hazard arrays with detectable terms such as `obstacles`, `enemies`, or `hazards` when useful. Verbose GA logs use those names to populate spawn analysis.
+- Prefer `addScore(points, x, y)` over `addScore(points, pos)` when you need accurate score-event positions in tester logs.
+
 ### Step 4: Validate Behavior
 
 Run the checklist in section 6 and confirm the game behaves correctly on the target input mode (desktop and/or mobile).
