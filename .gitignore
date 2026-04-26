@@ -4,5 +4,6 @@ node_modules/
 .serena/
 tmp/
 .env
+.codex
 package-lock.json
 npm-debug.log
