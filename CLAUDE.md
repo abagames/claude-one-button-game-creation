@@ -29,7 +29,11 @@ node scripts/random_tag_selector.js
 
 ## Phase 2: Game Design
 
-**Reference**: `.agents/skills/designing-one-button-games/SKILL.md` §7
+**Reference**: `.agents/skills/designing-one-button-games/SKILL.md`
+
+Use `designing-one-button-games` for the normal workflow in this repository. `designing-mini-games` is available for general or multi-button mini-game design, but do not use it for the default one-button generation flow unless the task explicitly changes the input constraint.
+
+For detailed one-button design vocabulary and output structure, read `.agents/skills/designing-one-button-games/references/one-button-design-guide.md`.
 
 ### Design Procedure
 
@@ -44,6 +48,7 @@ node scripts/random_tag_selector.js
 - [ ] Does it complete with one button?
 - [ ] Is the game over condition single and visually obvious?
 - [ ] Cannot achieve high scores with button mashing or idle play?
+- [ ] Cannot achieve high scores with hold-only play?
 - [ ] Is skilled input rewarded in the design?
 - [ ] Are there moments of feeling "I've never seen this before"?
 - [ ] Is this NOT a clone or minor variation of a widely-known existing game?
@@ -60,6 +65,11 @@ Write the following to `tmp/games/<slug>/README.md`:
 ## 1. Core Mechanics
 
 <Input → Behavior → End condition, scoring system, difficulty increase mechanism>
+
+## 1.5 State Model and Tradeoff
+
+<State variables only when they create player decisions; show each through world behavior, terrain, shape, speed, sound, color, or animation>
+<Explain why idle, hold-only, and mashing are each worse than skilled play>
 
 ## 2. Object Specifications
 
@@ -92,6 +102,7 @@ Write the following to `tmp/games/<slug>/README.md`:
 
 - **Lines**: About 150 lines
 - **Dependencies**: crisp-game-lib only
+- **crisp-game-lib version**: Use `crisp-game-lib@1.5.0` for this project. Do not use `@latest` in generated `index.html`.
 - **Structure**: Include `title`, `description`, `characters`, `options`, `update()`
 
 ### Difficulty Settings
@@ -124,7 +135,7 @@ Place the following in `tmp/games/<slug>/`:
     />
     <script src="https://unpkg.com/algo-chip@1.0.2/packages/core/dist/algo-chip.umd.js"></script>
     <script src="https://unpkg.com/algo-chip@1.0.2/packages/util/dist/algo-chip-util.umd.js"></script>
-    <script src="https://unpkg.com/crisp-game-lib@latest/docs/bundle.js"></script>
+    <script src="https://unpkg.com/crisp-game-lib@1.5.0/docs/bundle.js"></script>
     <script src="./main.js"></script>
     <script>
       window.addEventListener("load", onLoad);
@@ -260,7 +271,11 @@ player.y = 50;  // Too little reaction time
 
 ## Phase 4: Simulation (GA Relative Evaluation)
 
+**Reference**: `.agents/skills/evaluating-gameplay-balance/SKILL.md`
+
 Evaluate using **GA Score / Monotonous Score** ratio only.
+
+In this repository, `scripts/ga_tester.js` output is the canonical report format. Treat the `evaluating-gameplay-balance` skill as analysis guidance for comparing monotonous vs GA play; do not require its engine-neutral JSON schema unless adding a new test harness.
 
 ```bash
 node scripts/ga_tester.js tmp/games/<slug>/main.js
@@ -315,7 +330,9 @@ GA Ratio = ga.bestScore / monotonous.summary.maxScore
 
 ## Phase 5: Improvement
 
-**Reference**: `game-improvement-guide.md`, `balance-pattern-guide.md`
+**Reference**: `.agents/skills/evaluating-gameplay-balance/SKILL.md`
+
+`balance-pattern-guide.md` is a legacy project-specific example catalog. Use it only after applying the skill and this Phase 5 procedure.
 
 ### 5a: Get Detailed Log
 
@@ -374,7 +391,7 @@ Get **GA-optimized pattern detailed log** with `--verbose` option.
 
 ### 5b: Log Analysis and Improvement
 
-Follow `game-improvement-guide.md` to identify problems from detailed log and improve.
+Use `evaluating-gameplay-balance` to interpret the telemetry and choose structural fixes. Keep this project's `ga.detailedLog` as the analysis target; the skill's engine-neutral `exploratory_ratio` corresponds to this project's GA ratio.
 
 #### Analysis Perspectives (refer to `ga.detailedLog`)
 
@@ -396,7 +413,7 @@ Follow `game-improvement-guide.md` to identify problems from detailed log and im
 
 ### 5c: Apply Balance Patterns
 
-Use `balance-pattern-guide.md` to systematically select improvements based on GA analysis:
+Select improvements based on GA analysis. Prefer `.agents/skills/evaluating-gameplay-balance/references/balance-patterns.md`; use `balance-pattern-guide.md` only as a legacy project-specific example catalog:
 
 | Input Pattern   | Recommended Patterns                                      |
 | :-------------- | :-------------------------------------------------------- |
@@ -409,10 +426,12 @@ Use `balance-pattern-guide.md` to systematically select improvements based on GA
 
 **Process**:
 1. Identify problem from `ga.detailedLog`
-2. Select matching pattern from `balance-pattern-guide.md`
+2. Select a matching structural pattern
 3. Apply ONE pattern
 4. Re-run GA test
 5. Repeat until GA ratio > 1.5
+
+If the improvement changes the core rules or input tradeoff, revisit the design with `designing-one-button-games`. If it changes visual polish enough to affect readability or difficulty, re-run the GA evaluation after applying `maximizing-game-feel`.
 
 ### Prohibited Items
 
@@ -479,16 +498,28 @@ game-tags/
 │   ├── crisp_game_adapter.js       # Library adapter
 │   └── dynamic_game_injector.js    # Parameter injection
 ├── tags.csv                        # All tags (107)
-├── game-improvement-guide.md       # Improvement guide
-├── balance-pattern-guide.md        # Balance adjustment patterns
+├── balance-pattern-guide.md        # Legacy balance pattern examples
 └── .agents/skills/
+    ├── designing-mini-games/
+    │   ├── SKILL.md                # General/multi-button mini-game design skill
+    │   └── references/
+    │       └── mini-game-design-guide.md
     ├── designing-one-button-games/
-    │   └── SKILL.md                # Game design skill
+    │   ├── SKILL.md                # One-button game design skill
+    │   └── references/
+    │       └── one-button-design-guide.md
     ├── developing-with-crisp-game-lib/
     │   ├── SKILL.md                # crisp-game-lib implementation skill
-    │   └── reference/
+    │   └── references/
     │       ├── api.md              # API reference
     │       └── examples.md         # Game examples
+    ├── evaluating-gameplay-balance/
+    │   ├── SKILL.md                # GA/telemetry balance analysis skill
+    │   └── references/
+    │       ├── balance-patterns.md
+    │       ├── improvement-analysis.md
+    │       ├── log-contract.md
+    │       └── simulation-harness.md
     └── maximizing-game-feel/
         └── SKILL.md                # Game feel improvement skill
 ```

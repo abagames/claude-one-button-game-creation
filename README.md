@@ -9,6 +9,7 @@ An automated one-button game generation system powered by LLM. Using [crisp-game
 - **Implementation**: Generates playable games using crisp-game-lib (~150 lines)
 - **GA-based evaluation**: Tests games with genetic algorithm to ensure skilled play outperforms button-mashing
 - **Iterative improvement**: Refines games based on simulation feedback
+- **Agent skills**: Uses local skills for one-button design, crisp-game-lib implementation, GA balance analysis, and game-feel polish
 
 ## Quick Start
 
@@ -51,16 +52,22 @@ See [GAMES.md](./GAMES.md) for a gallery of generated games with playable demos.
 │   ├── ga_tester.js
 │   └── one_button_game_tester.js
 ├── docs/                     # Published games
-├── game-improvement-guide.md
-├── balance-pattern-guide.md
+├── balance-pattern-guide.md      # Legacy balance pattern examples
 ├── .agents/skills/
+│   ├── designing-mini-games/
+│   │   ├── SKILL.md          # General/multi-button mini-game design
+│   │   └── references/
 │   ├── designing-one-button-games/
-│   │   └── SKILL.md          # Game design skill
+│   │   ├── SKILL.md          # One-button game design skill
+│   │   └── references/
 │   ├── developing-with-crisp-game-lib/
 │   │   ├── SKILL.md          # Implementation skill
-│   │   └── reference/
+│   │   └── references/
 │   │       ├── api.md        # API reference
 │   │       └── examples.md   # Game examples
+│   ├── evaluating-gameplay-balance/
+│   │   ├── SKILL.md          # GA/telemetry balance analysis
+│   │   └── references/
 │   └── maximizing-game-feel/
 │       └── SKILL.md          # Game feel skill
 └── tags.csv                  # 107 gameplay tags
@@ -70,7 +77,10 @@ See [GAMES.md](./GAMES.md) for a gallery of generated games with playable demos.
 
 - [CLAUDE.md](./CLAUDE.md) - Complete workflow for AI agents
 - [designing-one-button-games skill](./.agents/skills/designing-one-button-games/SKILL.md) - Design principles
-- [game-improvement-guide.md](./game-improvement-guide.md) - GA log analysis and improvement process
-- [balance-pattern-guide.md](./balance-pattern-guide.md) - Balance adjustment patterns for automated improvement
+- [one-button design guide](./.agents/skills/designing-one-button-games/references/one-button-design-guide.md) - Detailed one-button design procedure and checklist
+- [designing-mini-games skill](./.agents/skills/designing-mini-games/SKILL.md) - General or multi-button mini-game design
+- [evaluating-gameplay-balance skill](./.agents/skills/evaluating-gameplay-balance/SKILL.md) - GA vs monotonous evaluation and structural improvement guidance
+- [balance-pattern-guide.md](./balance-pattern-guide.md) - Legacy project-specific balance examples; use as supplemental material
 - [maximizing-game-feel skill](./.agents/skills/maximizing-game-feel/SKILL.md) - Visual polish and game feel enhancement
-- [api.md](./.agents/skills/developing-with-crisp-game-lib/reference/api.md) - crisp-game-lib API reference
+- [api.md](./.agents/skills/developing-with-crisp-game-lib/references/api.md) - crisp-game-lib API reference
+- [examples.md](./.agents/skills/developing-with-crisp-game-lib/references/examples.md) - crisp-game-lib implementation examples

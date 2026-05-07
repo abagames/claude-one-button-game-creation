@@ -1,19 +1,15 @@
 # Balance Pattern Guide
 
-This guide provides patterns for automatically adjusting game balance based on GA test results. The patterns are extracted from analysis of 12 games that were manually improved from zero-touch generation to polished versions.
+> **Legacy companion note**: The canonical structural-balance guidance is now
+> `.agents/skills/evaluating-gameplay-balance/SKILL.md` and its
+> `references/balance-patterns.md`. This file remains as a project-specific
+> catalog with older examples from generated one-button games. It intentionally
+> keeps concrete "Games using this" examples and legacy patterns that may not
+> exist in the skill reference.
 
-## Overview
-
-Balance adjustments fall into several categories:
-
-1. **Difficulty Scaling** - How game parameters change with `difficulty` variable
-2. **Scoring Systems** - Risk/reward and combo mechanics
-3. **Boundary Behavior** - Wall collision and screen edge handling
-4. **Self-Balancing Mechanisms** - Automatic difficulty adjustment
-5. **Input Response** - How button states affect game behavior
-6. **Spawn Patterns** - Enemy and obstacle placement
-
----
+Use this file only after checking the current skill reference. Prefer
+`.agents/skills/evaluating-gameplay-balance/references/balance-patterns.md`
+for the canonical pattern definitions.
 
 ## 1. Difficulty Scaling Patterns
 
@@ -465,40 +461,6 @@ if (player.x > 90 || player.x < 10) player.vx *= -1;
 | Score inflation | 2.2 Score Reduction |
 | No combo incentive | 2.4 Multiplier System |
 | Static gameplay | 3.2 Moving Boundaries, 6.3 Adaptive Spawn |
-
----
-
-## Implementation Checklist
-
-When applying balance patterns:
-
-1. **Run GA test first** to identify problems
-2. **Check the problem → pattern table** above
-3. **Apply ONE pattern at a time**
-4. **Re-run GA test** to verify improvement
-5. **If GA ratio still ≤ 1.5**, apply additional patterns
-
-### GA Analysis Focus Areas
-
-```javascript
-// From ga.detailedLog:
-
-// 1. Death Analysis
-deathAnalysis.position     // Where deaths occur
-deathAnalysis.recentFrames // What happened before death
-
-// 2. Input Analysis
-inputAnalysis.pattern      // "spam", "hold_heavy", "no_input", "varied"
-inputAnalysis.totalPresses // How many inputs in a run
-
-// 3. Scoring Analysis
-scoringAnalysis.triggers   // What causes scoring
-scoringAnalysis.scoringRate // Score distribution over time
-
-// 4. Spawn Analysis
-spawnAnalysis.spatialDistribution // Where things spawn
-spawnAnalysis.averageInterval     // How often things spawn
-```
 
 ---
 

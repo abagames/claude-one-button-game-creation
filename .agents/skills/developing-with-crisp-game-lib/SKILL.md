@@ -1,6 +1,6 @@
 ---
 name: developing-with-crisp-game-lib
-description: "Creates browser-based mini-games using crisp-game-lib. Use when asked to make a game, create a mini-game, or build an arcade game with crisp-game-lib."
+description: "Creates or repairs browser mini-games specifically using crisp-game-lib. Use only when the user explicitly asks for crisp-game-lib or the existing project already uses it; skip for Godot, Unity, Phaser, canvas-only, or unspecified engine requests."
 ---
 
 # Developing with crisp-game-lib
@@ -9,7 +9,7 @@ Creates browser-based mini-games using crisp-game-lib, a JavaScript library for 
 
 ## 1. Purpose and Scope
 
-Use this skill when asked to create a mini-game with crisp-game-lib.
+Use this skill when asked to create or repair a mini-game with crisp-game-lib. If the user asks for Godot or another engine, or leaves the engine unspecified, do not use this skill unless the existing project is already a crisp-game-lib project.
 
 This guide separates:
 - ordered implementation steps (what to do in sequence)
@@ -24,7 +24,14 @@ Choose the appropriate setup based on the project context.
 
 #### Option A: CDN (Simplest — single HTML file)
 
-Create a project directory with `index.html` and `main.js`:
+Create a project directory with `index.html` and `main.js`. CDN is acceptable for final projects when the script URL is pinned to a verified version. For quick prototypes only, a clearly labeled draft may use `crisp-game-lib@latest`.
+
+For reproducible assignments or committed projects:
+- CDN is fine; the reproducibility issue is an unpinned moving version such as `@latest`.
+- Pin only a version that is already specified by the project or that you have verified from package metadata/CDN access.
+- Do not invent a crisp-game-lib version number.
+- If using `algo-chip` helpers, the verified `crisp-game-lib` version must be `1.5.0` or later.
+- If no verified version is available, treat version selection as a blocker for a final committed skeleton: ask for the existing project version or permission to check package/CDN metadata. You may show `@latest` only in a clearly labeled draft, not as the final committed form.
 
 **index.html:**
 
@@ -38,9 +45,10 @@ Create a project directory with `index.html` and `main.js`:
       name="viewport"
       content="width=device-width, height=device-height, user-scalable=no, initial-scale=1, maximum-scale=1"
     />
+    <!-- Optional: only required if you use algo-chip helpers -->
     <script src="https://unpkg.com/algo-chip@1.0.2/packages/core/dist/algo-chip.umd.js"></script>
     <script src="https://unpkg.com/algo-chip@1.0.2/packages/util/dist/algo-chip-util.umd.js"></script>
-    <script src="https://unpkg.com/crisp-game-lib@latest/docs/bundle.js"></script>
+    <script src="https://unpkg.com/crisp-game-lib@<verified-version>/docs/bundle.js"></script>
     <script src="./main.js"></script>
     <script>
       window.addEventListener("load", onLoad);
@@ -50,7 +58,7 @@ Create a project directory with `index.html` and `main.js`:
 </html>
 ```
 
-Optional script tags (add before `bundle.js` if needed):
+Other optional script tags (add before `bundle.js` if needed):
 
 ```html
 <!-- GIF capture: add if options.isCapturing is true -->
@@ -62,9 +70,15 @@ Optional script tags (add before `bundle.js` if needed):
 
 #### Option B: npm + Bundler (Vite, Webpack, etc.)
 
+Assumes a bundler is already configured (e.g. project has `package.json` and a Vite/Webpack/etc. dev-server entry). If not, bootstrap the bundler first (e.g. `npm create vite@latest`) before adding crisp-game-lib.
+
+The other CDN-only optional tags (`gif-capture-canvas`, `pixi.js` + `pixi-filters`) have no documented npm replacement — keep them as `<script>` tags in `index.html` if used.
+
 ```bash
 npm install crisp-game-lib
 ```
+
+If this project also uses `algo-chip` helpers, install or pin `crisp-game-lib` at `1.5.0` or later.
 
 **index.html:**
 
@@ -78,6 +92,7 @@ npm install crisp-game-lib
       name="viewport"
       content="width=device-width, height=device-height, user-scalable=no, initial-scale=1, maximum-scale=1"
     />
+    <!-- Optional: only required if you use algo-chip helpers -->
     <script src="https://unpkg.com/algo-chip@1.0.2/packages/core/dist/algo-chip.umd.js"></script>
     <script src="https://unpkg.com/algo-chip@1.0.2/packages/util/dist/algo-chip-util.umd.js"></script>
     <script type="module" src="./main.js"></script>
@@ -112,8 +127,9 @@ init({ update, title, description, characters, options });
 Write `main.js` following the structure below.
 
 Before and during implementation:
-- Use `reference/api.md` to confirm exact function behavior, arguments, and constraints.
-- Use `reference/examples.md` to copy proven patterns and unblock design decisions quickly.
+- Read `references/api.md` when you need exact function behavior, argument shapes, collision semantics, or available colors/sounds.
+- Read `references/examples.md` when the requested game resembles one of the listed patterns, or when you need a complete working loop to adapt.
+- For one-button games, state the exact input interpretation before coding (for example tap toggles state, tap applies impulse, hold charges, or release fires).
 
 #### Required Structure (CDN / Repository)
 
@@ -158,25 +174,14 @@ Fill `update()` with a clear per-frame order:
 
 Use `if (!ticks) { ... }` for one-time initialization.
 
-### Step 3: Apply Mandatory Rules While Implementing
+### Step 3: Apply Mandatory Rules and Validate
 
-Before finalizing logic, check all rules in section 4:
-
-- draw order for collision detection
-- no manual score text rendering
-- avoid white for visible objects
-- use object-style `particle()` arguments
-
-Treat section 4 as required validation criteria, not optional advice.
+Apply section 4 (Mandatory Rules) as required validation criteria, then run the section 6 checklist on desktop and/or mobile.
 
 For this repository's automated testers:
-- Keep game-specific helper logic inside `update()`; tester execution can miss helpers defined outside it.
+- In generated test fixtures for this repository, keep game-specific helper logic inside `update()`; tester execution can miss helpers defined outside it. In normal user projects, small top-level helpers are acceptable if the target build/test harness runs them correctly.
 - Name moving hazard arrays with detectable terms such as `obstacles`, `enemies`, or `hazards` when useful. Verbose GA logs use those names to populate spawn analysis.
 - Prefer `addScore(points, x, y)` over `addScore(points, pos)` when you need accurate score-event positions in tester logs.
-
-### Step 4: Validate Behavior
-
-Run the checklist in section 6 and confirm the game behaves correctly on the target input mode (desktop and/or mobile).
 
 ## 4. Mandatory Rules (Always Apply)
 
@@ -296,14 +301,8 @@ Open the game in a browser and check:
 | Text     | `text(str,x,y)` `char(ch,x,y)` `addWithCharCode(ch,offset)`                                     |
 | Color    | `color("red")` — red, green, blue, yellow, purple, cyan, black, light\_\* variants, transparent |
 | Input    | `input.pos` `input.isPressed` `input.isJustPressed` `keyboard.code["Space"].isJustPressed`      |
-| Audio    | `play("coin")` — coin, powerUp, hit, jump, select, lucky                                        |
-| Vector   | `vec(x,y)` `.add()` `.sub()` `.mul()` `.clamp()` `.wrap()` `.addWithAngle()` `.distanceTo()`    |
-| Utility  | `times(n,fn)` `range(n)` `remove(arr,fn)` `rnd(max)` `rndi(max)` `clamp()` `wrap()`             |
-| State    | `ticks` `score` `difficulty` `addScore(pts,pos)` `end()`                                        |
+| Audio    | `play("coin")` — listed names: coin, powerUp, hit, jump, select, lucky. **Treat this list as illustrative; consult `references/api.md` for the complete enumeration before invoking other names.** |
+| Vector   | `vec(x,y)` `.add()` `.sub()` `.mul()` `.clamp(xMin,xMax,yMin,yMax)` `.wrap()` `.addWithAngle()` `.distanceTo()`    |
+| Utility  | `times(n,fn)` `range(n)` `remove(arr,fn)` `rnd(max)` `rndi(max)` `clamp(v,min,max)` `wrap(v,min,max)` — note the free-function `clamp` / `wrap` take a scalar; the Vector method on the same name takes 4 axis bounds. |
+| State    | `ticks` `score` `difficulty` `addScore(points)` `addScore(points,pos)` `addScore(points,x,y)` `end()` |
 | Effects  | `particle(pos, {count, speed, angle, angleWidth})`                                              |
-
-## 8. References and Pitfalls
-
-Keep these open while implementing:
-- `reference/api.md` (spec-level API behavior)
-- `reference/examples.md` (complete working examples and patterns)
