@@ -18,8 +18,8 @@ const GA_CONFIG = {
   populationSize: 50,
   generations: 30,
   timeRanges: [
-    { minInterval: 30, maxInterval: 500 },
-    { minInterval: 100, maxInterval: 1500 },
+    { minValue: 30, maxValue: 500 },
+    { minValue: 100, maxValue: 1500 },
   ],
 };
 
