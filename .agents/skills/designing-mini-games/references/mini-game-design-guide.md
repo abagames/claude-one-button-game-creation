@@ -166,7 +166,7 @@ Notes:
 
 <Each object's shape, behavior, collision handling>
 
-## 3. Design Guide Analysis
+## 3. Design Principle Analysis
 
 <Evaluation against four core design principles>
 

@@ -1,61 +1,82 @@
 # claude-one-button-game-creation
 
-An automatic one-button game generation project using crisp-game-lib. LLM designs, implements, and improves games using tags as seeds for inspiration.
+Automatic one-button game generation using crisp-game-lib. LLMs design, implement, test, and improve compact browser games from random tags used as creative seeds.
 
----
+`AGENTS.md` is a symlink to this file.
 
-## Workflow Overview
+## Workflow Entrypoint
 
-- Phase 1: Tag Selection → Phase 2: Design → Phase 3: Implementation → Phase 4: Test → Phase 5: Improvement
-- Phase 4 to Phase 5 iterates up to 3 times
+For the normal "create a one-button game" flow, follow this sequence:
 
----
+1. Select tags:
 
-## Phase 1: Tag Selection
+   ```bash
+   node scripts/random_tag_selector.js
+   ```
+
+2. Design the game with `.agents/skills/designing-one-button-games/SKILL.md`.
+3. Implement it with `.agents/skills/developing-with-crisp-game-lib/SKILL.md`.
+4. Validate and evaluate it. Run the static checks first (cheap, catches artifact issues before paying for GA):
+
+   ```bash
+   node scripts/check_generated_game.js tmp/games/<slug> --no-ga
+   ```
+
+   When static passes, run the full GA gate:
+
+   ```bash
+   node scripts/check_generated_game.js tmp/games/<slug>
+   ```
+
+5. If the checker reports `needs_improvement`, inspect the verbose GA log and improve the game with `.agents/skills/evaluating-gameplay-balance/SKILL.md`.
+6. Repeat evaluation and improvement up to 3 total improvement attempts. Stop when the checker passes or after the third attempt.
+
+Use `.agents/skills/designing-mini-games/SKILL.md` only when the task explicitly allows multiple inputs. Use `.agents/skills/maximizing-game-feel/SKILL.md` after core rules and balance are stable, or when visual polish/readability changes could affect play.
+
+## Stable Project Constraints
+
+- Generated games live in `tmp/games/<slug>/`.
+- Required deliverables are `README.md`, `index.html`, and `main.js`.
+- Tags are seeds for inspiration, not design specifications. Contradicting tags should create design tension rather than forcing literal implementation.
+- The default game must use exactly one binary input: tap, hold, and/or release.
+- Use crisp-game-lib only for generated browser games.
+- For this repository, generated `index.html` files must pin `crisp-game-lib@1.5.0`; do not use `@latest`.
+- Generated `main.js` must include `title`, `description`, `characters`, `options`, and `update()`.
+- Avoid white as a visible gameplay color.
+
+For crisp-game-lib coding constraints (helper placement for tester compatibility, draw-before-collide order, automatic score display), see `.agents/skills/developing-with-crisp-game-lib/SKILL.md`.
+
+## Validation And Balance Gate
+
+`scripts/check_generated_game.js` is the runtime gate for generated games. It checks required files and common tester constraints, runs the same GA harness used by `scripts/ga_tester.js` (with a fixed seed so iteration-to-iteration ratio diffs reflect real changes, not GA noise), and computes:
 
 ```bash
-node scripts/random_tag_selector.js
+node scripts/check_generated_game.js tmp/games/<slug>
 ```
 
-| Option         | Description                    | Default      |
-| :------------- | :----------------------------- | :----------- |
-| `-n, --count`  | Number of tags to select       | 3            |
-| `-s, --seed`   | Random seed (for reproduction) | Current time |
-| `-f, --format` | text/json/markdown             | markdown     |
+```text
+GA ratio = ga.bestScore / monotonous.summary.maxScore
+```
 
-**Important**: Tags are "seeds for inspiration," not "design specifications." Use contradicting tags as creative tension.
+Status and diagnostic meanings (`status` is the exit-code state; `ratio.diagnostic` further classifies a `needs_improvement` outcome):
 
----
+- `pass`: GA ratio is greater than `1.5`.
+- `needs_improvement` + `diagnostic: mono_dominant` (ratio < 0.85): a monotonous-input pattern outscores the GA. Apply input-tradeoff or scoring patterns from `evaluating-gameplay-balance`.
+- `needs_improvement` + `diagnostic: tied` (0.85 ≤ ratio ≤ 1.15): GA cannot exceed the monotonous baseline. Either the mechanic needs more search than the GA budget allows, or the design has a skill ceiling. Revisit `designing-one-button-games` rather than applying another balance pattern.
+- `needs_improvement` + `diagnostic: marginal` (1.15 < ratio ≤ 1.5): close to passing; apply risk-based scoring or scoring-scale patterns.
+- `fail`: required artifacts, static constraints, tester execution, or JSON output are invalid.
 
-## Phase 2: Game Design
+When improvement is needed, run:
 
-**Reference**: `.agents/skills/designing-one-button-games/SKILL.md`
+```bash
+node scripts/check_generated_game.js tmp/games/<slug> --verbose
+```
 
-Use `designing-one-button-games` for the normal workflow in this repository. `designing-mini-games` is available for general or multi-button mini-game design, but do not use it for the default one-button generation flow unless the task explicitly changes the input constraint.
+Analyze `ga.detailedLog` only. Monotonous pattern logs are inappropriate-play baselines and should not drive improvement choices.
 
-For detailed one-button design vocabulary and output structure, read `.agents/skills/designing-one-button-games/references/one-button-design-guide.md`.
+## Design Deliverable
 
-### Design Procedure
-
-1. **Free Association**: Verbalize images that come to mind from tags
-2. **Deviation Exploration**: Consider the "opposite," "negation," or "extreme" of tags
-3. **Core Experience Decision**: Define the "momentary sensation" you want to give the player in one phrase
-4. **Mechanics Construction**: Design one-button operation that realizes the core experience
-5. **Consistency Verification**: Confirm with checklist below
-
-### Design Checklist
-
-- [ ] Does it complete with one button?
-- [ ] Is the game over condition single and visually obvious?
-- [ ] Cannot achieve high scores with button mashing or idle play?
-- [ ] Cannot achieve high scores with hold-only play?
-- [ ] Is skilled input rewarded in the design?
-- [ ] Are there moments of feeling "I've never seen this before"?
-- [ ] Is this NOT a clone or minor variation of a widely-known existing game?
-
-### Output Format
-
-Write the following to `tmp/games/<slug>/README.md`:
+Write `tmp/games/<slug>/README.md` with:
 
 ```markdown
 # <GAME_NAME> (<slug>)
@@ -64,402 +85,54 @@ Write the following to `tmp/games/<slug>/README.md`:
 
 ## 1. Core Mechanics
 
-<Input → Behavior → End condition, scoring system, difficulty increase mechanism>
-
 ## 1.5 State Model and Tradeoff
-
-<State variables only when they create player decisions; show each through world behavior, terrain, shape, speed, sound, color, or animation>
-<Explain why idle, hold-only, and mashing are each worse than skilled play>
 
 ## 2. Object Specifications
 
-<Each object's shape, behavior, collision handling>
-
-## 3. Design Guide Analysis
-
-<Evaluation against four core design principles (Simplicity and Intuitiveness, Visual Feedback and Game Over, Skill-Based Scoring and Risk/Reward, Novel Mechanics)>
+## 3. Design Principle Analysis
 
 ## 4. Relationship with Seeds
 
-<Idea development from seeds>
-
 ## 5. Basis for Novelty
 
-<Elements beyond existing patterns>
-
 ## 6. Similarity Check
-
-<List any known games with similar mechanics. Explain key differences that make this design distinct.>
 ```
 
----
+For per-section design content guidance (including why idle play, hold-only play, and mashing must each be worse than skilled play), see `.agents/skills/designing-one-button-games/references/one-button-design-guide.md`.
 
-## Phase 3: Implementation
+## Implementation Notes
 
-**Reference**: `.agents/skills/developing-with-crisp-game-lib/SKILL.md`
+For the HTML template, `main.js` skeleton, and crisp-game-lib API usage, see `.agents/skills/developing-with-crisp-game-lib/SKILL.md`. In this repository, `options` should set `audioSeed` (not `seed`) for reproducible BGM, matching existing games under `tmp/games/`.
 
-### Constraints
-
-- **Lines**: About 150 lines
-- **Dependencies**: crisp-game-lib only
-- **crisp-game-lib version**: Use `crisp-game-lib@1.5.0` for this project. Do not use `@latest` in generated `index.html`.
-- **Structure**: Include `title`, `description`, `characters`, `options`, `update()`
-
-### Difficulty Settings
-
-Use `difficulty` variable (auto-increasing) for difficulty increase:
+Use `difficulty` for automatic scaling, for example:
 
 ```javascript
-let count = 3 * sqrt(difficulty); // Gradually increases
-let speed = 1.0 + difficulty; // Gradually accelerates
+let count = 3 * sqrt(difficulty);
+let speed = 1.0 + difficulty;
 ```
 
-### Output Location
+Prefer player placement that gives reaction time: vertical scrollers usually place the player near `y = 80`; side scrollers usually place the player near `x = 20`.
 
-Place the following in `tmp/games/<slug>/`:
+## Improvement Rules
 
-- `index.html` - HTML template
-- `main.js` - Game code
+If the GA ratio is `1.5` or lower:
 
-### HTML Template
+1. Read the verbose checker output and inspect `ratio.diagnostic`.
+2. Use `.agents/skills/evaluating-gameplay-balance/references/balance-patterns.md` before the legacy `balance-pattern-guide.md`.
+3. Apply one structural improvement.
+4. Rerun `scripts/check_generated_game.js`.
 
-```html
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <title>GAME_NAME</title>
-    <meta
-      name="viewport"
-      content="width=device-width, height=device-height, user-scalable=no, initial-scale=1, maximum-scale=1"
-    />
-    <script src="https://unpkg.com/algo-chip@1.0.2/packages/core/dist/algo-chip.umd.js"></script>
-    <script src="https://unpkg.com/algo-chip@1.0.2/packages/util/dist/algo-chip-util.umd.js"></script>
-    <script src="https://unpkg.com/crisp-game-lib@1.5.0/docs/bundle.js"></script>
-    <script src="./main.js"></script>
-    <script>
-      window.addEventListener("load", onLoad);
-    </script>
-  </head>
-  <body style="background: #ddd"></body>
-</html>
-```
+If an iteration's GA ratio strictly worsens versus the previous iteration, revert that change and try a different pattern; a clear regression is a wrong-direction signal, not a spent attempt against the 3-iteration limit.
 
-### Implementation Template
+If `diagnostic` is `tied` (or the GA score does not exceed the monotonous score across two consecutive attempts), revisit `designing-one-button-games` instead of applying another balance pattern — the mechanic likely has a skill ceiling that balance patterns cannot raise.
 
-```javascript
-title = "GAME_NAME";
+For anti-pattern improvements to avoid (numeric-only tuning, branch-only fixes, randomness as the primary answer), see `.agents/skills/evaluating-gameplay-balance/SKILL.md`.
 
-description = `
-[Hold] Action
-`;
+If an improvement changes core rules or the input tradeoff, revisit the design with `designing-one-button-games`.
 
-characters = [];
+## Final Report
 
-options = {
-  isPlayingBgm: true,
-  isReplayEnabled: true,
-  seed: 0,
-};
-
-let player;
-let obstacles;
-
-function update() {
-  if (!ticks) {
-    player = { pos: vec(50, 80) };
-    obstacles = [];
-  }
-
-  // Input handling
-  if (input.isJustPressed) {
-    // On button press
-  }
-  if (input.isPressed) {
-    // While button held
-  }
-
-  // ★Important: Drawing order for collision detection
-  // Draw detection targets "first" (cannot detect objects drawn later)
-
-  // 1. Draw player first
-  color("cyan");
-  box(player.pos, 6);
-
-  // 2. Draw obstacles later and detect collision with player (cyan)
-  color("red");
-  obstacles.forEach((obs) => {
-    if (box(obs.pos, 8).isColliding.rect.cyan) {
-      end(); // Collision with player
-    }
-  });
-}
-```
-
-### Implementation Notes
-
-#### Collision Detection Drawing Order (Important)
-
-In crisp-game-lib, **collision detection only works with objects drawn earlier**.
-
-```javascript
-// ❌ Doesn't work: player (cyan) doesn't exist yet when drawing obstacles
-obstacles.forEach(o => box(o.pos, 8));  // red
-box(player.pos, 6);                      // cyan (later)
-
-// ✅ Correct: Draw detection targets first
-box(player.pos, 6);                      // cyan (first)
-obstacles.forEach(o => {
-  if (box(o.pos, 8).isColliding.rect.cyan) { ... }  // red
-});
-```
-
-#### Tester Compatibility (Important)
-
-Testers (`one_button_game_tester.js`, `ga_tester.js`) extract and execute only the `update()` function.
-**Helper functions defined outside `update()` are not recognized.**
-
-```javascript
-// ❌ Doesn't work in tester
-function spawnEnemies() { ... }  // Function outside update
-function update() {
-  spawnEnemies();  // ReferenceError: spawnEnemies is not defined
-}
-
-// ✅ Tester compatible: Inline logic within update
-function update() {
-  if (!ticks) {
-    // Write initialization logic directly here
-  }
-  // Write spawn logic directly here
-}
-```
-
-#### Visibility and Layout Best Practices
-
-Place the player on the **opposite side** from where objects spawn to give reaction time.
-
-```
-Screen regions (100x100 default viewport)
-┌─────────────────────────┐
-│   Spawn Zone (Y < 10)   │  ← Objects appear here
-├─────────────────────────┤
-│                         │
-│      Play Zone          │  ← Main action area
-│      (Y: 10-70)         │
-│                         │
-├─────────────────────────┤
-│   Player Zone (Y > 70)  │  ← Player positioned here
-└─────────────────────────┘
-
-For side-scrolling games, rotate this layout 90°
-Spawn: X > 90, Play: X 20-90, Player: X < 20
-```
-
-```javascript
-// ✅ Vertical scroll (objects from top): Player at Y ≈ 80
-player.y = 80;
-
-// ✅ Horizontal scroll (objects from right): Player at X ≈ 20
-player.x = 20;
-
-// ❌ Bad: Player in center of vertical scroller
-player.y = 50;  // Too little reaction time
-```
-
----
-
-## Phase 4: Simulation (GA Relative Evaluation)
-
-**Reference**: `.agents/skills/evaluating-gameplay-balance/SKILL.md`
-
-Evaluate using **GA Score / Monotonous Score** ratio only.
-
-In this repository, `scripts/ga_tester.js` output is the canonical report format. Treat the `evaluating-gameplay-balance` skill as analysis guidance for comparing monotonous vs GA play; do not require its engine-neutral JSON schema unless adding a new test harness.
-
-```bash
-node scripts/ga_tester.js tmp/games/<slug>/main.js
-```
-
-### Output Format
-
-```json
-{
-  "gameName": "example",
-  "monotonous": {
-    "patterns": {
-      "NoInput": { "survivalTime": 2.3, "score": 0 },
-      "HoldOnly": { "survivalTime": 1.8, "score": 5 },
-      "SpamPress": { "survivalTime": 3.1, "score": 12 }
-    },
-    "summary": {
-      "avgScore": 5.67,
-      "maxScore": 12,
-      "avgSurvivalTime": 2.4,
-      "maxSurvivalTime": 3.1
-    }
-  },
-  "ga": {
-    "bestScore": 87,
-    "bestSurvivalTime": 15.2,
-    "bestGenomeLength": 42,
-    "generationsRun": 30,
-    "populationSize": 50
-  },
-  "error": null
-}
-```
-
-### Evaluation Metrics (LLM calculates and judges)
-
-```
-GA Ratio = ga.bestScore / monotonous.summary.maxScore
-```
-
-| GA Ratio  | Evaluation   | Meaning                                         |
-| :-------- | :----------- | :---------------------------------------------- |
-| ≤ 1.0     | Fail         | Monotonous input is optimal (no skill required) |
-| 1.0 - 1.5 | Needs review | Skill reflection is insufficient                |
-| > 1.5     | Pass         | Skilled input is rewarded                       |
-
-### Condition to Proceed to Phase 5
-
-- GA ratio ≤ approximately 1.5
-
----
-
-## Phase 5: Improvement
-
-**Reference**: `.agents/skills/evaluating-gameplay-balance/SKILL.md`
-
-`balance-pattern-guide.md` is a legacy project-specific example catalog. Use it only after applying the skill and this Phase 5 procedure.
-
-### 5a: Get Detailed Log
-
-```bash
-node scripts/ga_tester.js tmp/games/<slug>/main.js --verbose
-```
-
-Get **GA-optimized pattern detailed log** with `--verbose` option.
-
-**Important**: Analysis target is `ga.detailedLog` only. Monotonous input logs (NoInput, HoldOnly, SpamPress) represent "inappropriate play" and are not used for improvement analysis.
-
-#### Detailed Log Structure
-
-```json
-{
-  "gameName": "example",
-  "monotonous": {
-    "patterns": { ... },
-    "summary": { ... }
-  },
-  "ga": {
-    "bestScore": 87,
-    "bestSurvivalTime": 15.2,
-    "bestGenomeLength": 42,
-    "generationsRun": 30,
-    "populationSize": 50,
-    "detailedLog": {
-      "summary": { "survivalTime": "15.20s", "totalScore": 87, ... },
-      "deathAnalysis": {
-        "cause": "game_logic",
-        "position": { "x": 50, "y": 30 },
-        "approachAnalysis": { "playerVelocity": { "x": "0.00", "y": "-1.50" } },
-        "recentFrames": [ ... ]
-      },
-      "scoringAnalysis": {
-        "totalEvents": 25,
-        "triggers": { "enemy_destroy": 15, "item_collect": 10 },
-        "scoringRate": { "0": 10, "1": 15, "2": 20 }
-      },
-      "spawnAnalysis": {
-        "totalSpawns": 45,
-        "averageInterval": "45.2",
-        "minInterval": 20,
-        "maxInterval": 80,
-        "spatialDistribution": { "xRange": [10, 90], "yRange": [0, 100] }
-      },
-      "inputAnalysis": {
-        "pattern": "varied",
-        "totalPresses": 85,
-        "maxHoldDuration": 30
-      }
-    }
-  }
-}
-```
-
-### 5b: Log Analysis and Improvement
-
-Use `evaluating-gameplay-balance` to interpret the telemetry and choose structural fixes. Keep this project's `ga.detailedLog` as the analysis target; the skill's engine-neutral `exploratory_ratio` corresponds to this project's GA ratio.
-
-#### Analysis Perspectives (refer to `ga.detailedLog`)
-
-| Analysis Item        | What to Check                                                     | Problem Indication                    |
-| :------------------- | :---------------------------------------------------------------- | :------------------------------------ |
-| **Death Analysis**   | `ga.detailedLog.deathAnalysis.position`, `recentFrames`           | Deaths concentrated at same position  |
-| **Spawn Analysis**   | `ga.detailedLog.spawnAnalysis.minInterval`, `spatialDistribution` | Interval or spatial distribution bias |
-| **Scoring Analysis** | `ga.detailedLog.scoringAnalysis.triggers`, `scoringRate`          | Lack of acquisition method diversity  |
-| **Input Analysis**   | `ga.detailedLog.inputAnalysis.pattern`                            | `spam` or `hold_heavy`                |
-
-### Recommended Approaches
-
-| Priority | Approach                 | Example                                |
-| :------- | :----------------------- | :------------------------------------- |
-| High     | Improve placement logic  | Spawn that guarantees safe routes      |
-| High     | Introduce warning system | Visual warning before obstacle appears |
-| Medium   | Phase-based difficulty   | Introduce new mechanics over time      |
-| Medium   | Input pattern response   | Mashing penalty, rhythm bonus          |
-
-### 5c: Apply Balance Patterns
-
-Select improvements based on GA analysis. Prefer `.agents/skills/evaluating-gameplay-balance/references/balance-patterns.md`; use `balance-pattern-guide.md` only as a legacy project-specific example catalog:
-
-| Input Pattern   | Recommended Patterns                                      |
-| :-------------- | :-------------------------------------------------------- |
-| `spam`          | 5.3 Hold Accelerates Danger, 4.3 Penalty for Missed       |
-| `hold_heavy`    | 5.1 State-Dependent Speed, 2.1 Risk-Based Scoring         |
-| `no_input`      | 4.3 Penalty for Missed, 7.2 Movement Control Addition     |
-| Edge deaths     | 3.1 Screen Wrap, 3.3 Bounce Instead of Death              |
-| High diff deaths| 1.1 Linear to sqrt() Conversion                           |
-| Score inflation | 2.2 Score Scale Reduction                                 |
-
-**Process**:
-1. Identify problem from `ga.detailedLog`
-2. Select a matching structural pattern
-3. Apply ONE pattern
-4. Re-run GA test
-5. Repeat until GA ratio > 1.5
-
-If the improvement changes the core rules or input tradeoff, revisit the design with `designing-one-button-games`. If it changes visual polish enough to affect readability or difficulty, re-run the GA evaluation after applying `maximizing-game-feel`.
-
-### Prohibited Items
-
-```javascript
-// ❌ Only numerical adjustment
-speed *= 0.8;
-
-// ❌ Only adding conditions
-if (tooHard) makeEasier();
-
-// ❌ Increasing randomness
-spawnY = rnd(0, 100) + rnd(-10, 10);
-```
-
-Return to Phase 4 after improvement (up to 3 times).
-
----
-
-## Deliverables
-
-```
-tmp/games/<slug>/
-├── index.html    # HTML template
-├── main.js       # Game code
-└── README.md     # Game description
-```
-
-### Final Report Format
+End game-generation tasks with:
 
 ```markdown
 # Game Generation Report: <GAME_NAME>
@@ -470,72 +143,12 @@ tmp/games/<slug>/
 
 ## Simulation Results
 
-| Metric           | Initial | After Improvement |
-| :--------------- | :------ | :---------------- |
-| Evaluation       | X/6     | Y/6               |
-| GA vs Monotonous | X.Xx    | Y.Yx              |
+| Metric | Initial | After Improvement |
+| :-- | :-- | :-- |
+| Status | pass/needs_improvement/fail | pass/needs_improvement/fail |
+| GA vs Monotonous | X.Xx | Y.Yx |
 
 ## Improvements Made
 
 1. <Improvement content and reason>
 ```
-
----
-
-## Project Structure
-
-```
-game-tags/
-├── tmp/games/                      # Generated games
-│   └── <slug>/
-│       ├── index.html              # HTML template
-│       ├── main.js                 # Game code
-│       └── README.md               # Game description
-├── scripts/
-│   ├── random_tag_selector.js      # Tag selection
-│   ├── one_button_game_tester.js   # 4a: Fast test (monotonous input)
-│   ├── ga_tester.js                # 4b: Detailed test (GA enabled)
-│   ├── crisp_game_adapter.js       # Library adapter
-│   └── dynamic_game_injector.js    # Parameter injection
-├── tags.csv                        # All tags (107)
-├── balance-pattern-guide.md        # Legacy balance pattern examples
-└── .agents/skills/
-    ├── designing-mini-games/
-    │   ├── SKILL.md                # General/multi-button mini-game design skill
-    │   └── references/
-    │       └── mini-game-design-guide.md
-    ├── designing-one-button-games/
-    │   ├── SKILL.md                # One-button game design skill
-    │   └── references/
-    │       └── one-button-design-guide.md
-    ├── developing-with-crisp-game-lib/
-    │   ├── SKILL.md                # crisp-game-lib implementation skill
-    │   └── references/
-    │       ├── api.md              # API reference
-    │       └── examples.md         # Game examples
-    ├── evaluating-gameplay-balance/
-    │   ├── SKILL.md                # GA/telemetry balance analysis skill
-    │   └── references/
-    │       ├── balance-patterns.md
-    │       ├── improvement-analysis.md
-    │       ├── log-contract.md
-    │       └── simulation-harness.md
-    └── maximizing-game-feel/
-        └── SKILL.md                # Game feel improvement skill
-```
-
----
-
-## Tag Categories
-
-| Category      | Description            | Examples                                |
-| :------------ | :--------------------- | :-------------------------------------- |
-| `player`      | Player characteristics | `player-rotate`, `player-multiple`      |
-| `on_pressed`  | On button press        | `on_pressed-jump`, `on_pressed-turn`    |
-| `on_holding`  | While button held      | `on_holding-move`, `on_holding-charge`  |
-| `on_released` | On button release      | `on_released-throw`                     |
-| `on_got_item` | On item acquisition    | `on_got_item-power_up`                  |
-| `field`       | Field characteristics  | `field-auto_scroll`, `field-1D`         |
-| `rule`        | Game rules             | `rule-physics`, `rule-combo_multiplier` |
-| `weapon`      | Weapons/Attacks        | `weapon-explosion`, `weapon-reflect`    |
-| `obstacle`    | Obstacles              | `obstacle-chase`, `obstacle-penalty`    |
