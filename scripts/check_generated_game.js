@@ -87,6 +87,27 @@ function countTopLevelFunctions(source) {
   return matches.map((line) => line.replace(/^function\s+/, "").replace(/\s*\(.*/, ""));
 }
 
+function getReadmeSection(readme, heading) {
+  const start = readme.indexOf(heading);
+  if (start < 0) return "";
+  const rest = readme.slice(start + heading.length);
+  const nextHeading = rest.search(/\n##\s+/);
+  return nextHeading < 0 ? rest : rest.slice(0, nextHeading);
+}
+
+function hasStateTableDataRow(readme) {
+  const section = getReadmeSection(readme, "## 1.5 State Model and Tradeoff");
+  return section
+    .split(/\r?\n/)
+    .some((line) => {
+      const trimmed = line.trim();
+      if (!trimmed.startsWith("|") || !trimmed.endsWith("|")) return false;
+      if (/^\|\s*:?-+:?\s*\|/.test(trimmed)) return false;
+      if (/State Variable/i.test(trimmed)) return false;
+      return trimmed.split("|").length >= 5 && /[A-Za-z0-9_`]/.test(trimmed);
+    });
+}
+
 function validateArtifacts(gameDir, mainPath) {
   const checks = [];
   const readmePath = path.join(gameDir, "README.md");
@@ -117,6 +138,27 @@ function validateArtifacts(gameDir, mainPath) {
   ].forEach((needle) => {
     addCheck(checks, `README includes ${needle}`, readme.includes(needle), needle);
   });
+
+  [
+    "Idle weakness",
+    "Hold-only weakness",
+    "Mashing weakness",
+    "Skilled play",
+  ].forEach((needle) => {
+    addCheck(
+      checks,
+      `README documents ${needle}`,
+      new RegExp(`\\b${needle}\\b`, "i").test(readme),
+      `Expected "${needle}" bullet under ## 1.5 State Model and Tradeoff`
+    );
+  });
+
+  addCheck(
+    checks,
+    "README state model table has at least one data row",
+    hasStateTableDataRow(readme),
+    "Expected at least one state row under ## 1.5 State Model and Tradeoff"
+  );
 
   addCheck(
     checks,

@@ -20,11 +20,11 @@ class GameAnalyzer {
    * @param {GameSimulator} simulator Game simulator instance
    * @param {object} gameConcept Loaded game concept module
    * @param {Object} simulationParams Parameters for the game simulation
-   * @param {Object} options Test options { verbose: boolean, progressCallback?: Function }
+   * @param {Object} options Test options { verbose: boolean, progressCallback?: Function, seed?: number|null }
    * @returns {Object} Results including pattern scores and optional detailed logs
    */
   static testMonotonousPatterns(simulator, gameConcept, simulationParams = {}, options = {}) {
-    const { verbose = false, progressCallback = null } = options;
+    const { verbose = false, progressCallback = null, seed = null } = options;
 
     // Regenerate patterns using the new flat format
     const patterns = {
@@ -38,6 +38,10 @@ class GameAnalyzer {
 
     Object.entries(patterns).forEach(([name, pattern]) => {
       try {
+        if (seed !== null && seed !== undefined) {
+          simulator.setSeed(seed);
+          setGlobalSeed(seed);
+        }
         const result = simulator.simulateGame(
           gameConcept.init,
           gameConcept.update,
@@ -242,6 +246,7 @@ class GameAnalyzer {
       verbose = false,
       progressCallback = null,
     } = options;
+    const seed = gaConfig.seed !== undefined ? gaConfig.seed : 42;
 
     const standardSimulationParams = {
       worldWidth: 100,
@@ -261,7 +266,7 @@ class GameAnalyzer {
         simulator,
         gameConcept,
         standardSimulationParams,
-        { verbose }
+        { verbose, seed }
       );
 
       // Test GA-optimized input patterns (if enabled)
