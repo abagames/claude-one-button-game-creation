@@ -1,51 +1,54 @@
 # TONGUE HUNTER (tongue-hunter)
 
-**Tags**: #weapon-chase, #on_holding-extend, #on_holding-defend
-
-## Simulation Results
-
-| Metric           | Value |
-| :--------------- | :---- |
-| GA Best Score    | 20    |
-| Monotonous Max   | 10    |
-| GA Ratio         | 2.0   |
-| Evaluation       | Pass  |
+**Seeds**: #weapon-chase, #on_holding-extend, #on_holding-defend
 
 ## 1. Core Mechanics
 
-- **Input**: Hold button to extend tongue toward nearest prey; release to retract
-- **Behavior**: Tongue auto-tracks nearest prey while extending. Player is a frog at screen bottom.
-- **Scoring**: Catch prey with tongue tip (+points). Combo multiplier for consecutive catches.
-- **End Condition**: Getting hit by falling hazards (rocks/predators) while tongue is extended
-- **Difficulty Increase**: More hazards spawn, prey moves faster, hazard speed increases
+- **Input**: Hold to aim and extend the tongue toward the nearest prey; release lets it retract.
+- **Behavior**: The frog is fixed near the bottom. Prey cross the screen horizontally while hazards fall from above. The tongue rotates toward the nearest prey and extends only while held.
+- **End Condition**: A falling hazard touching the extended tongue ends the game.
+- **Scoring**: Catching prey with the tongue tip scores `ceil(tongueLength) * combo`, then increases combo. Retracting fully resets combo to 1.
+- **Difficulty Increase**: Prey spawn faster and move faster; hazards spawn faster and fall faster as difficulty rises.
+
+## 1.5 State Model and Tradeoff
+
+| State Variable | Increase/Decrease Triggers | In-World Feedback |
+| :--- | :--- | :--- |
+| `tongueLength` | Extends while aligned and holding, retracts every frame | Visible tongue line |
+| `tongueAngle` | Rotates toward nearest prey while holding | Tongue direction |
+| `combo` | Increases on prey catch, resets when tongue retracts below active length | Multiplier text |
+| `prey` / `hazards` | Spawn over time | Black prey and red falling hazards |
+
+- **Idle weakness**: The tongue stays retracted and no prey can be caught.
+- **Hold-only weakness**: Long extension raises score but exposes the tongue to falling hazards.
+- **Mashing weakness**: Frequent retraction resets combo and prevents long catches.
+- **Skilled play**: Extend only when the auto-aim path is clear, catch at longer range for higher score, then retract before hazards intersect the tongue.
 
 ## 2. Object Specifications
 
-| Object | Shape | Behavior | Collision |
-|--------|-------|----------|-----------|
-| Frog (player) | Green box | Fixed at bottom center | Invulnerable when tongue retracted |
-| Tongue | Cyan line | Extends from frog toward nearest prey, retracts when released | Tip catches prey |
-| Prey (flies) | Black small box | Float across screen horizontally | Caught = score + despawn |
-| Hazard (rocks) | Red box | Fall from top | Hit frog while extended = game over |
+- **Frog**: Fixed green player at bottom.
+- **Tongue**: Extending line with a collision tip; vulnerable while extended.
+- **Prey**: Black targets moving horizontally.
+- **Hazards**: Red falling objects that kill on tongue contact.
 
-## 3. Design Guide Analysis
+## 3. Design Principle Analysis
 
-- **Simplicity**: One button - hold to attack, release to defend
-- **Visual Feedback**: Tongue visibly extends/retracts; clear red hazards
-- **Skill-Based**: Timing when to extend vs retract; risk/reward of catching prey while hazards fall
-- **Novel**: Combines homing attack with vulnerability state toggle
+- **Simplicity**: Hold extends, release retracts.
+- **Visual Feedback and Game Over**: The exposed tongue and falling hazards show risk clearly.
+- **Skill-Based Scoring**: Longer catches and combo preservation reward timing.
+- **Novel Mechanics**: The weapon itself becomes the vulnerable body.
 
-## 4. Relationship with Tags
+## 4. Relationship with Seeds
 
-- `weapon-chase`: Tongue automatically tracks nearest prey
-- `on_holding-extend`: Tongue elongates while holding
-- `on_holding-defend`: Releasing retracts tongue, making frog invulnerable
+- `weapon-chase`: The tongue tracks the nearest prey.
+- `on_holding-extend`: Holding extends the tongue.
+- `on_holding-defend`: Releasing retracts the vulnerable tongue, functioning as defense.
 
 ## 5. Basis for Novelty
 
-The "attack = vulnerable, idle = safe" inversion creates unique tension. Most games reward constant action; this punishes overextension.
+The safest state scores nothing, while the scoring state creates a long hazard-sensitive body.
 
 ## 6. Similarity Check
 
-- Frogger: Different - movement-based, no tongue mechanic
-- Yoshi's tongue: Different - no vulnerability trade-off, no homing
+It resembles target-catching games, but auto-aim and tongue vulnerability make the main decision about exposure duration rather than aiming manually.
+

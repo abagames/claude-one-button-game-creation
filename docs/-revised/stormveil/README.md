@@ -1,43 +1,53 @@
 # STORMVEIL (stormveil)
 
-**Tags**: #field-weather, #on_pressed-turn, #weapon-smoke
+**Seeds**: #field-weather, #on_pressed-turn, #weapon-smoke
 
 ## 1. Core Mechanics
 
-- **Input**: Tap button to switch to next lane (cycles through 3 lanes)
-- **Behavior**: Player stays at bottom, obstacles scroll down from top
-- **Obstacles**: Red obstacles spawn in 1-2 lanes (leaving safe lanes), coins appear in safe lanes
-- **Scoring**: +5 points per coin collected, +1 point per second survived
-- **Game Over**: Collision with red obstacle
-- **Difficulty Increase**: Scroll speed increases, eventually 2 lanes blocked instead of 1
+- **Input**: Tap to switch to the next lane in a three-lane field.
+- **Behavior**: The player stays near the bottom while obstacles and coins descend in lanes. Each wave blocks one or two lanes and places a coin in one remaining safe lane.
+- **End Condition**: Touching a red obstacle ends the game.
+- **Scoring**: Collecting a coin scores the current multiplier and increases it. Missing a coin resets the multiplier to 1.
+- **Difficulty Increase**: Descent speed and wave frequency increase with `sqrt(difficulty)` / `difficulty`; later waves can block two lanes.
+
+## 1.5 State Model and Tradeoff
+
+| State Variable | Increase/Decrease Triggers | In-World Feedback |
+| :--- | :--- | :--- |
+| `lane` | Advances cyclically on tap | Player moves between three lane guides |
+| `multiplier` | Increases on coin pickup, resets on missed coin | Multiplier text |
+| `obstacles` / `coins` | Spawn as lane waves | Red blocked lanes and yellow reward lane |
+
+- **Idle weakness**: Staying in one lane eventually collides with a blocked lane or misses coins.
+- **Hold-only weakness**: Holding has no effect; it cannot switch lanes.
+- **Mashing weakness**: Cycling lanes blindly often overshoots the safe coin lane.
+- **Skilled play**: Read each wave, tap the exact number of times needed to reach the safe/reward lane, and preserve the multiplier.
 
 ## 2. Object Specifications
 
-| Object | Shape | Behavior | Collision |
-|:-------|:------|:---------|:----------|
-| Player | cyan box (6x6) | Fixed at bottom, smoothly moves between 3 lanes on tap | Dies on obstacle contact |
-| Obstacle | red box (6x6) | Scrolls down at increasing speed | Kills player on contact |
-| Coin | yellow box (5x5) | Scrolls down, gives 5 points when collected | Collected on player contact |
-| Lane guides | light_black lines | Shows 3 lane positions | None |
+- **Player**: Cyan lane runner positioned near the bottom.
+- **Lanes**: Three fixed x positions.
+- **Obstacles**: Red descending lane blockers.
+- **Coins**: Yellow descending collectibles placed in an unblocked lane.
 
-## 3. Design Guide Analysis
+## 3. Design Principle Analysis
 
-- **Simplicity and Intuitiveness**: Single tap cycles lanes - very simple
-- **Visual Feedback and Game Over**: Red = danger, yellow = reward, instant death on collision
-- **Skill-Based Scoring and Risk/Reward**: Must switch lanes strategically to collect coins while avoiding obstacles
-- **Novel Mechanics**: Weather theme with lane-based avoidance, always one safe lane
+- **Simplicity**: Tap cycles lanes.
+- **Visual Feedback and Game Over**: Red lane blockers make collision danger direct.
+- **Skill-Based Scoring**: Coin streaks reward correct lane selection under pressure.
+- **Novel Mechanics**: Each wave is a small lane-selection puzzle rather than pure avoidance.
 
-## 4. Relationship with Tags
+## 4. Relationship with Seeds
 
-- **field-weather**: Conceptually a storm with debris falling (obstacles represent storm hazards)
-- **on_pressed-turn**: Tap switches lane direction/position
-- **weapon-smoke**: Abstracted - the safe lane is like visibility through the storm
+- `field-weather`: The storm is represented as descending lane threats.
+- `on_pressed-turn`: Tap changes course by moving to the next lane.
+- `weapon-smoke`: The revised mechanics no longer use smoke as a rule; it became a lane-dodging storm field.
 
 ## 5. Basis for Novelty
 
-3-lane runner where pressing cycles lanes instead of left/right control. Always exactly one safe lane guarantees survivable patterns with correct timing.
+The player must select the only profitable safe lane in a cyclic one-button lane system.
 
 ## 6. Similarity Check
 
-- **Subway Surfer / Temple Run**: Similar lane concept, but cyclic single-button lane switching is distinct
-- **Rhythm games**: Similar timing requirement, but no music sync
+It resembles lane runners, but cyclic lane switching means the cost of changing lanes depends on the current lane, not direct left/right input.
+

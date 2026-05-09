@@ -1,57 +1,54 @@
 # ORBIT GRAZER (orbit-grazer)
 
-**Tags**: #on_pressed-select_route, #field-gravity, #rule-proximity_bonus
+**Seeds**: #on_pressed-select_route, #field-gravity, #rule-proximity_bonus
 
 ## 1. Core Mechanics
 
-- **Input**: Tap to reverse orbit direction, Hold to speed up
-- **Behavior**: Player automatically orbits around center point. Asteroids spawn and target the player's orbit path.
-- **Scoring**: Graze asteroids (get close without collision) to score. Closer = more points. Holding (faster) = 2x points. Multiplier builds with consecutive grazes.
-- **End Condition**: Collision with asteroid
-- **Difficulty**: Spawn rate and asteroid speed increase over time (sqrt scaling)
+- **Input**: Tap to reverse orbit direction.
+- **Behavior**: The player orbits a central point. The orbit radius gradually expands up to a limit while asteroids spawn from the edge and cross the orbit field.
+- **End Condition**: Asteroid collision shrinks the orbit radius and grants temporary invincibility; reaching the center and colliding with it ends the game.
+- **Scoring**: Passing close to an asteroid while not invincible scores 1 point. This rewards sustained grazing near danger rather than direct collection.
+- **Difficulty Increase**: Orbit speed, asteroid spawn rate, and asteroid speed scale with `sqrt(difficulty)`.
+
+## 1.5 State Model and Tradeoff
+
+| State Variable | Increase/Decrease Triggers | In-World Feedback |
+| :--- | :--- | :--- |
+| `orbitDir` | Reversed by tap | Orbit movement direction changes |
+| `orbitRadius` | Slowly expands, shrinks sharply on asteroid hit | Orbit path radius |
+| `invincibleTicks` | Set after asteroid collision, counts down | Player color changes while invincible |
+| `asteroids` | Spawn from edges toward the orbit field | Incoming purple/red hazards |
+
+- **Idle weakness**: A fixed orbit direction eventually takes the player through asteroid paths and repeated hits collapse the orbit.
+- **Hold-only weakness**: Holding has no special effect in the revised version.
+- **Mashing weakness**: Constant reversals keep the player near the same arc and make grazing routes unstable.
+- **Skilled play**: Reverse direction to skim asteroid edges for score while avoiding direct hits that shrink the orbit.
 
 ## 2. Object Specifications
 
-- **Player**: 6x6 cyan box, orbits at radius 25 from center
-- **Asteroids**: 6-11 size red boxes, spawn from edges and target orbit path
-- **Center**: 4x4 yellow box (visual reference only)
-- **Orbit Path**: Light black arc showing player's trajectory
+- **Player**: Cyan orbital body, blue during temporary invincibility.
+- **Center**: Yellow gravity point and final collapse hazard.
+- **Orbit Path**: Visual guide for current radius.
+- **Asteroids**: Moving hazards; proximity scores, collision damages orbit radius.
 
-## 3. Balance Patterns Applied
+## 3. Design Principle Analysis
 
-This game was balanced using `balance-pattern-guide.md`:
+- **Simplicity**: Tap reverses orbital direction.
+- **Visual Feedback and Game Over**: Orbit radius shows remaining safety margin, and center collapse is clear.
+- **Skill-Based Scoring**: Score comes from close passes near asteroids.
+- **Novel Mechanics**: Failure is a spatial collapse of the orbit rather than immediate death.
 
-| Pattern | Application |
-|:--|:--|
-| 1.1 sqrt Scaling | Spawn rate, asteroid speed use sqrt(difficulty) |
-| 2.1 Risk-Based Scoring | Hold = 2x points, proximity bonus |
-| 2.4 Combo Multiplier | Graze builds multiplier (max 8x) |
-| 4.3 Spam Penalty | 20-frame cooldown on direction change, spam reduces multiplier |
-| 5.3 Hold Danger | Holding increases orbit speed (faster but harder to dodge) |
-| 6.3 Adaptive Spawn | 60% of asteroids target player's predicted position |
+## 4. Relationship with Seeds
 
-## 4. Balance Test Results
+- `on_pressed-select_route`: Tap selects clockwise vs counterclockwise route.
+- `field-gravity`: The player is constrained to an orbit around a center.
+- `rule-proximity_bonus`: Scoring is based on grazing asteroids.
 
-### Initial Version (Before Patterns)
-| Pattern | Survival | Score |
-|:--|:--|:--|
-| NoInput | 1.78s | 2 |
-| HoldOnly | 7.1s | 8 |
-| **SpamPress** | 10s | **10** |
+## 5. Basis for Novelty
 
-**Problem**: Spam was optimal
+The player is allowed to survive hits, but each hit compresses the orbital play space and makes future grazing harder.
 
-### After Balance Patterns
-| Pattern | Survival | Score |
-|:--|:--|:--|
-| NoInput | 1.88s | 1 |
-| HoldOnly | 7.37s | 0 |
-| SpamPress | 2.43s | 0 |
+## 6. Similarity Check
 
-**Result**: All monotonous patterns score nearly 0, requiring skilled timing for points.
+It resembles orbital dodging, but the shrinking radius damage model creates a gradual failure state tied to the gravity field.
 
-## 5. Relationship with Tags
-
-- **on_pressed-select_route**: Tap reverses orbit direction (route selection)
-- **field-gravity**: Player is held in orbit by implied gravity toward center
-- **rule-proximity_bonus**: Graze mechanic rewards getting close to danger

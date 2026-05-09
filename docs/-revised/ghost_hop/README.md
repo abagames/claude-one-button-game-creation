@@ -1,63 +1,54 @@
 # GHOST HOP (ghost_hop)
 
-**Tags**: #on_pressed-jump_into_another, #on_holding-stop, #weapon-interference
+**Seeds**: #on_pressed-jump_into_another, #on_holding-stop, #weapon-interference
 
 ## 1. Core Mechanics
 
-- **Input**: Tap to jump to the next target platform; Hold to activate shield (invulnerable but frozen)
-- **Behavior**: Player occupies one of 5 floating platforms that drift slowly. Bullets fire from screen edges toward player's current position.
-- **End condition**: Hit by a bullet while not shielding
-- **Scoring**: +1 point per second survived (when not shielding), +10 for reflecting bullets by landing on a platform at the right moment
-- **Difficulty increase**: Bullets spawn faster and move faster over time
+- **Input**: Tap to hop to the next platform in a fixed cycle.
+- **Behavior**: The player normally rides the current drifting platform. Tapping starts a jump toward the next platform. Bullets spawn from screen edges and aim at the player's current platform.
+- **End Condition**: A bullet touching the player during a jump ends the game.
+- **Scoring**: Landing on the next platform scores the current multiplier, then doubles it. The multiplier slowly decays over time.
+- **Difficulty Increase**: Bullet speed, bullet spawn rate, platform drift speed, and jump speed increase with difficulty.
+
+## 1.5 State Model and Tradeoff
+
+| State Variable | Increase/Decrease Triggers | In-World Feedback |
+| :--- | :--- | :--- |
+| `player.idx` | Updated when landing | Current platform |
+| `jumping` / `jumpT` | Set by tap, advances until landing | Player travels between platforms |
+| `jumpTargetIdx` | Next cyclic platform | Highlighted next destination |
+| `multiplier` | Doubles on landing, decays each frame | Multiplier text |
+
+- **Idle weakness**: Staying on one platform earns no landing score and lets bullets accumulate around the current position.
+- **Hold-only weakness**: Holding has no mechanical effect in the revised version.
+- **Mashing weakness**: Tapping whenever possible forces jumps without regard to bullet paths, making the only vulnerable state occur at bad times.
+- **Skilled play**: Wait on platforms until the jump path is clear, then hop to the next platform to preserve and grow the landing multiplier.
 
 ## 2. Object Specifications
 
-- **Player (cyan/yellow/blue)**: Small box that follows current platform or travels between them. Yellow while jumping, blue while shielding.
-- **Platforms (green/cyan)**: 5 floating targets that drift randomly. Current platform is cyan and larger.
-- **Bullets (red)**: Spawn from edges, travel toward player's current position
-- **Reflected bullets (yellow)**: Bounce back after player lands near them
+- **Player**: Cyan while riding a platform, yellow while jumping. Only the jumping state is vulnerable to bullets.
+- **Platforms**: Five drifting targets. The current and next platforms indicate routing.
+- **Bullets**: Red projectiles fired from edges toward the player's current position.
+- **Multiplier**: Landing reward that grows with consecutive successful hops.
 
-## 3. Design Guide Analysis
+## 3. Design Principle Analysis
 
-- **Simplicity**: Single button - tap cycles through platforms, hold shields
-- **Visual Feedback**: Clear color states (blue=shielded, yellow=jumping, cyan=normal), shield bar shows remaining energy
-- **Skill-Based Scoring**: Timing jumps to reflect bullets gives +10 bonus; shield stops scoring
-- **Novel Mechanics**: Platform cycling combined with reflect-on-landing timing creates unique tactical decisions
+- **Simplicity**: Tap advances to the next platform.
+- **Visual Feedback and Game Over**: The vulnerable jump state is distinct from platform riding.
+- **Skill-Based Scoring**: Score comes from timed traversal through bullet pressure.
+- **Novel Mechanics**: The player is safe while stationary on platforms but must become vulnerable to score.
 
-## 4. Relationship with Tags
+## 4. Relationship with Seeds
 
-- `on_pressed-jump_into_another`: Core mechanic - hopping between platforms
-- `on_holding-stop`: Shield ability freezes player and bullets but drains energy
-- `weapon-interference`: Landing at the right moment reflects nearby bullets
+- `on_pressed-jump_into_another`: Tap hops to another platform.
+- `on_holding-stop`: The revised code removed the hold-stop rule; platform riding is the default safe state.
+- `weapon-interference`: Bullets interfere with jump timing and route choice.
 
 ## 5. Basis for Novelty
 
-Combines platform-hopping with projectile reflection timing. The shield mechanic creates risk/reward - safety vs. scoring opportunity. Predictable platform cycling allows strategic positioning.
+The scoring action is also the vulnerable action: the player can survive by waiting, but must jump through danger to build score.
 
 ## 6. Similarity Check
 
-Different from typical dodge games because the player cycles through fixed positions rather than free movement, and the reflect-on-land mechanic rewards precise timing rather than pure avoidance.
+It resembles a platform-hopping dodger, but the cyclic destination rule and jump-only vulnerability make timing more important than free movement.
 
----
-
-# Game Generation Report: GHOST HOP
-
-## Selected Tags
-
-- on_pressed-jump_into_another, on_holding-stop, weapon-interference
-
-## Simulation Results
-
-| Metric           | Initial | After Improvement |
-| :--------------- | :------ | :---------------- |
-| GA vs Monotonous | 1.0x    | 3.31x             |
-| GA Best Score    | 3       | 53                |
-| Monotonous Max   | 3       | 16                |
-
-## Improvements Made
-
-1. **Added shield energy limit**: Prevents infinite holding by draining energy when shielding
-2. **Added jump cooldown**: Prevents button mashing from being optimal
-3. **Made player vulnerable while jumping**: Adds risk to jumping, requiring timing
-4. **Changed to predictable platform cycling**: Allows strategic planning vs random nearest-target
-5. **Balanced bullet speed and spawn rate**: Made early game more survivable while still challenging
