@@ -9,7 +9,7 @@ An automated one-button game generation system powered by LLM. Using [crisp-game
 - **Implementation**: Generates playable games using crisp-game-lib (~150 lines)
 - **GA-based evaluation**: Tests games with genetic algorithm to ensure skilled play outperforms button-mashing
 - **Iterative improvement**: Refines games based on simulation feedback
-- **Agent skills**: Uses local skills for one-button design, crisp-game-lib implementation, GA balance analysis, and game-feel polish
+- **Agent skills**: Uses local skills for one-button design, gameplay invariants, crisp-game-lib implementation, GA balance analysis, and game-feel polish
 
 ## Quick Start
 
@@ -49,10 +49,12 @@ See [GAMES.md](./GAMES.md) for a gallery of generated games with playable demos.
 ```
 ├── scripts/                  # Automation tools
 │   ├── random_tag_selector.js
+│   ├── check_generated_game.js
 │   ├── ga_tester.js
 │   └── one_button_game_tester.js
 ├── docs/                     # Published games
-├── balance-pattern-guide.md      # Legacy balance pattern examples
+├── archive/                  # Archived validation/provenance materials
+│   └── zero-touch-redesign-validation/
 ├── .agents/skills/
 │   ├── designing-mini-games/
 │   │   ├── SKILL.md          # General/multi-button mini-game design
@@ -65,6 +67,9 @@ See [GAMES.md](./GAMES.md) for a gallery of generated games with playable demos.
 │   │   └── references/
 │   │       ├── api.md        # API reference
 │   │       └── examples.md   # Game examples
+│   ├── implementing-gameplay-invariants/
+│   │   ├── SKILL.md          # Design-to-code invariant translation
+│   │   └── references/
 │   ├── evaluating-gameplay-balance/
 │   │   ├── SKILL.md          # GA/telemetry balance analysis
 │   │   └── references/
@@ -78,9 +83,10 @@ See [GAMES.md](./GAMES.md) for a gallery of generated games with playable demos.
 - [CLAUDE.md](./CLAUDE.md) - Complete workflow for AI agents
 - [designing-one-button-games skill](./.agents/skills/designing-one-button-games/SKILL.md) - Design principles
 - [one-button design guide](./.agents/skills/designing-one-button-games/references/one-button-design-guide.md) - Detailed one-button design procedure and checklist
+- [implementing-gameplay-invariants skill](./.agents/skills/implementing-gameplay-invariants/SKILL.md) - Converts design promises into code-level invariants and validation checks
 - [designing-mini-games skill](./.agents/skills/designing-mini-games/SKILL.md) - General or multi-button mini-game design
 - [evaluating-gameplay-balance skill](./.agents/skills/evaluating-gameplay-balance/SKILL.md) - GA vs monotonous evaluation and structural improvement guidance
-- [balance-pattern-guide.md](./balance-pattern-guide.md) - Legacy project-specific balance examples; use as supplemental material
 - [maximizing-game-feel skill](./.agents/skills/maximizing-game-feel/SKILL.md) - Visual polish and game feel enhancement
 - [api.md](./.agents/skills/developing-with-crisp-game-lib/references/api.md) - crisp-game-lib API reference
 - [examples.md](./.agents/skills/developing-with-crisp-game-lib/references/examples.md) - crisp-game-lib implementation examples
+- [zero-touch redesign validation archive](./archive/zero-touch-redesign-validation/README.md) - Archived validation materials that informed the current skills and checker workflow
