@@ -2,6 +2,10 @@
 
 Long-form companion to `designing-one-button-games`. This file is self-contained so the skill can be copied or installed without depending on sibling skills.
 
+Background: see `archive/zero-touch-redesign-validation/analysis.md` for the zero-touch vs revised comparison that produced the stricter state, scoring, and monotonous-input rules.
+
+For implementation-facing translation of these design rules, use `implementing-gameplay-invariants`. This guide names what must be true in the design; that skill turns the claim into engine-neutral invariants and validation checks.
+
 ## 1. Design Challenges Specific to One Button
 
 - Producing diverse gameplay from a single binary input.
@@ -24,6 +28,7 @@ Each principle pairs a design rule with an evaluation question.
 ### (3) Skill-Based Scoring and Risk/Reward
 - **Principle**: Reward intentional, high-risk actions (close calls, precise timing) more than safe ones. Score should track mastery directly.
 - **Check**: Does score actually reflect player skill? Is there a meaningful "safe vs. challenging" choice at every moment?
+- **Scoring rule**: Prefer in-world causal events: stomp, graze, batch erase, precise catch, cluster clear, route selection, chain reaction, or pressure cash-out. Survival score is acceptable only when survival itself is the central skill expression; in that case, state the observable survival pattern that skilled play performs and monotonous policies cannot.
 
 ### (4) Novel Mechanics
 - **Principle**: Don't be bound by existing genres. Invent surprising behavior from physical laws (gravity, magnetism, inertia), geometric principles, or their negation.
@@ -81,6 +86,67 @@ Use state variables sparingly. Add a state only when it creates a player decisio
 - Prefer persistent world-side consequences from player actions: scars, altered paths, moved hazards, spent platforms, chain reactions, or changed rhythms.
 - Avoid state that only adds bookkeeping. If removing a variable leaves the same decisions intact, remove it.
 
+### 6.1 Monotonous-Input Rejection
+
+Before implementation, write why each policy is worse than skilled play:
+
+- **Idle weakness**: what eventually happens if the player never presses?
+- **Hold-only weakness**: what cost or missed opportunity prevents permanent holding from dominating?
+- **Mashing weakness**: what makes repeated tapping/releasing worse than timed action?
+- **Skilled play**: what observable pattern does the player learn that produces better score or survival?
+
+Common structural answers:
+
+- Safety has a cost: fuel drain, lost scoring, shrinking space, closing walls, exposed hitbox, cooldown, or recovery time.
+- Power has exposure: larger body, faster movement, vulnerable weapon, rising pressure, or delayed cash-out.
+- Missed hazards leave consequences: rising stack, crumbling platform, lost multiplier, missed fuel, altered terrain, or compressed route.
+- Random tapping loses precision: overshoots route, resets combo, enters a vulnerable transition, wastes a cooldown, or breaks aim alignment.
+
+If an input phase is intentionally unused, say so explicitly and explain why the remaining phases still create skill. Do not invent a meaningless hold or release just to fill the table.
+
+If a monotonous policy can survive indefinitely, do not rely on death as its weakness. State the score cap, score starvation rule, missed-opportunity math, resource drain, or multiplier decay that makes it worse than skilled play.
+
+### 6.1.1 Implementation-Invariant Sketch
+
+For every weakness claim that balance depends on, add a testable implementation invariant. This is not engine code. It is the rule the later implementation must preserve.
+
+Do not over-specify constants in the design pass unless the threshold is central to the idea. Prefer qualitative but enforceable wording such as "inputs during the recovery window cannot score" or "a bloom younger than the minimum age cannot create a pad"; the implementation/invariant pass can then bind the rule to frame counts after seeing the engine tick rate and first hazards.
+
+Use this format:
+
+```markdown
+- Idle invariant: <what code-level condition prevents idle from scoring or surviving competitively>
+- Hold-only invariant: <what condition caps, drains, exposes, or blocks permanent holding>
+- Mashing invariant: <what condition makes rapid repeated input worse than timed input>
+- Skilled-play invariant: <what condition lets intentional timing outperform the bad policies>
+- Seed/precheck invariant (if randomness shapes early hazards): <what the first validation-seed outcomes must satisfy>
+```
+
+Example:
+
+- `Mashing invariant: landing pulses have a 20-frame cooldown and can score each bullet only once.`
+
+For the full catalog of mashing, hold-only, idle, pulse/reflection, combo, and difficulty-bound patterns, use `implementing-gameplay-invariants/references/invariant-patterns.md`.
+
+When the project checker uses a deterministic seed, preview the first 5-10 random hazard/gap/spawn outcomes if they determine early survivability. Confirm those outcomes are compatible with the intended skilled route and do not accidentally make a monotonous route optimal.
+
+If there is no implementation or seeded generator yet, do not invent fake seed outcomes. Add a `Seeded early cases` invariant that says what the first generated cases must satisfy, and require the implementation pass to perform the actual preview before full validation.
+
+Weak examples:
+
+- `Mashing is bad because timing matters.` This is a design hope, not an invariant.
+- `Holding is risky.` Say what makes it risky: exposure, drain, score lockout, larger hitbox, or world pressure.
+- `Skilled players get more score.` Say which event gives that score.
+
+### 6.2 Difficulty Intent
+
+State what scales with difficulty and why. Good defaults:
+
+- Use `sqrt(difficulty)` for smooth increases in movement speed, spawn rate, orbit speed, gravity pressure, or enemy drift.
+- Use steeper `difficulty` scaling only when the game intentionally needs escalating pressure.
+- Cap or bound rates where readability would collapse.
+- Do not tune numbers only to defeat a test policy; the scaling should preserve readable play.
+
 ## 7. Tag / Prompt Contradiction = Creative Tension
 
 When contradicting seeds are given, treat the contradiction as an invention prompt rather than an obstacle.
@@ -100,26 +166,76 @@ Produce a design document in this structure (file location is project-dependent 
 ```markdown
 # <GAME_NAME> (<slug>)
 
-**Seeds**: #seed1, #seed2, #seed3   (omit if no seeds were given)
+**Seeds**: #seed1, #seed2, #seed3
+
+Omit the entire `**Seeds**` line if no seeds were given.
 
 ## 1. Core Mechanics
-<Input → Behavior → End condition, scoring system, difficulty progression>
-<difficulty variable convention: define initial value, growth cadence, and expected range>
+
+### Controls
+
+| Phase | Action | Notes |
+| :--- | :--- | :--- |
+| Press | <what happens on press/tap> | <context, cooldown, or intentionally unused: reason> |
+| Hold | <what happens while held> | <cost, risk, or intentionally unused: reason> |
+| Release | <what happens on release> | <cash-out, recoil, reset, or intentionally unused: reason> |
+
+- Behavior: <main loop in 2-4 sentences>
+- Game-over: <single visually obvious condition; explain why it is fair to read>
+- Scoring: <causal scoring event and any combo/multiplier/cash-out rule>
+
+### Difficulty Scaling
+
+| Quantity | Scaling | Reason |
+| :--- | :--- | :--- |
+| <spawn interval> | </ sqrt(difficulty), capped range, etc.> | <why this pressure changes> |
+| <hazard speed> | <* sqrt(difficulty), linear, etc.> | <why this remains readable or intentionally escalates> |
 
 ## 1.5 State Model and Tradeoff
 
-| State Variable | Increase/Decrease Triggers | In-World Feedback |
-| :--- | :--- | :--- |
-| <var_a> | <what changes it> | <where/how it is shown without text-only UI> |
+| State Variable | Increase/Decrease Triggers | In-World Feedback | Decision Purpose |
+| :--- | :--- | :--- | :--- |
+| <var_a> | <what changes it> | <where/how it is shown without text-only UI> | <what choice this creates> |
 
-- Concrete behavior pair: `<safe_action>` vs `<risky_action>`
+- Concrete behavior pair: `<safe_action>` vs `<risky_action>`  
+  Use the table's `Decision Purpose` cell for the abstract choice the state creates. Use this behavior pair for the concrete actions the player will actually perform. Example: `charge` decision purpose = "choose blast radius vs. hitbox risk"; behavior pair = "release now for small safe blast vs. hold longer for larger dangerous blast".
 - Tradeoff explanation: how improving one state or outcome worsens another
+- Idle weakness: <why doing nothing loses or scores poorly>
+- Hold-only weakness: <why permanent holding loses or scores poorly>
+- Mashing weakness: <why repeated tapping/releasing loses or scores poorly>
+- Skilled play: <what timed/intentional pattern beats the monotonous policies>
+- Persistent consequence or safety cost (if needed): <e.g., rising stack, crumbling platform, shrinking orbit, fuel drain, exposed hitbox>
+
+### Implementation Invariants
+
+The bullets above describe what the player experiences. The table below specifies what the code must enforce. Each row should be testable by a policy or telemetry; do not restate the bullet in different words.
+
+| Promise | Invariant | Validation |
+| :--- | :--- | :--- |
+| Idle weakness | <testable rule that makes idle weak> | <NoInput expected result> |
+| Hold-only weakness | <testable rule that makes permanent hold weak> | <HoldOnly expected result> |
+| Mashing weakness | <testable rule that makes repeated input weak> | <SpamPress / alternating spam expected result> |
+| Skilled play | <testable rule that creates a higher-skill route> | <what skilled/GA/human policy should beat> |
+| Seeded early cases (if relevant) | <first validation-seed hazards/gaps remain compatible with the invariants> | <first 5-10 seeded cases checked by simulation or calculation> |
+
+Example row: `Idle weakness | World pressure rises 1 px per 30 frames while no scoring window is taken | NoInput final score < 10% of skilled/GA best`
 
 ## 2. Object Specifications
 <Each object's shape, behavior, collision handling>
 
 ## 3. Design Principle Analysis
-<Evaluation against the four core principles in §2>
+
+### (1) Simplicity and Intuitiveness
+<Can the rules and object roles be understood immediately?>
+
+### (2) Visual Feedback and Game Over
+<How are success, danger, and the single failure condition shown?>
+
+### (3) Skill-Based Scoring and Risk/Reward
+<Why does score measure skill, and what safe/risky choice exists?>
+
+### (4) Novel Mechanics
+<What rule-level idea goes beyond a familiar clone?>
 
 ## 4. Relationship with Seeds
 <How the idea developed from the input seeds>
@@ -128,20 +244,22 @@ Produce a design document in this structure (file location is project-dependent 
 <Elements that go beyond existing patterns>
 
 ## 6. Similarity Check
-<List any known games with similar mechanics; explain key differences that make this design distinct.>
+<List any known games with similar mechanics; explain rule-level differences, not just theme or visual differences.>
 ```
 
 ## 9. Design Quality Checklist
 
 - [ ] Does it complete with one button: press, hold, release, or a combination of those phases?
 - [ ] Is the game-over condition single and visually obvious?
-- [ ] Are mashing, hold-only, and idle play each worse than skilled play?
-- [ ] Does score come from in-world causality rather than raw input facts?
+- [ ] Are mashing, hold-only, and idle play each explicitly documented as worse than skilled play?
+- [ ] Does each key weakness include a testable implementation invariant, not just prose?
+- [ ] Does score come from in-world causality rather than raw input facts? If survival score is used, is survival itself the central skill expression?
 - [ ] Can rules and object roles be understood without text?
 - [ ] Does every state variable create a distinct player decision?
 - [ ] Does every state variable have a non-text in-world feedback channel?
 - [ ] Is there at least one explicit safe/risky tradeoff?
-- [ ] Does at least one persistent world-side history remain from player actions?
+- [ ] Does at least one persistent consequence or safety cost exist where the game needs one?
+- [ ] Does the design state what scales with difficulty and why?
 - [ ] Is there a "I've never seen this before" moment that is not just a reskin of a known game?
 
 ## 10. Appendix: SCAMPER Method (Auxiliary Only)

@@ -30,6 +30,15 @@ Workflow:
 7. Propose at least three candidate fixes with expected impact, risk, and complexity.
 8. Re-test with the same policies, seeds, budgets, and aggregation after implementation.
 
+Project checker triage, when the report includes `ratio.diagnostic`:
+- `mono_dominant`: a monotonous policy outscores exploratory play. First inspect input and scoring telemetry for a missing tradeoff, reusable scoring pulse, safe scoring, or raw-input reward. Prefer structural input-state, per-target, resource, cooldown, or risk-scoring fixes.
+- `tied`: exploratory play cannot meaningfully exceed the monotonous baseline. Treat this as a likely skill-ceiling or design-signal issue, not a numeric tuning problem. Revisit the design and invariants unless telemetry clearly shows a single unfair hazard blocking both policies.
+- `marginal`: exploratory play is ahead but not enough. Prefer risk-based scoring, combo reset causes, scoring scale, or clearer scoring opportunities before touching raw spawn/speed numbers.
+
+For this repository's generated one-button games, verbose checker output should be used for improvement diagnosis, but do not infer fixes from monotonous-policy logs alone. Use the GA `detailedLog` to understand what exploratory play tried, then compare only the relevant policy summaries or focused probes needed to verify the suspected invariant.
+
+When telemetry is summarized or sparse, request or add the smallest focused probe before editing. Useful probes include: death hazard id/type/age and player input window, spawn position and safety distance, score reason/target id/risk context, input cadence around score/death, active entity counts, and score per unique opportunity.
+
 Read these references as needed:
 - `references/simulation-harness.md` for designing deterministic simulators, input policies, and telemetry emitters.
 - `references/log-contract.md` for the engine-neutral telemetry schema.
