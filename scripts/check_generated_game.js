@@ -95,6 +95,25 @@ function getReadmeSection(readme, heading) {
   return nextHeading < 0 ? rest : rest.slice(0, nextHeading);
 }
 
+function checkColorUsage(main) {
+  const VALID_COLORS = new Set([
+    "transparent", "white", "red", "green", "yellow", "blue", "purple", "cyan", "black",
+    "light_red", "light_green", "light_yellow", "light_blue", "light_purple", "light_cyan", "light_black",
+  ]);
+
+  // Direct color("name") calls — all must be in VALID_COLORS
+  const directCalls = [...main.matchAll(/\bcolor\s*\(\s*["'`]([^"'`]+)["'`]\s*\)/g)].map((m) => m[1]);
+  const invalidDirect = directCalls.filter((c) => !VALID_COLORS.has(c));
+
+  // Indirect string literals: catch unsupported color names stored in variables, arrays, or properties
+  const unsupportedColorPattern = /^(?:light_)?(?:orange|pink|gray|grey|violet|indigo|teal|brown|magenta|lime|navy|maroon|olive|silver|gold)$/;
+  const allStrings = [...main.matchAll(/["'`]([a-z][a-z_]{1,14}[a-z])["'`]/g)].map((m) => m[1]);
+  const invalidIndirect = [...new Set(allStrings)].filter((c) => unsupportedColorPattern.test(c));
+
+  const invalid = [...new Set([...invalidDirect, ...invalidIndirect])];
+  return { ok: invalid.length === 0, invalid };
+}
+
 function hasStateTableDataRow(readme) {
   const section = getReadmeSection(readme, "## 1.5 State Model and Tradeoff");
   return section
@@ -196,6 +215,16 @@ function validateArtifacts(gameDir, mainPath) {
     "main.js does not manually draw score text",
     !/\btext\s*\(\s*["'`]?\s*score/i.test(main),
     "crisp-game-lib displays score automatically"
+  );
+
+  const colorCheck = checkColorUsage(main);
+  addCheck(
+    checks,
+    "main.js uses only valid crisp-game-lib color names",
+    colorCheck.ok,
+    colorCheck.ok
+      ? "All color() calls use valid names"
+      : `Invalid color names: ${colorCheck.invalid.join(", ")} — valid: red, green, yellow, blue, purple, cyan, black, white, light_* variants`
   );
 
   return checks;

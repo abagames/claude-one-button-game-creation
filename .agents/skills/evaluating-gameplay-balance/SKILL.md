@@ -31,9 +31,9 @@ Workflow:
 8. Re-test with the same policies, seeds, budgets, and aggregation after implementation.
 
 Project checker triage, when the report includes `ratio.diagnostic`:
-- `mono_dominant`: a monotonous policy outscores exploratory play. First inspect input and scoring telemetry for a missing tradeoff, reusable scoring pulse, safe scoring, or raw-input reward. Prefer structural input-state, per-target, resource, cooldown, or risk-scoring fixes.
-- `tied`: exploratory play cannot meaningfully exceed the monotonous baseline. Treat this as a likely skill-ceiling or design-signal issue, not a numeric tuning problem. Revisit the design and invariants unless telemetry clearly shows a single unfair hazard blocking both policies.
-- `marginal`: exploratory play is ahead but not enough. Prefer risk-based scoring, combo reset causes, scoring scale, or clearer scoring opportunities before touching raw spawn/speed numbers.
+- `mono_dominant`: a monotonous policy outscores exploratory play. Inspect input and scoring telemetry for a missing tradeoff, reusable scoring pulse, safe scoring, or raw-input reward. If the current README invariants do not prevent idle, hold-only, or safe-waiting dominance, this is a **design issue**: report it as such so the caller can revise the README and re-implement. Otherwise prefer structural code-level fixes (input-state, per-target, resource, cooldown, or risk-scoring).
+- `tied`: exploratory play cannot meaningfully exceed the monotonous baseline. This is a **design issue** unless telemetry clearly shows a single unfair hazard blocking both policies. Report it as a design issue so the caller can revise the README and re-implement; do not attempt code-level fixes for a fundamentally flawed mechanic.
+- `marginal`: exploratory play is ahead but not enough. Determine whether a specific code-level cause is identifiable (implementation issue) or whether the scoring/tradeoff structure itself is missing (design issue). For an implementation issue, prefer risk-based scoring, combo reset causes, scoring scale, or clearer scoring opportunities before touching raw spawn/speed numbers.
 
 For this repository's generated one-button games, verbose checker output should be used for improvement diagnosis, but do not infer fixes from monotonous-policy logs alone. Use the GA `detailedLog` to understand what exploratory play tried, then compare only the relevant policy summaries or focused probes needed to verify the suspected invariant.
 

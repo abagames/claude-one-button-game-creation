@@ -24,7 +24,7 @@ For the normal "create a one-button game" flow:
    node scripts/check_generated_game.js tmp/games/<slug>
    ```
 
-6. If the checker reports `needs_improvement`, inspect verbose output and improve with `.agents/skills/evaluating-gameplay-balance/SKILL.md`:
+6. If the checker reports `needs_improvement`, run verbose output, diagnose with `.agents/skills/evaluating-gameplay-balance/SKILL.md`, then apply the Improvement Rules triage to decide the repair path:
 
    ```bash
    node scripts/check_generated_game.js tmp/games/<slug> --verbose
@@ -59,7 +59,7 @@ GA ratio = ga.bestScore / monotonous.summary.maxScore
 Outcome summary:
 
 - `pass`: GA ratio is greater than `1.5`.
-- `needs_improvement`: inspect `ratio.diagnostic` and follow `.agents/skills/evaluating-gameplay-balance/SKILL.md`.
+- `needs_improvement`: use `.agents/skills/evaluating-gameplay-balance/SKILL.md` for diagnosis, then apply the Improvement Rules triage to decide the repair path (design issue or implementation issue).
 - `fail`: required artifacts, static constraints, tester execution, or JSON output are invalid.
 
 For `needs_improvement`, use verbose output. Analyze GA exploratory behavior first; monotonous logs are baselines, not improvement instructions. If verbose output is too large or insufficient, add a small invariant-specific probe instead of guessing from the global ratio alone.
@@ -94,12 +94,29 @@ For section content, including idle / hold-only / mashing weakness and skilled-p
 
 ## Improvement Rules
 
-When improving a game:
+When `needs_improvement` is reported, triage the root cause before acting.
 
-- Apply one structural improvement at a time, then rerun `scripts/check_generated_game.js`.
-- If a fix changes idle / hold-only / mashing behavior, safe states, scoring pulses, combos, cooldowns, resource drains, or seeded early hazards/gaps, update invariants with `.agents/skills/implementing-gameplay-invariants/SKILL.md` before editing code.
-- If the GA ratio strictly worsens, revert that change and try a different pattern; a clear regression is not a spent attempt.
-- If `diagnostic` is `tied`, or GA does not exceed monotonous score across two consecutive attempts, revisit the design with `designing-one-button-games`.
+**Design issue — revise README, then re-implement `main.js` from scratch:**
+- `diagnostic` is `tied`.
+- `diagnostic` is `mono_dominant` and telemetry shows idle, hold-only, or safe-waiting dominance that the current README invariants do not prevent.
+- Any second improvement attempt after a code-only fix did not improve the ratio.
+
+**Implementation issue — fix `main.js` directly:**
+- The README invariants correctly predict the expected behavior but the code violates them.
+- `diagnostic` is `marginal` on a first attempt and a specific code-level cause is identifiable from telemetry.
+
+**Design-issue path:**
+1. Revise README sections "State Model and Tradeoff" and "Implementation Invariants" using `.agents/skills/designing-one-button-games/SKILL.md` to address the root cause.
+2. Update implementation invariants with `.agents/skills/implementing-gameplay-invariants/SKILL.md`.
+3. Discard the existing `main.js` and re-implement from scratch with `.agents/skills/developing-with-crisp-game-lib/SKILL.md`.
+
+**Implementation-issue path:**
+1. Use `.agents/skills/evaluating-gameplay-balance/SKILL.md` to identify the specific code-level cause from telemetry.
+2. Apply one structural improvement at a time, then rerun `scripts/check_generated_game.js`.
+3. If a fix changes idle / hold-only / mashing behavior, safe states, scoring pulses, combos, cooldowns, resource drains, or seeded early hazards/gaps, update invariants with `.agents/skills/implementing-gameplay-invariants/SKILL.md` before editing code.
+
+**Both paths:**
+- If the GA ratio strictly worsens, revert that change; a clear regression is not a spent attempt.
 - Avoid numeric-only tuning, branch-only fixes, hidden tester-specific behavior, and randomness as the primary answer.
 
 ## Final Report
