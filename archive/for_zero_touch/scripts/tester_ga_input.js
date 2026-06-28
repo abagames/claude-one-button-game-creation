@@ -222,13 +222,7 @@ class GAInputGenerator {
    * @param {Object} gaConfig GA configuration
    * @returns {Object} Evolution results with best individual
    */
-  static evolve(
-    simulator,
-    gameConcept,
-    simulationParams = {},
-    gaConfig = {},
-    hooks = {}
-  ) {
+  static evolve(simulator, gameConcept, simulationParams = {}, gaConfig = {}) {
     const {
       populationSize = 50,
       generations = 30,
@@ -244,7 +238,6 @@ class GAInputGenerator {
       survivalWeight = 0.1, // Weight for survival time in fitness calculation
       seed = 42, // Default seed for deterministic game evaluation
     } = gaConfig;
-    const { onGeneration = null } = hooks;
 
     // Create initial population with configured ranges
     let population = this.createInitialPopulation(populationSize, {
@@ -294,14 +287,6 @@ class GAInputGenerator {
       history.generations.push(gen);
       history.bestFitness.push(population[0].fitness);
       history.avgFitness.push(avgFitness);
-      if (typeof onGeneration === "function") {
-        onGeneration({
-          generation: gen,
-          generations,
-          bestFitness: population[0].fitness,
-          avgFitness,
-        });
-      }
 
       // Update best individual
       if (population[0].fitness > bestIndividual.fitness) {

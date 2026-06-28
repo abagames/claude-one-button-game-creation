@@ -20,11 +20,11 @@ class GameAnalyzer {
    * @param {GameSimulator} simulator Game simulator instance
    * @param {object} gameConcept Loaded game concept module
    * @param {Object} simulationParams Parameters for the game simulation
-   * @param {Object} options Test options { verbose: boolean, progressCallback?: Function, seed?: number|null }
+   * @param {Object} options Test options { verbose: boolean }
    * @returns {Object} Results including pattern scores and optional detailed logs
    */
   static testMonotonousPatterns(simulator, gameConcept, simulationParams = {}, options = {}) {
-    const { verbose = false, progressCallback = null, seed = null } = options;
+    const { verbose = false } = options;
 
     // Regenerate patterns using the new flat format
     const patterns = {
@@ -38,10 +38,6 @@ class GameAnalyzer {
 
     Object.entries(patterns).forEach(([name, pattern]) => {
       try {
-        if (seed !== null && seed !== undefined) {
-          simulator.setSeed(seed);
-          setGlobalSeed(seed);
-        }
         const result = simulator.simulateGame(
           gameConcept.init,
           gameConcept.update,
@@ -98,7 +94,7 @@ class GameAnalyzer {
    * @param {object} gameConcept Loaded game concept module
    * @param {Object} simulationParams Parameters for the game simulation
    * @param {Object} gaConfig GA configuration options
-   * @param {Object} options Test options { verbose: boolean, progressCallback?: Function }
+   * @param {Object} options Test options { verbose: boolean }
    * @returns {Object} Results including best score, pattern, and evolution history
    */
   static testGAOptimizedPatterns(
@@ -108,7 +104,7 @@ class GameAnalyzer {
     gaConfig = {},
     options = {}
   ) {
-    const { verbose = false, progressCallback = null } = options;
+    const { verbose = false } = options;
     const defaultGAConfig = {
       populationSize: 30,
       generations: 20,
@@ -156,18 +152,7 @@ class GameAnalyzer {
           simulator,
           gameConcept,
           simulationParams,
-          rangeConfig,
-          {
-            onGeneration: (generationInfo) => {
-              if (typeof progressCallback === "function") {
-                progressCallback({
-                  ...generationInfo,
-                  rangeIndex: i,
-                  totalRanges: timeRanges.length,
-                });
-              }
-            },
-          }
+          rangeConfig
         );
 
         // Simulate one more time with best pattern to get survival time and detailed log
@@ -236,17 +221,11 @@ class GameAnalyzer {
    * @param {GameSimulator} simulator Game simulator instance
    * @param {object} gameConcept Loaded game concept module { init, update, isGameOver, getScore }
    * @param {string} gameName Name of the game (derived from file path)
-   * @param {Object} options Test options { includeGA: boolean, gaConfig: object, verbose: boolean, progressCallback?: Function }
+   * @param {Object} options Test options { includeGA: boolean, gaConfig: object, verbose: boolean }
    * @returns {Object} Raw test results
    */
   static testGame(simulator, gameConcept, gameName, options = {}) {
-    const {
-      includeGA = false,
-      gaConfig = {},
-      verbose = false,
-      progressCallback = null,
-    } = options;
-    const seed = gaConfig.seed !== undefined ? gaConfig.seed : 42;
+    const { includeGA = false, gaConfig = {}, verbose = false } = options;
 
     const standardSimulationParams = {
       worldWidth: 100,
@@ -266,7 +245,7 @@ class GameAnalyzer {
         simulator,
         gameConcept,
         standardSimulationParams,
-        { verbose, seed }
+        { verbose }
       );
 
       // Test GA-optimized input patterns (if enabled)
@@ -276,7 +255,7 @@ class GameAnalyzer {
           gameConcept,
           standardSimulationParams,
           gaConfig,
-          { verbose, progressCallback }
+          { verbose }
         );
       }
     } catch (error) {

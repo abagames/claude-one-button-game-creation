@@ -158,9 +158,7 @@ function formatOutput(selectedTags, seed, format) {
       lines.push(
         "Use the above tags as inspiration starting points for game design,"
       );
-      lines.push(
-        "following the procedures in .agents/skills/designing-one-button-games/SKILL.md §7."
-      );
+      lines.push("following the procedures in one-button-game-design-guide.md §7.");
       lines.push("Tags are stimuli, not constraints. Don't be afraid to deviate.");
       lines.push("```");
 

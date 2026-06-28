@@ -1,4 +1,4 @@
-# Mini-Game Design Guide
+# One-Button Mini-Game Design Guide
 
 ## 1. Design Challenges
 
@@ -36,24 +36,13 @@ Integrate "principles (what to do)" and "evaluation (confirmation items)" to cla
 
 ## 3. Interaction Patterns (Reference)
 
-Examples of mechanics based on input. These are starting points for ideas, not constraints. If a button-count limit is provided by the project brief, design within it.
-
-### 3.1 Single-Button State Patterns
+Examples of mechanics based on button state. However, these are starting points for ideas, not constraints.
 
 | Input | Mechanic | Application Examples |
 | :--- | :--- | :--- |
 | **Press** | Instant change | Direction change (90/180°), jump, shoot, teleport, split, attribute toggle |
 | **Hold** | Accumulation/Extension | Power/angle adjustment, stretch, shield deployment, energy charging |
 | **Release** | Release/Recoil | Projectile firing, charged attack execution, state release effects |
-
-### 3.2 Multi-Button Patterns (button_types ≥ 2)
-
-| Pattern | Mechanic | Application Examples |
-| :--- | :--- | :--- |
-| **Role separation** | Each button controls a distinct axis | Move / Attack, Left / Right, Jump / Shoot |
-| **Exclusive toggle** | Only one button's effect is active | Stance switching (offense ↔ defense), element cycling |
-| **Simultaneous combo** | Pressing multiple buttons at once triggers a special action | Charged dash (move + attack), emergency brake |
-| **Sequential chain** | Button order matters | Input combos for special moves, rhythm sequences |
 
 ## 4. Movement and Environment Mechanics (Reference)
 
@@ -109,7 +98,7 @@ Design in the following order from given tag groups.
 1. **Free Association**: Look at tags, verbalize the first images or sensations that come to mind (refer to §6)
 2. **Deviation Exploration**: Consider the "opposite," "negation," or "extreme" of tags, explore unexpected directions
 3. **Core Experience Decision**: Define the "momentary sensation" you want to give the player in one phrase
-4. **Mechanics Construction**: Design input scheme that realizes the core experience
+4. **Mechanics Construction**: Design one-button operation that realizes the core experience
 5. **Consistency Verification**: Verify design with the checklist in §10
 
 ※ Use tags as stimulus for steps 1-2, don't be bound by tags from step 3 onwards.
@@ -128,45 +117,22 @@ When contradicting tags are given, it's an opportunity for invention, not a cons
 
 ## 9. Output Format
 
-Output in the following format to the project's game design document.
+Output in the following format to `tmp/games/<slug>/README.md`.
 
 ```markdown
 # <GAME_NAME> (<slug>)
 
-## 0. Tag Record
-
-- Mechanism (3): #m_tag1, #m_tag2, #m_tag3
-- Visual (2): #v_tag1, #v_tag2
-- Structure (1): #s_tag1
-- button_types: <1-5>
-- Unexpected pair check: `<pair_a> + <pair_b>` satisfies the project's novelty or non-obviousness rule
-
-## 0.5 State Model (minimal)
-
-| State Variable | Increase/Decrease Triggers | UI/Feedback Reflection |
-| :--- | :--- | :--- |
-| var_a | <what changes it> | <where/how it is shown> |
-| var_b | <what changes it> | <where/how it is shown> |
-
-Notes:
-- Add state variables only when they create a new decision that cannot be expressed by existing rules.
-- Each state must have at least one in-world representation (terrain/behavior/color/shape/speed/sound), not only HUD numbers.
+**Tags**: #tag1, #tag2, #tag3
 
 ## 1. Core Mechanics
 
 <Input → Behavior → End condition, scoring system, difficulty increase mechanism>
-<difficulty variable convention: define initial value, growth cadence, and expected range>
-
-## 1.5 Tradeoff Definition
-
-- Concrete behavior pair: `<action_safe>` vs `<action_risky>`
-- Tradeoff explanation: how improving one state worsens another
 
 ## 2. Object Specifications
 
 <Each object's shape, behavior, collision handling>
 
-## 3. Design Principle Analysis
+## 3. Design Guide Analysis
 
 <Evaluation against four core design principles>
 
@@ -176,23 +142,21 @@ Notes:
 
 ## 5. Basis for Novelty
 
-<Elements beyond existing patterns, and how this game differs from the most similar existing game(s)>
+<Elements beyond existing patterns>
 ```
+
+Implement in JavaScript of about 150 lines, referring to `crisp-game-lib-guide.md`.
 
 ## 10. Design Quality Checklist
 
 Confirm the following before completing design.
 
-- [ ] Is the input scheme within the button-count limit chosen in the project brief?
+- [ ] Does it complete with one button (not requiring multiple inputs)?
 - [ ] Is the game over condition single and visually obvious?
 - [ ] Is button mashing/idle play not the optimal solution?
 - [ ] Can you provide reasoned answers to all 4 principles in §2?
 - [ ] Did ideas start from tags and have elements beyond existing patterns?
 - [ ] Are there moments of feeling "I've never seen this before"?
-- [ ] If state variables are used, is each one justified by a distinct decision purpose?
-- [ ] If state variables are used, does each one have a non-text in-world feedback channel?
-- [ ] Is there at least 1 explicit tradeoff between states/actions (including action vs terrain)?
-- [ ] Does at least one world-side persistent history remain from player actions?
 
 ## Appendix: SCAMPER Method (Auxiliary Technique)
 
@@ -200,7 +164,7 @@ Idea assistance through transformation of existing elements. However, this is an
 
 - **Substitute**: Replace jump with teleport or gravity reversal.
 - **Combine**: Combine bounce mechanics with direction change.
-- **Adapt**: Adapt existing arcade games or physical phenomena (pendulum, waves) to the chosen `button_types` constraint.
+- **Adapt**: Adapt existing arcade games or physical phenomena (pendulum, waves) to one button.
 - **Modify**: Character grows giant with hold duration. Danger increases with speed.
 - **Put to other uses**: Use enemies as platforms or tools.
 - **Eliminate**: Remove "obvious" elements like gravity or direct movement control.
