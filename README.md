@@ -15,7 +15,7 @@ See [GAMES.md](./GAMES.md) for playable examples and screenshots.
 ## Current Workflow
 
 The active pipeline is the zero-touch workflow documented in
-[archive/for_zero_touch/CLAUDE.md](./archive/for_zero_touch/CLAUDE.md).
+[archive/for_zero_touch/README.md](./archive/for_zero_touch/README.md).
 
 1. Select random tags from `archive/for_zero_touch/tags.csv` as creative seeds.
 2. Design a one-button action game from those seeds.
