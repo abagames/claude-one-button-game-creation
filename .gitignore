@@ -3,7 +3,8 @@ node_modules/
 .claude/
 .serena/
 tmp/
+/state/
 .env
 .codex
-package-lock.json
-npm-debug.log
+npm-debug.log*
+/archive/for_web/package-lock.json

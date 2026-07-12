@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>fixture-ok</title>
+  </head>
+  <body style="background: #ddd">
+    <canvas id="c" width="400" height="300"></canvas>
+    <script>
+      // Minimal self-contained "game": a box bounces; taps and Space reverse it.
+      const ctx = document.getElementById("c").getContext("2d");
+      let x = 50;
+      let vx = 2;
+      const reverse = () => (vx = -vx);
+      window.addEventListener("pointerdown", reverse);
+      window.addEventListener("keydown", (e) => {
+        if (e.code === "Space") reverse();
+      });
+      function frame() {
+        x += vx;
+        if (x < 0 || x > 380) vx = -vx;
+        ctx.fillStyle = "#ddd";
+        ctx.fillRect(0, 0, 400, 300);
+        ctx.fillStyle = "#36c";
+        ctx.fillRect(x, 140, 20, 20);
+        requestAnimationFrame(frame);
+      }
+      frame();
+    </script>
+  </body>
+</html>

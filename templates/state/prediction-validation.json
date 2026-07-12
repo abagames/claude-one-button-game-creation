@@ -1,0 +1,6 @@
+{
+  "checkpoint": {
+    "minimumCleanBatches": 4
+  },
+  "batches": []
+}

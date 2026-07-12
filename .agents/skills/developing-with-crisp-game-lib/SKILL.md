@@ -12,6 +12,7 @@ Creates browser-based mini-games using crisp-game-lib, a JavaScript library for 
 Use this skill when asked to create or repair a mini-game with crisp-game-lib. If the user asks for Godot or another engine, or leaves the engine unspecified, do not use this skill unless the existing project is already a crisp-game-lib project.
 
 This guide separates:
+
 - ordered implementation steps (what to do in sequence)
 - mandatory constraints (rules that always apply)
 - reusable patterns and references (optional support)
@@ -27,6 +28,7 @@ Choose the appropriate setup based on the project context.
 Create a project directory with `index.html` and `main.js`. CDN is acceptable for final projects when the script URL is pinned to a verified version. For quick prototypes only, a clearly labeled draft may use `crisp-game-lib@latest`.
 
 For reproducible assignments or committed projects:
+
 - CDN is fine; the reproducibility issue is an unpinned moving version such as `@latest`.
 - Pin only a version that is already specified by the project or that you have verified from package metadata/CDN access.
 - Do not invent a crisp-game-lib version number.
@@ -45,9 +47,10 @@ For reproducible assignments or committed projects:
       name="viewport"
       content="width=device-width, height=device-height, user-scalable=no, initial-scale=1, maximum-scale=1"
     />
-    <!-- Optional: only required if you use algo-chip helpers -->
-    <script src="https://unpkg.com/algo-chip@1.0.2/packages/core/dist/algo-chip.umd.js"></script>
-    <script src="https://unpkg.com/algo-chip@1.0.2/packages/util/dist/algo-chip-util.umd.js"></script>
+    <!-- REQUIRED for any sound: crisp-game-lib 1.5.0+ built-in audio (play()/BGM)
+         silently no-ops without the AlgoChip/AlgoChipUtil globals (no console error) -->
+    <script src="https://unpkg.com/algo-chip@1.1.0/packages/core/dist/algo-chip.umd.js"></script>
+    <script src="https://unpkg.com/algo-chip@1.1.0/packages/util/dist/algo-chip-util.umd.js"></script>
     <script src="https://unpkg.com/crisp-game-lib@<verified-version>/docs/bundle.js"></script>
     <script src="./main.js"></script>
     <script>
@@ -92,9 +95,10 @@ If this project also uses `algo-chip` helpers, install or pin `crisp-game-lib` a
       name="viewport"
       content="width=device-width, height=device-height, user-scalable=no, initial-scale=1, maximum-scale=1"
     />
-    <!-- Optional: only required if you use algo-chip helpers -->
-    <script src="https://unpkg.com/algo-chip@1.0.2/packages/core/dist/algo-chip.umd.js"></script>
-    <script src="https://unpkg.com/algo-chip@1.0.2/packages/util/dist/algo-chip-util.umd.js"></script>
+    <!-- REQUIRED for any sound: crisp-game-lib 1.5.0+ built-in audio (play()/BGM)
+         silently no-ops without the AlgoChip/AlgoChipUtil globals (no console error) -->
+    <script src="https://unpkg.com/algo-chip@1.1.0/packages/core/dist/algo-chip.umd.js"></script>
+    <script src="https://unpkg.com/algo-chip@1.1.0/packages/util/dist/algo-chip-util.umd.js"></script>
     <script type="module" src="./main.js"></script>
   </head>
   <body style="background: #ddd"></body>
@@ -127,6 +131,7 @@ init({ update, title, description, characters, options });
 Write `main.js` following the structure below.
 
 Before and during implementation:
+
 - Read `references/api.md` when you need exact function behavior, argument shapes, collision semantics, or available colors/sounds.
 - Read `references/examples.md` when the requested game resembles one of the listed patterns, or when you need a complete working loop to adapt.
 - For one-button games, state the exact input interpretation before coding (for example tap toggles state, tap applies impulse, hold charges, or release fires).
@@ -174,14 +179,18 @@ Fill `update()` with a clear per-frame order:
 
 Use `if (!ticks) { ... }` for one-time initialization.
 
+**Emergence review**: after the first working loop, watch for unintentional but interesting behaviors arising from crisp-game-lib idioms (collision artifacts, misordered draw calls, unexpected physics). If one looks more interesting than the original spec, record it and flag it for design reconsideration rather than silently fixing it.
+
 ### Step 3: Apply Mandatory Rules and Validate
 
 Apply section 4 (Mandatory Rules) as required validation criteria, then run the section 6 checklist on desktop and/or mobile.
 
 For this repository's automated testers:
+
 - In generated test fixtures for this repository, keep game-specific helper logic inside `update()`; tester execution can miss helpers defined outside it. In normal user projects, small top-level helpers are acceptable if the target build/test harness runs them correctly.
 - Name moving hazard arrays with detectable terms such as `obstacles`, `enemies`, or `hazards` when useful. Verbose GA logs use those names to populate spawn analysis.
 - Prefer `addScore(points, x, y)` over `addScore(points, pos)` when you need accurate score-event positions in tester logs.
+- The headless simulator cannot detect collisions for shapes drawn only with `line`, `bar`, or `arc`. Give collision-critical entities a `box` or `rect` representation (visible or as the collision carrier) so automated collision checks can see them; keep `line`/`bar`/`arc` for decoration.
 
 ## 4. Mandatory Rules (Always Apply)
 
@@ -207,6 +216,8 @@ color("red");
 enemies.forEach((e) => box(e.pos, 10));
 ```
 
+**Call only documented API functions.** A test mock or simulator may expose helper globals (such as `sign`) that do not exist in the browser bundle, so code can pass every automated test and still crash on the first real frame or input. If a helper is not in `references/api.md` or standard JavaScript, define it yourself or use the standard equivalent (`Math.sign`, etc.).
+
 **Do NOT manually draw the score.** The library automatically displays it. Never call `text()` for score display.
 
 **White color is invisible** on all themes (matches background). Use `light_` variants or other colors instead.
@@ -217,6 +228,10 @@ enemies.forEach((e) => box(e.pos, 10));
 particle(pos, { count: 5, speed: 2, angle: PI }); // ✅ Preferred
 particle(pos, 5, 2, PI, PI); // ❌ Legacy format
 ```
+
+**Sound requires algo-chip (1.5.0+).** At init the bundle enables audio only if the `AlgoChip` and `AlgoChipUtil` globals exist (legacy projects may instead rely on the `sss` global); with neither, `isSoundEnabled` stays false and every `play()`/BGM call silently no-ops — no console error, so smoke tests pass on a silent game. Load both algo-chip scripts before `bundle.js` and verify `algoChipSession != null` after the first input.
+
+**`input.isJustPressed` merges ALL keyboard keys plus pointer.** In a game with key movement plus an action button, reading `input.isJustPressed` for the action fires on every arrow-key press. Read specific keys via `keyboard.code[...]`, and detect pointer-only clicks with `pointer.isJustPressed` (deriving it as `input.isJustPressed && !keyboard.isJustPressed` misses a click landing on the same frame as a key press).
 
 ## 5. Common Implementation Patterns (Optional)
 
@@ -291,18 +306,19 @@ Open the game in a browser and check:
 - Collision detection works (drawing order is correct)
 - Score increases appropriately
 - `end()` triggers game over correctly
+- Sound actually plays: `algoChipSession != null` after first input (silent no-op is the failure mode, not an error)
 - Mobile: touch controls work if applicable
 
 ## 7. Key API Quick Reference
 
-| Category | Functions                                                                                       |
-| -------- | ----------------------------------------------------------------------------------------------- |
-| Drawing  | `rect(x,y,w,h)` `box(pos,w,h)` `line(p1,p2,t)` `bar(pos,len,t,angle)` `arc(pos,r,t,start,end)`  |
-| Text     | `text(str,x,y)` `char(ch,x,y)` `addWithCharCode(ch,offset)`                                     |
-| Color    | `color("red")` — red, green, blue, yellow, purple, cyan, black, light\_\* variants, transparent |
-| Input    | `input.pos` `input.isPressed` `input.isJustPressed` `keyboard.code["Space"].isJustPressed`      |
-| Audio    | `play("coin")` — listed names: coin, powerUp, hit, jump, select, lucky. **Treat this list as illustrative; consult `references/api.md` for the complete enumeration before invoking other names.** |
-| Vector   | `vec(x,y)` `.add()` `.sub()` `.mul()` `.clamp(xMin,xMax,yMin,yMax)` `.wrap()` `.addWithAngle()` `.distanceTo()`    |
+| Category | Functions                                                                                                                                                                                                              |
+| -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Drawing  | `rect(x,y,w,h)` `box(pos,w,h)` `line(p1,p2,t)` `bar(pos,len,t,angle)` `arc(pos,r,t,start,end)`                                                                                                                         |
+| Text     | `text(str,x,y)` `char(ch,x,y)` `addWithCharCode(ch,offset)`                                                                                                                                                            |
+| Color    | `color("red")` — red, green, blue, yellow, purple, cyan, black, light\_\* variants, transparent                                                                                                                        |
+| Input    | `input.pos` `input.isPressed` `input.isJustPressed` `keyboard.code["Space"].isJustPressed`                                                                                                                             |
+| Audio    | `play("coin")` — listed names: coin, powerUp, hit, jump, select, lucky. **Treat this list as illustrative; consult `references/api.md` for the complete enumeration before invoking other names.**                     |
+| Vector   | `vec(x,y)` `.add()` `.sub()` `.mul()` `.clamp(xMin,xMax,yMin,yMax)` `.wrap()` `.addWithAngle()` `.distanceTo()`                                                                                                        |
 | Utility  | `times(n,fn)` `range(n)` `remove(arr,fn)` `rnd(max)` `rndi(max)` `clamp(v,min,max)` `wrap(v,min,max)` — note the free-function `clamp` / `wrap` take a scalar; the Vector method on the same name takes 4 axis bounds. |
-| State    | `ticks` `score` `difficulty` `addScore(points)` `addScore(points,pos)` `addScore(points,x,y)` `end()` |
-| Effects  | `particle(pos, {count, speed, angle, angleWidth})`                                              |
+| State    | `ticks` `score` `difficulty` `addScore(points)` `addScore(points,pos)` `addScore(points,x,y)` `end()`                                                                                                                  |
+| Effects  | `particle(pos, {count, speed, angle, angleWidth})`                                                                                                                                                                     |

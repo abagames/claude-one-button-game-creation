@@ -102,6 +102,8 @@ input.isJustPressed; // true only on the frame pointer is pressed
 input.isJustReleased; // true only on the frame pointer is released
 ```
 
+**Warning**: `input.isPressed/isJustPressed/isJustReleased` are the OR of the pointer AND every keyboard key (any keydown counts). For "pointer only" use the `pointer` global (`pointer.isPressed/isJustPressed/isJustReleased`, plus `pointer.pos`); for a specific button use `keyboard.code[...]`. Deriving pointer-only as `input.isJustPressed && !keyboard.isJustPressed` misses a click that lands on the same frame as a key press.
+
 ### Keyboard
 
 ```javascript
@@ -128,6 +130,10 @@ play("hit", { seed: 5, volume: 0.5, pitch: 60 }); // With options
 
 Built-in sound types: `coin`, `powerUp`, `hit`, `explosion`, `laser`, `jump`, `select`, `click`, `random`
 
+**Requirement (1.5.0+)**: built-in audio is enabled only if the `AlgoChip` and `AlgoChipUtil` globals exist (algo-chip core + util scripts loaded before `bundle.js`) — or, legacy fallback, the `sss` (sounds-some-sounds) global. With neither present, every `play()` and BGM call silently no-ops with no console error. Verify at runtime on the algo-chip path: `algoChipSession != null` after the first user input.
+
+`play(name, { pitch })` takes a MIDI-like note number (60 ≈ middle C); frame-scheduled sequences of pitched `play()` calls are the practical way to build jingles (there is no built-in jingle API). Jingles only fire while `update()` is still running — notes queued for after `end()` never play.
+
 ### External Audio
 
 ```javascript
@@ -137,6 +143,16 @@ audioFiles = {
 };
 play("explosion");
 ```
+
+## Game Flow and Replay Notes
+
+State machine: `title` → (any input) → `inGame` → `end()` → `gameOver` → `title`. Verified behaviors (bundle 1.5.0):
+
+- The game's `update()` runs during the **title screen only when** `options.isReplayEnabled: true` and a previous run is recorded — this is the attract-mode replay. Without it the title is static.
+- Calling `end()` while a replay is playing is safe: the library loops gameOver → title and restarts the replay.
+- During replay, `addScore()` is a no-op, but all other side effects of `update()` re-run. **Guard persistence** (e.g. `localStorage` writes for high-score tables) with the global `isReplaying` flag, or attract mode will re-write on every loop.
+- Custom pre-game-over screens (name entry, score tables) should run as phases *inside* `update()` before calling `end()`; keep them input-deterministic so the recorded replay stays in sync.
+- Watch same-frame phase bleed: a key press that finishes one custom phase is still "just pressed" for a later `if` in the same frame — add grace frames when chaining phases.
 
 ## Vector (vec)
 

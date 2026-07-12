@@ -1,0 +1,28 @@
+{
+  "name": "claude-one-button-game-creation",
+  "version": "1.0.0",
+  "description": "Generate, evaluate, select, and polish one-button crisp-game-lib games.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abagames/claude-one-button-game-creation.git"
+  },
+  "scripts": {
+    "init:state": "node scripts/init_state.js",
+    "tags": "node scripts/random_tag_selector.js",
+    "smoke": "node .agents/skills/smoke-testing-web-games/scripts/smoke-test.mjs",
+    "test:smoke": "node .agents/skills/smoke-testing-web-games/scripts/smoke-test.mjs .agents/skills/smoke-testing-web-games/assets/fixtures/fixture-ok.html",
+    "verify:tester": "node scripts/verify_tester_patches.js",
+    "evaluate": "node scripts/evaluate_games.js",
+    "evaluate:no-ga": "node scripts/evaluate_games.js --no-ga",
+    "evaluate:prediction": "node scripts/evaluate_prediction_utility.js",
+    "playwright:install": "playwright install chromium",
+    "test": "node scripts/verify_tester_patches.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "playwright": "^1.61.1"
+  }
+}
