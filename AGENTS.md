@@ -23,9 +23,14 @@ On a fresh clone, run:
 
 ```bash
 npm ci
+npm run skills:install
 npm run playwright:install
 ```
 
+`skills:install` copies only the skills required by this project from
+[`abagames/agentic-gamedev-skills`](https://github.com/abagames/agentic-gamedev-skills)
+into the ignored local `.agents/skills/` directory. To refresh intentionally,
+run the command again; set `AGENT_SKILLS_REF` to the desired upstream commit.
 The generation workflow has no durable-state initialization requirement.
 
 ---
@@ -77,9 +82,7 @@ publication action.
 | `README.md` | Operational entry point for generating and presenting a batch |
 | `workflows/game-generation.md` | Normative procedure for creating one game |
 | `data/tags.csv` | Static tag seed catalog |
-| `.agents/skills/designing-mini-games/` | One-button mini-game design craft; bind to `button_types = 1` |
-| `.agents/skills/developing-with-crisp-game-lib/` | crisp-game-lib implementation knowledge and allowed API |
-| `.agents/skills/smoke-testing-web-games/` | Real-browser runtime smoke test |
+| `scripts/install_agent_skills.sh` | Install the three required upstream skills into local `.agents/skills/` |
 | `archive/retired-batch-selection/` | Non-normative former selection and Polish workflow |
 
 Archived material is historical context only. It must not be treated as a

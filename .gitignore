@@ -6,5 +6,6 @@ tmp/
 /state/
 .env
 .codex
+/.agents/
 npm-debug.log*
 /archive/for_web/package-lock.json

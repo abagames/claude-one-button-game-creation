@@ -14,8 +14,16 @@ human instruction.
 
 ```bash
 npm ci
+npm run skills:install
 npm run playwright:install
 ```
+
+The skills command copies this project's three required skills from
+[`abagames/agentic-gamedev-skills`](https://github.com/abagames/agentic-gamedev-skills)
+into `.agents/skills/`. That directory is local setup output and is not tracked.
+Run `npm run skills:check` to verify the installation. To intentionally use a
+different upstream revision, set `AGENT_SKILLS_REF` to its commit SHA when
+running `npm run skills:install`.
 
 No batch state needs to be initialized for generation.
 
@@ -90,7 +98,8 @@ all ten browser smoke tests pass.
 | `workflows/` | Normative one-game generation procedure |
 | `data/` | Static tag inputs |
 | `scripts/` | Tag selection and supporting utilities |
-| `.agents/skills/` | Design, crisp-game-lib implementation, and smoke-test craft |
+| `.agents/skills/` | Locally installed design, implementation, and smoke-test skills |
+| `scripts/install_agent_skills.sh` | Installer for the required upstream skills |
 | `tmp/games/` | Current generated batch |
 | `docs/` | Human-directed published builds; outside generation |
 | `archive/` | Retired, non-normative workflows and historical material |

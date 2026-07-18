@@ -8,9 +8,11 @@
     "url": "git+https://github.com/abagames/claude-one-button-game-creation.git"
   },
   "scripts": {
+    "skills:install": "bash scripts/install_agent_skills.sh",
+    "skills:check": "bash scripts/install_agent_skills.sh --check",
     "tags": "node scripts/random_tag_selector.js",
-    "smoke": "node .agents/skills/smoke-testing-web-games/scripts/smoke-test.mjs",
-    "test:smoke": "node .agents/skills/smoke-testing-web-games/scripts/smoke-test.mjs .agents/skills/smoke-testing-web-games/assets/fixtures/fixture-ok.html",
+    "smoke": "npm run skills:check && node .agents/skills/smoke-testing-web-games/scripts/smoke-test.mjs",
+    "test:smoke": "npm run skills:check && node .agents/skills/smoke-testing-web-games/scripts/smoke-test.mjs .agents/skills/smoke-testing-web-games/assets/fixtures/fixture-ok.html",
     "playwright:install": "playwright install chromium",
     "test": "npm run test:smoke"
   },
