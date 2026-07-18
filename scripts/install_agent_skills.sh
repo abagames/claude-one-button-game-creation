@@ -70,8 +70,11 @@ for skill in "${SKILLS[@]}"; do
   cp -R "$source_dir" "$TEMP_DIR/install/skills/$skill"
 done
 
-rm -rf "$AGENTS_DIR"
-mv "$TEMP_DIR/install" "$AGENTS_DIR"
+mkdir -p "$SKILLS_DIR"
+for skill in "${SKILLS[@]}"; do
+  rm -rf "$SKILLS_DIR/$skill"
+  mv "$TEMP_DIR/install/skills/$skill" "$SKILLS_DIR/$skill"
+done
 check_skills
 
 echo "Installed agent skills from $REPOSITORY at $REF:"

@@ -12,18 +12,35 @@ human instruction.
 
 ## Setup
 
+Prerequisites:
+
+- Node.js 18 or newer with npm;
+- Git and Bash;
+- network access for npm, the agent-skill repository, Playwright's Chromium
+  download, and the games' CDN-hosted crisp-game-lib scripts.
+
 ```bash
 npm ci
 npm run skills:install
 npm run playwright:install
+npm test
 ```
 
 The skills command copies this project's three required skills from
 [`abagames/agentic-gamedev-skills`](https://github.com/abagames/agentic-gamedev-skills)
-into `.agents/skills/`. That directory is local setup output and is not tracked.
-Run `npm run skills:check` to verify the installation. To intentionally use a
-different upstream revision, set `AGENT_SKILLS_REF` to its commit SHA when
-running `npm run skills:install`.
+into `.agents/skills/`. It replaces only those three skill directories and
+preserves other content under `.agents/`. That directory is local setup output
+and is not tracked. `npm test` verifies that the required skill files exist and
+that the smoke-test runner can launch Chromium. To intentionally use a different
+upstream revision, set `AGENT_SKILLS_REF` to its commit SHA when running
+`npm run skills:install`.
+
+On Linux, if Chromium reports missing system libraries, install Playwright's
+OS dependencies with the privileges appropriate for your environment:
+
+```bash
+npx playwright install-deps chromium
+```
 
 No batch state needs to be initialized for generation.
 
@@ -31,11 +48,16 @@ No batch state needs to be initialized for generation.
 
 The normative one-game procedure is
 [`workflows/game-generation.md`](./workflows/game-generation.md). Read it in
-full, then execute it ten times.
+full, then execute it ten times. This repository does not provide an npm
+command that creates games by itself; the workflow is executed by a coding
+agent that can read and modify the repository. From the project root, ask it:
 
-Before starting, confirm that `tmp/games/` does not contain a batch that must
-be preserved. Do not delete, replace, or archive existing games without user
-direction.
+> Follow `AGENTS.md` and generate and present one batch of ten games.
+
+Before starting, confirm that `tmp/games/` is absent or empty. If it contains
+anything, stop and ask the user what to do. Do not delete, replace, move, or
+archive existing games without user direction. Starting empty makes every
+directory in the completed batch unambiguously new.
 
 For each game:
 
@@ -54,16 +76,17 @@ on its own game; it does not read or rank the rest of the batch.
 
 ## Verify the batch
 
-Run the real-browser smoke test for all ten games:
+Verify the directory count, required deliverables, and real-browser runtime of
+all ten games:
 
 ```bash
-for g in tmp/games/*/index.html; do
-  node .agents/skills/smoke-testing-web-games/scripts/smoke-test.mjs "$g" || echo "FAIL: $g"
-done
+npm run batch:check
 ```
 
-Repair any runtime failure and re-run its smoke test. Smoke testing verifies
-that the games can be presented; it does not measure quality or compare games.
+The command exits unsuccessfully if the batch does not contain exactly ten game
+directories, if a required file is missing, or if any smoke test fails. Repair
+every failure and run the command again. Smoke testing verifies that the games
+can be presented; it does not measure quality or compare games.
 
 ## Present and stop
 
@@ -100,6 +123,7 @@ all ten browser smoke tests pass.
 | `scripts/` | Tag selection and supporting utilities |
 | `.agents/skills/` | Locally installed design, implementation, and smoke-test skills |
 | `scripts/install_agent_skills.sh` | Installer for the required upstream skills |
+| `scripts/check_batch.js` | Ten-game deliverable and browser smoke-test gate |
 | `tmp/games/` | Current generated batch |
 | `docs/` | Human-directed published builds; outside generation |
 | `archive/` | Retired, non-normative workflows and historical material |

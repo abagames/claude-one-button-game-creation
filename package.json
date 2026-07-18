@@ -12,6 +12,7 @@
     "skills:check": "bash scripts/install_agent_skills.sh --check",
     "tags": "node scripts/random_tag_selector.js",
     "smoke": "npm run skills:check && node .agents/skills/smoke-testing-web-games/scripts/smoke-test.mjs",
+    "batch:check": "npm run skills:check && node scripts/check_batch.js",
     "test:smoke": "npm run skills:check && node .agents/skills/smoke-testing-web-games/scripts/smoke-test.mjs .agents/skills/smoke-testing-web-games/assets/fixtures/fixture-ok.html",
     "playwright:install": "playwright install chromium",
     "test": "npm run test:smoke"

@@ -25,20 +25,24 @@ On a fresh clone, run:
 npm ci
 npm run skills:install
 npm run playwright:install
+npm test
 ```
 
 `skills:install` copies only the skills required by this project from
 [`abagames/agentic-gamedev-skills`](https://github.com/abagames/agentic-gamedev-skills)
-into the ignored local `.agents/skills/` directory. To refresh intentionally,
-run the command again; set `AGENT_SKILLS_REF` to the desired upstream commit.
-The generation workflow has no durable-state initialization requirement.
+into the ignored local `.agents/skills/` directory. It replaces only those
+three skill directories and preserves other content under `.agents/`. To
+refresh intentionally, run the command again; set `AGENT_SKILLS_REF` to the
+desired upstream commit. The generation workflow has no durable-state
+initialization requirement.
 
 ---
 
 ## Standard Flow: Generate and Present Ten Games
 
-1. Confirm `tmp/games/` is available for a new batch. Do not delete or
-   overwrite an existing batch without explicit user direction.
+1. Confirm `tmp/games/` is absent or empty. If it contains anything, stop and
+   ask the user what to do. Do not delete, overwrite, move, or archive existing
+   output without explicit user direction.
 2. Run `workflows/game-generation.md` once per game with a fresh generation
    context and fresh tag seed.
 3. Repeat until `tmp/games/` contains exactly ten new games.
@@ -57,13 +61,15 @@ Use this command once per game to obtain tags:
 node scripts/random_tag_selector.js -n 3 -f text
 ```
 
-Smoke-test the completed batch with:
+Validate the completed batch and smoke-test every game with:
 
 ```bash
-for g in tmp/games/*/index.html; do
-  node .agents/skills/smoke-testing-web-games/scripts/smoke-test.mjs "$g" || echo "FAIL: $g"
-done
+npm run batch:check
 ```
+
+The command must exit successfully. It enforces exactly ten game directories,
+the three required files in each directory, and a passing real-browser smoke
+test for every `index.html`.
 
 Smoke testing is part of generation completion because the presented games
 must run. Comparative measurement, defect panels, ranking, winner ledgers, and
@@ -83,6 +89,7 @@ publication action.
 | `workflows/game-generation.md` | Normative procedure for creating one game |
 | `data/tags.csv` | Static tag seed catalog |
 | `scripts/install_agent_skills.sh` | Install the three required upstream skills into local `.agents/skills/` |
+| `scripts/check_batch.js` | Enforce the ten-game deliverable contract and run every browser smoke test |
 | `archive/retired-batch-selection/` | Non-normative former selection and Polish workflow |
 
 Archived material is historical context only. It must not be treated as a
