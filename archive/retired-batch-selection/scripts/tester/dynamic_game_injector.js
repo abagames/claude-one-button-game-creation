@@ -469,7 +469,7 @@ function injectParameters(
 /**
  * CLI usage: Inject parameters and save to output file
  *
- * Usage: node scripts/dynamic_game_injector.js --game <path> --params <path> --values <json> [--out <path>] [--verbose]
+ * Usage: node archive/retired-batch-selection/scripts/tester/dynamic_game_injector.js --game <path> --params <path> --values <json> [--out <path>] [--verbose]
  */
 function main() {
   const args = process.argv.slice(2);
@@ -497,7 +497,7 @@ function main() {
 
   if (!opts.gamePath || !opts.paramsPath || !opts.valuesJson) {
     console.error(
-      "Usage: node scripts/dynamic_game_injector.js --game <path> --params <path> --values <json> [--out <path>] [--verbose]"
+      "Usage: node archive/retired-batch-selection/scripts/tester/dynamic_game_injector.js --game <path> --params <path> --values <json> [--out <path>] [--verbose]"
     );
     process.exit(1);
   }

@@ -2,19 +2,19 @@
 
 How to create ONE one-button game: Phase 1 (tag selection) → Phase 2
 (design) → Phase 3 (implementation). Run it once per game; a batch is just
-this workflow repeated with fresh tag seeds (see `AGENTS.md` for the
-batch → selection flow).
+this workflow repeated ten times with fresh tag seeds (see `AGENTS.md` for the
+batch procedure).
 
-This workflow is **deliberately gate-free**: it optimizes for variance
-(diverse, novel games). Quality control happens downstream in
-`workflows/game-selection.md` and never feeds rules back into this file.
+This workflow has no comparative, ranking, or selection gates. It optimizes
+for variance (diverse, novel games), but each game must still satisfy the
+lightweight design checks below and pass the real-browser smoke test.
 
 ---
 
 ## Phase 1: Tag Selection
 
 ```bash
-node scripts/random_tag_selector.js
+node scripts/random_tag_selector.js -n 3 -f text
 ```
 
 | Option         | Description                    | Default      |
@@ -33,28 +33,27 @@ node scripts/random_tag_selector.js
 for mini-game design craft. Bind its general input-scheme support to this
 project's fixed brief: `button_types = 1`; one binary input expressed only
 through press, hold, and release; no second key, chord, swipe, or auxiliary
-input. **Use it with the generation profile below**: this workflow secures
-diversity by generating many games without gates and selecting afterwards
-(`workflows/game-selection.md`), so verification machinery that would narrow
-the design space stays OUT of generation.
+input. **Use it with the generation profile below**: the project secures
+diversity by generating ten independent games without comparative gates, so
+verification machinery that would narrow the design space stays out of
+generation.
 
 Generation profile (what to use at generation time):
 
-- USE: the skill's Phase-1 ideation procedure (free association → record the
+- USE: the skill's Phase-1 ideation steps 1–4 (free association → record the
   first association and forbid it → deviation exploration → core experience →
   construct mechanics with the already-fixed `button_types = 1` scheme), the
   reference guide's four core principles (§2), contradiction-as-tension table
   (§7), and abstract-question prompts (§6).
-- DO NOT USE at generation time: the skill's Phase-2 hardening steps 5–8,
-  the reference guide's §8 machinery (state/tradeoff tables,
-  monotonous-input invariant proofs, seed prechecks), or its §9 extended
-  checklist. Exploit-resistance is
-  measured by Stage 1 and fixed in Polish for winners only — requiring
-  design-time proofs steers designs toward easily-provable archetypes and
-  reduces batch variance (validated across batches 1–2: mono-flagged
-  games ranked top-3 in human play).
+- USE LIGHTWEIGHT: the skill's Phase-2 steps 5–7. Identify the state and
+  tradeoff (or explain why geometry alone creates choices), explain why idle,
+  hold-only, and mashing lose to skilled play, and define the in-world scoring
+  cause and what scales with difficulty.
+- DO NOT REQUIRE at generation time: formal invariant proofs, state tables,
+  seed prechecks, extended checklists, or separate hardening documents. These
+  steer concepts toward easily-provable archetypes and reduce batch variance.
 - Output format: keep this file's 6-section README below (it is the
-  stable Stage-2 input contract), not the skill's Appendix A.
+  stable game deliverable), not the skill's Appendix A.
 
 ### Design Procedure
 
@@ -62,14 +61,20 @@ Generation profile (what to use at generation time):
 2. **Deviation Exploration**: Consider the "opposite," "negation," or "extreme" of tags
 3. **Core Experience Decision**: Define the "momentary sensation" you want to give the player in one phrase
 4. **Mechanics Construction**: Design one-button operation that realizes the core experience
-5. **Consistency Verification**: Confirm with checklist below
+5. **Lightweight Specification**: Record the state/tradeoff, monotonous-input
+   weaknesses, in-world scoring cause, and difficulty scaling
+6. **Consistency Verification**: Confirm with checklist below
 
 ### Design Checklist
 
 - [ ] Does it complete with one button?
 - [ ] Is the game over condition single and visually obvious?
-- [ ] Cannot achieve high scores with button mashing or idle play?
-- [ ] Is skilled input rewarded in the design?
+- [ ] Does the design explain why idle play is suboptimal?
+- [ ] Does it explain why hold-only play is suboptimal?
+- [ ] Does it explain why repeated mashing is suboptimal?
+- [ ] Is scoring caused by an in-world event rather than the input itself?
+- [ ] Is the state/tradeoff defined, or is a geometry-only decision space justified?
+- [ ] Does the design state what scales with difficulty and why?
 - [ ] Are there moments of feeling "I've never seen this before"?
 - [ ] Is this NOT a clone or minor variation of a widely-known existing game?
 
@@ -84,7 +89,13 @@ Write the following to `tmp/games/<slug>/README.md`:
 
 ## 1. Core Mechanics
 
-<Input → Behavior → End condition, scoring system, difficulty increase mechanism>
+<Input → behavior → end condition.
+
+State/tradeoff, or why geometry alone creates meaningful choices.
+
+In-world scoring cause and difficulty scaling.
+
+Why idle, hold-only, and mashing are weaker than skilled play.>
 
 ## 2. Object Specifications
 
@@ -235,49 +246,12 @@ obstacles.forEach(o => {
 });
 ```
 
-#### Tester Compatibility (Important)
+#### Browser API Compatibility (Important)
 
-Generated games are batch-measured by the testers in `scripts/tester/`
-(`one_button_game_tester.js`, `ga_tester.js`). They extract and execute only
-the `update()` function.
-**Helper functions defined outside `update()` are not recognized.**
-
-```javascript
-// ❌ Doesn't work in tester
-function spawnEnemies() { ... }  // Function outside update
-function update() {
-  spawnEnemies();  // ReferenceError: spawnEnemies is not defined
-}
-
-// ✅ Tester compatible: Inline logic within update
-function update() {
-  if (!ticks) {
-    // Write initialization logic directly here
-  }
-  // Write spawn logic directly here
-}
-```
-
-Additional constraints so games run in BOTH the browser and the tester:
-
-- **Use only the API documented in
-  `.agents/skills/developing-with-crisp-game-lib/references/api.md`.** The
-  tester mock exposes some globals the real library lacks (e.g. `sign`) —
-  such a game passes simulation but crashes in the browser. "The tester
-  accepts it" is not evidence the API exists.
-- **Do lethal/score collision checks with `box`/`rect` or coordinate
-  math.** `line`, `bar`, and `arc` have no collision detection in the
-  simulator — a game whose game-over depends on them cannot be measured
-  (use them for visuals only).
-- **Score with `addScore(points, x, y)` (or `addScore(points, pos)`) when
-  the event has a world position.** The tester logs score-event positions;
-  prefer the `x, y` form for accurate coordinates in tester logs, and
-  reserve positionless `addScore(points)` for events with no meaningful
-  location.
-- **Name the player object `player` and hazard arrays with keywords**
-  (`enemies`, `obstacles`, `bullets`, `hazards`, `rocks`, `spikes`...).
-  The tester identifies entities by variable name; unrecognized names
-  degrade its analysis. Give entities a `pos` property (`vec`).
+Use only the API documented in
+`.agents/skills/developing-with-crisp-game-lib/references/api.md`. Do not infer
+API availability from JavaScript or similarly named game libraries. The
+completed game must pass the real-browser smoke test from `AGENTS.md`.
 
 ---
 

@@ -12,7 +12,8 @@
  * Tester errors are flagged for manual review, never treated as rejection:
  * novel mechanics are the most likely to break the simulator.
  *
- * Usage: node scripts/evaluate_games.js [--games-dir tmp/games] [--no-ga]
+ * Usage: node archive/retired-batch-selection/scripts/evaluate_games.js
+ *        [--games-dir tmp/games] [--no-ga]
  *        [--ga-timeout-ms 600000]
  */
 

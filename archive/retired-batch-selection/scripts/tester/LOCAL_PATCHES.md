@@ -19,7 +19,7 @@ tester in three browser-parity behaviors:
 After any tester download, merge, or replacement, run from the project root:
 
 ```bash
-node scripts/verify_tester_patches.js
+node archive/retired-batch-selection/scripts/verify_tester_patches.js
 ```
 
 The guard executes a one-frame fixture through the real adapter and simulator;

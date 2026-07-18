@@ -7,7 +7,7 @@
  * must be post-fix and prediction-hidden. Uncertainty uses a deterministic
  * two-stage bootstrap: batches, then pair outcomes within each batch.
  *
- * Usage: node scripts/evaluate_prediction_utility.js
+ * Usage: node archive/retired-batch-selection/scripts/evaluate_prediction_utility.js
  *        [--input state/prediction-validation.json]
  *        [--output-dir tmp/eval]
  *        [--bootstrap 20000]

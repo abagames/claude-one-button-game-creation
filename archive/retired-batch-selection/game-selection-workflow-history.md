@@ -148,3 +148,76 @@ and `state/winners.md`. They do not imply publication. Agents must never copy,
 move, or sync a winner into `docs/` unless the human separately and explicitly
 requests that promotion. This prevents a quality-selection decision from being
 misread as authorization to mutate the curated publication surface.
+
+## Batch-10 prospective gate: agent taste prediction retired (2026-07-18)
+
+### 1. Target
+
+- Current workflow: `workflows/game-selection.md`
+- Executed task: source-only Control versus direct-browser-observation
+  Treatment for unordered human Top-3 prediction
+- Produced artifact: `tmp/eval/top3-prospective-batch10/result.md`
+- Inspection material: locked predictions, 30 observer schedules, full human
+  ordering/notes, and the legacy three-judge full ranking
+
+### 2. What worked
+
+- Two-pass defect annotation plus targeted browser probes confirmed and fixed
+  five implementation defects while leaving unverified claims unchanged.
+- Independent full-batch human play remained the authoritative selector.
+- Prospective hashes and a predeclared continuation gate prevented prompt
+  repair or a same-batch rerun after the negative result.
+
+### 3. Problems
+
+- **Agent taste prediction — E, capability boundary.** Control and Treatment
+  each hit 1/3, so 30 successful interaction schedules added zero lift.
+- **Legacy full ranking — E, capability boundary.** Its predicted Top-3 had
+  zero overlap with the human Top-3; aggregate rho was −0.382 and all three
+  judge rhos were negative.
+- **Normative workflow still mandated retired work — C, workflow-state
+  mismatch.** The frozen Batch-10 rule said failure must retain only defect
+  annotation and full-batch human selection.
+- **Generation feedback — G, overconstraint.** Prediction failure supplies no
+  evidence for restricting tags, mechanics, or `workflows/game-generation.md`.
+
+### 4. Workflow diff
+
+- Location: `workflows/game-selection.md`, Stage 2/3 and batch runbook.
+- Before: defect annotation plus taste-calibrated full ranking, prediction
+  conceal/reveal, rho/prediction-utility maintenance.
+- After: defect-only Stage 2 with consolidated evidence/classification/status,
+  targeted mechanic verification after fixes, and full-batch human selection.
+  Taste corpus access and every full-order/Top-K prediction output are banned
+  from normal annotation contexts.
+- Reason: respect the demonstrated capability boundary rather than disguise a
+  prompt retry as a new method.
+- Expected side effect: lower judge/report cost; no automated preference
+  metric accumulates. Human play time remains unchanged.
+
+### 5. Deletion candidate
+
+- Delete now: taste calibration, rank aggregation, prediction reveal ceremony,
+  rho calculation, prediction-validation updates, and the pooled prediction
+  checkpoint from the normative runbook.
+- Observe next run: reducing 2–3 defect annotators to one. Batch 10 shows that
+  preference aggregation is useless, not that independent code review has no
+  defect-coverage value.
+
+### 6. Next validation points
+
+- Next batch's Stage-2 aggregate contains actionable per-game defect records,
+  verification status, and `human_check` uncertainty, with no ranks or taste
+  corpus access.
+- Every implementation fix is re-smoked, re-measured, and directly verified
+  where practical before human play.
+- Record defect yield and annotator cost; reconsider panel size only if defect
+  coverage is preserved.
+
+### 7. Minimal conclusion
+
+The workflow change to test next is defect-only Stage 2. Its main risk is
+prematurely reducing independent defect coverage, so panel size is unchanged
+for the next batch. The old four-clean-batch prediction checkpoint is retired
+at 3/4: this decision comes from the separate, later, prospectively declared
+Batch-10 A/B stop gate, not from the checkpoint's provisional statistic.
