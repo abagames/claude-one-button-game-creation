@@ -1,0 +1,221 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/crisp-meta-workflow/play-log-quality-plan.private.v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "artifact_class", "game_id", "evaluation_id", "trust_class",
+    "provenance", "seed_plan", "policy_roles", "selection_rule", "replay_gate",
+    "role_mapping", "risk_measurement", "criterion_rules", "counterfactual", "execution",
+    "output_directory", "allowed_claims", "forbidden_claims"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "artifact_class": { "const": "private_play_log_quality_plan" },
+    "game_id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+    "evaluation_id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+    "trust_class": { "const": "simulator_only_unverified" },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "adapter_path", "adapter_sha256", "source_sha256",
+        "runtime_bundle_sha256", "policy_sha256"
+      ],
+      "properties": {
+        "adapter_path": { "$ref": "#/$defs/path" },
+        "adapter_sha256": { "$ref": "#/$defs/sha256" },
+        "source_sha256": { "$ref": "#/$defs/sha256" },
+        "runtime_bundle_sha256": { "$ref": "#/$defs/sha256" },
+        "policy_sha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "seed_plan": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["development", "analysis"],
+      "properties": {
+        "development": { "$ref": "#/$defs/seeds" },
+        "analysis": { "$ref": "#/$defs/nonEmptySeeds" }
+      }
+    },
+    "policy_roles": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["private_policy", "diagnostic_controls"],
+      "properties": {
+        "private_policy": { "const": "private_policy" },
+        "diagnostic_controls": {
+          "const": ["idle", "hold", "periodic", "seeded_random"]
+        }
+      }
+    },
+    "selection_rule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["private_episode_roles", "score_order", "tie_breakers", "same_seed_control_role"],
+      "properties": {
+        "private_episode_roles": { "const": ["best", "median", "low_or_failure"] },
+        "score_order": { "const": "descending" },
+        "tie_breakers": {
+          "const": [
+            "survival_ticks_descending",
+            "release_count_ascending",
+            "gameplay_seed_ascending"
+          ]
+        },
+        "same_seed_control_role": {
+          "enum": ["idle", "hold", "periodic", "seeded_random"]
+        }
+      }
+    },
+    "replay_gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "annotation_migration", "reason"],
+      "properties": {
+        "mode": { "enum": ["exact_result_v1", "mechanics_projection_v1"] },
+        "annotation_migration": { "type": "boolean" },
+        "reason": { "type": "string", "minLength": 1 }
+      },
+      "oneOf": [
+        {
+          "properties": {
+            "mode": { "const": "exact_result_v1" },
+            "annotation_migration": { "const": false }
+          }
+        },
+        {
+          "properties": {
+            "mode": { "const": "mechanics_projection_v1" },
+            "annotation_migration": { "const": true }
+          }
+        }
+      ]
+    },
+    "role_mapping": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["controllable", "hazards", "rewards", "projectiles_or_zones", "unresolved"],
+      "properties": {
+        "controllable": { "$ref": "#/$defs/roles" },
+        "hazards": { "$ref": "#/$defs/roles" },
+        "rewards": { "$ref": "#/$defs/roles" },
+        "projectiles_or_zones": { "$ref": "#/$defs/roles" },
+        "unresolved": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "risk_measurement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["hazard_exposure_clearance_threshold"],
+      "properties": {
+        "hazard_exposure_clearance_threshold": {
+          "anyOf": [
+            { "type": "number" },
+            { "type": "null" }
+          ]
+        }
+      }
+    },
+    "criterion_rules": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "criterion_id", "confirmed_rule", "mixed_rule",
+          "contradicted_rule", "required_evidence_types"
+        ],
+        "properties": {
+          "criterion_id": {
+            "enum": [
+              "causal_input_control",
+              "risk_reward_coupling",
+              "failure_agency",
+              "outcome_coherence"
+            ]
+          },
+          "confirmed_rule": { "type": "string", "minLength": 1 },
+          "mixed_rule": { "type": "string", "minLength": 1 },
+          "contradicted_rule": { "type": "string", "minLength": 1 },
+          "required_evidence_types": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "enum": ["comparison", "counterfactual", "metric", "selection"]
+            }
+          }
+        }
+      }
+    },
+    "counterfactual": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["operations", "max_per_episode", "local_window_ticks"],
+      "properties": {
+        "operations": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": ["remove_press", "shift_press_minus_one", "shift_press_plus_one"]
+          }
+        },
+        "max_per_episode": { "type": "integer", "minimum": 1, "maximum": 10 },
+        "local_window_ticks": { "type": "integer", "minimum": 1, "maximum": 600 }
+      }
+    },
+    "execution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["tick_budget", "timeout_ms", "retry_count"],
+      "properties": {
+        "tick_budget": { "type": "integer", "minimum": 1 },
+        "timeout_ms": { "type": "integer", "minimum": 1 },
+        "retry_count": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "output_directory": { "$ref": "#/$defs/path" },
+    "allowed_claims": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "forbidden_claims": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "path": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$)).+$"
+    },
+    "seeds": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "integer", "minimum": 0, "maximum": 4294967295 }
+    },
+    "nonEmptySeeds": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "integer", "minimum": 0, "maximum": 4294967295 }
+    },
+    "roles": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    }
+  }
+}

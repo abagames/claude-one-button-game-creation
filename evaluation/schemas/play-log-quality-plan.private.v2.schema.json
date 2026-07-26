@@ -1,0 +1,628 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/crisp-meta-workflow/play-log-quality-plan.private.v2.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "artifact_class",
+    "game_id",
+    "evaluation_id",
+    "trust_class",
+    "provenance",
+    "seed_plan",
+    "policy_roles",
+    "selection_rule",
+    "replay_gate",
+    "role_mapping",
+    "risk_measurement",
+    "criterion_rules",
+    "counterfactual_plans",
+    "execution",
+    "output_directory",
+    "allowed_claims",
+    "forbidden_claims"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 2
+    },
+    "artifact_class": {
+      "const": "private_play_log_quality_plan"
+    },
+    "game_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "evaluation_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "trust_class": {
+      "const": "simulator_only_unverified"
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "adapter_path",
+        "adapter_sha256",
+        "source_sha256",
+        "runtime_bundle_sha256",
+        "policy_sha256"
+      ],
+      "properties": {
+        "adapter_path": {
+          "$ref": "#/$defs/path"
+        },
+        "adapter_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "source_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "runtime_bundle_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "policy_sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "seed_plan": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "development",
+        "analysis"
+      ],
+      "properties": {
+        "development": {
+          "$ref": "#/$defs/nonEmptySeeds"
+        },
+        "analysis": {
+          "$ref": "#/$defs/nonEmptySeeds"
+        }
+      }
+    },
+    "policy_roles": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "private_policy",
+        "diagnostic_controls"
+      ],
+      "properties": {
+        "private_policy": {
+          "const": "private_policy"
+        },
+        "diagnostic_controls": {
+          "const": [
+            "idle",
+            "hold",
+            "periodic",
+            "seeded_random"
+          ]
+        }
+      }
+    },
+    "selection_rule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "private_episode_roles",
+        "score_order",
+        "tie_breakers",
+        "same_seed_control_role"
+      ],
+      "properties": {
+        "private_episode_roles": {
+          "const": [
+            "best",
+            "median",
+            "low_or_failure"
+          ]
+        },
+        "score_order": {
+          "const": "descending"
+        },
+        "tie_breakers": {
+          "const": [
+            "survival_ticks_descending",
+            "release_count_ascending",
+            "gameplay_seed_ascending"
+          ]
+        },
+        "same_seed_control_role": {
+          "enum": [
+            "idle",
+            "hold",
+            "periodic",
+            "seeded_random"
+          ]
+        }
+      }
+    },
+    "replay_gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "annotation_migration",
+        "reason"
+      ],
+      "properties": {
+        "mode": {
+          "enum": [
+            "exact_result_v1",
+            "mechanics_projection_v1"
+          ]
+        },
+        "annotation_migration": {
+          "type": "boolean"
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "oneOf": [
+        {
+          "properties": {
+            "mode": {
+              "const": "exact_result_v1"
+            },
+            "annotation_migration": {
+              "const": false
+            }
+          }
+        },
+        {
+          "properties": {
+            "mode": {
+              "const": "mechanics_projection_v1"
+            },
+            "annotation_migration": {
+              "const": true
+            }
+          }
+        }
+      ]
+    },
+    "role_mapping": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "controllable",
+        "hazards",
+        "rewards",
+        "projectiles_or_zones",
+        "unresolved"
+      ],
+      "properties": {
+        "controllable": {
+          "$ref": "#/$defs/roles"
+        },
+        "hazards": {
+          "$ref": "#/$defs/roles"
+        },
+        "rewards": {
+          "$ref": "#/$defs/roles"
+        },
+        "projectiles_or_zones": {
+          "$ref": "#/$defs/roles"
+        },
+        "unresolved": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "risk_measurement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "hazard_exposure_clearance_threshold"
+      ],
+      "properties": {
+        "hazard_exposure_clearance_threshold": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "mode": {
+          "enum": [
+            "hazard_clearance",
+            "indicator_displacement"
+          ]
+        },
+        "indicator_role": {
+          "type": "string",
+          "minLength": 1
+        },
+        "indicator_axis": {
+          "enum": [
+            "x",
+            "y"
+          ]
+        },
+        "indicator_neutral": {
+          "type": "number"
+        },
+        "indicator_exposure_threshold": {
+          "type": "number",
+          "minimum": 0
+        },
+        "hazard_active_when": {
+          "enum": [
+            "always",
+            "input_pressed",
+            "input_released"
+          ],
+          "description": "Ticks on which the hazard roles are lethal. Ticks where they are inert contribute no clearance sample."
+        },
+        "hazard_suppressed_while_overlapping": {
+          "$ref": "#/$defs/roles",
+          "description": "Shelter roles that neutralize the hazard roles while the controllable subject is in contact with one of them."
+        },
+        "hazard_conditions": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "active_when": {
+                "enum": [
+                  "always",
+                  "input_pressed",
+                  "input_released"
+                ]
+              },
+              "suppressed_while_overlapping": {
+                "$ref": "#/$defs/roles"
+              }
+            }
+          },
+          "propertyNames": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": "Per-hazard-role conditions. Overrides hazard_active_when / hazard_suppressed_while_overlapping for the listed roles."
+        }
+      }
+    },
+    "criterion_rules": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "criterion_id",
+          "confirmed_rule",
+          "mixed_rule",
+          "contradicted_rule",
+          "required_evidence_types"
+        ],
+        "properties": {
+          "criterion_id": {
+            "enum": [
+              "causal_input_control",
+              "risk_reward_coupling",
+              "failure_agency",
+              "outcome_coherence"
+            ]
+          },
+          "confirmed_rule": {
+            "type": "string",
+            "minLength": 1
+          },
+          "mixed_rule": {
+            "type": "string",
+            "minLength": 1
+          },
+          "contradicted_rule": {
+            "type": "string",
+            "minLength": 1
+          },
+          "required_evidence_types": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "enum": [
+                "comparison",
+                "counterfactual",
+                "metric",
+                "selection"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "counterfactual_plans": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "causal_input_control",
+        "risk_reward_coupling",
+        "failure_agency"
+      ],
+      "properties": {
+        "causal_input_control": {
+          "$ref": "#/$defs/bestCounterfactualPlan"
+        },
+        "risk_reward_coupling": {
+          "$ref": "#/$defs/bestCounterfactualPlan"
+        },
+        "failure_agency": {
+          "$ref": "#/$defs/terminalCounterfactualPlan"
+        }
+      }
+    },
+    "execution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "tick_budget",
+        "timeout_ms",
+        "retry_count"
+      ],
+      "properties": {
+        "tick_budget": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "timeout_ms": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "retry_count": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "output_directory": {
+      "$ref": "#/$defs/path"
+    },
+    "allowed_claims": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "forbidden_claims": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "contact_tolerance": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 20,
+      "description": "Frozen edge-to-edge tolerance in view units for contact judgements (terminal signature and reward attribution). Use it to express a collision margin or radius that the source applies but the drawn geometry does not show. Defaults to 0."
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "path": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$)).+$"
+    },
+    "seeds": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 4294967295
+      }
+    },
+    "nonEmptySeeds": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 4294967295
+      }
+    },
+    "roles": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "operations": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "remove_press",
+          "shift_press_minus_one",
+          "shift_press_plus_one",
+          "insert_press_window",
+          "truncate_press_by_k",
+          "extend_press_by_k"
+        ]
+      }
+    },
+    "bestCounterfactualPlan": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_selection_rule",
+        "anchor_event",
+        "lookback_ticks",
+        "local_window_ticks",
+        "operations",
+        "max_cases",
+        "minimum_eligible_cases"
+      ],
+      "properties": {
+        "source_selection_rule": {
+          "const": "best_private"
+        },
+        "anchor_event": {
+          "enum": [
+            "reward_event",
+            "structural_event"
+          ]
+        },
+        "lookback_ticks": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 600
+        },
+        "local_window_ticks": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 600
+        },
+        "operations": {
+          "$ref": "#/$defs/operations"
+        },
+        "max_cases": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10
+        },
+        "minimum_eligible_cases": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10
+        },
+        "press_edit_ticks": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 120,
+          "description": "Tick count moved by truncate_press_by_k / extend_press_by_k. Defaults to 1."
+        },
+        "source_count": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3,
+          "description": "How many source episodes this criterion is answered from, drawn in the frozen selection order. Defaults to 1."
+        },
+        "minimum_replication_seeds": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3,
+          "description": "Distinct analysis seeds that must carry positive evidence before the criterion can be confirmed. Defaults to 1."
+        },
+        "anchor_ordinals": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 3,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "first",
+              "median",
+              "last"
+            ]
+          },
+          "description": "Reward-event ordinals used as counterfactual anchors. Defaults to [\"first\"]."
+        }
+      }
+    },
+    "terminalCounterfactualPlan": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_selection_rule",
+        "source_tie_breakers",
+        "anchor_event",
+        "lookback_ticks",
+        "local_window_ticks",
+        "operations",
+        "max_cases",
+        "minimum_eligible_cases",
+        "minimum_delay_ticks"
+      ],
+      "properties": {
+        "source_selection_rule": {
+          "const": "first_terminal_private_by_gameplay_seed"
+        },
+        "source_tie_breakers": {
+          "const": [
+            "gameplay_seed_ascending"
+          ]
+        },
+        "anchor_event": {
+          "const": "terminal_event"
+        },
+        "lookback_ticks": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 600
+        },
+        "local_window_ticks": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 600
+        },
+        "operations": {
+          "$ref": "#/$defs/operations"
+        },
+        "max_cases": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10
+        },
+        "minimum_eligible_cases": {
+          "type": "integer",
+          "minimum": 2,
+          "maximum": 10
+        },
+        "minimum_delay_ticks": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 600
+        },
+        "press_edit_ticks": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 120,
+          "description": "Tick count moved by truncate_press_by_k / extend_press_by_k. Defaults to 1."
+        },
+        "source_count": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3,
+          "description": "How many source episodes this criterion is answered from, drawn in the frozen selection order. Defaults to 1."
+        },
+        "minimum_replication_seeds": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3,
+          "description": "Distinct analysis seeds that must carry positive evidence before the criterion can be confirmed. Defaults to 1."
+        }
+      }
+    }
+  }
+}

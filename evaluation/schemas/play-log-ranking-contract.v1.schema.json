@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/crisp-meta-workflow/play-log-ranking-contract.v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "artifact_class", "ranking_id",
+    "frozen_before_quality_result_access", "trust_class", "claim_scope",
+    "games", "required_criteria", "weights", "ordinal_mapping",
+    "tie_threshold", "tie_breakers", "missing_data", "forbidden_claims"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "artifact_class": { "const": "play_log_ranking_contract" },
+    "ranking_id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+    "frozen_before_quality_result_access": { "const": true },
+    "trust_class": { "const": "simulator_only_unverified" },
+    "claim_scope": { "const": "play_log_mechanical_quality_only" },
+    "games": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["game_id", "quality_result_path"],
+        "properties": {
+          "game_id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+          "quality_result_path": { "$ref": "#/$defs/path" }
+        }
+      }
+    },
+    "required_criteria": {
+      "const": [
+        "causal_input_control",
+        "risk_reward_coupling",
+        "failure_agency",
+        "outcome_coherence"
+      ]
+    },
+    "weights": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "causal_input_control", "risk_reward_coupling",
+        "failure_agency", "outcome_coherence"
+      ],
+      "properties": {
+        "causal_input_control": { "const": 4 },
+        "risk_reward_coupling": { "const": 3 },
+        "failure_agency": { "const": 2 },
+        "outcome_coherence": { "const": 1 }
+      }
+    },
+    "ordinal_mapping": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["confirmed", "mixed", "contradicted", "unresolved", "not_applicable"],
+      "properties": {
+        "confirmed": { "const": 2 },
+        "mixed": { "const": 1 },
+        "contradicted": { "const": 0 },
+        "unresolved": { "const": null },
+        "not_applicable": { "const": null }
+      }
+    },
+    "tie_threshold": { "const": 0 },
+    "tie_breakers": {
+      "const": [
+        "causal_input_control",
+        "risk_reward_coupling",
+        "failure_agency",
+        "shared_rank"
+      ]
+    },
+    "missing_data": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["required_null", "technical_failure", "negative_result"],
+      "properties": {
+        "required_null": { "const": "not_rankable" },
+        "technical_failure": { "const": "not_rankable" },
+        "negative_result": { "const": "retain_as_observed" }
+      }
+    },
+    "forbidden_claims": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    }
+  },
+  "$defs": {
+    "path": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$)).+$"
+    }
+  }
+}

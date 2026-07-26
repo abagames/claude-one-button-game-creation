@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "module": "CommonJS",
+    "skipLibCheck": true
+  },
+  "include": ["./src/**/*.ts"]
+}

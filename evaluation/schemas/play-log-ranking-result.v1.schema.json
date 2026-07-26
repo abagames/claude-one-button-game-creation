@@ -1,0 +1,126 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/crisp-meta-workflow/play-log-ranking-result.v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "artifact_class", "ranking_id", "status", "trust_class",
+    "contract_sha256", "ordering", "requested_count", "ranked_count",
+    "not_rankable_count", "games", "ranking", "limitations", "forbidden_claims"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "artifact_class": { "const": "play_log_ranking_result" },
+    "ranking_id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+    "status": { "enum": ["completed", "completed_with_not_rankable"] },
+    "trust_class": { "const": "simulator_only_unverified" },
+    "contract_sha256": { "$ref": "#/$defs/sha256" },
+    "ordering": { "const": "rank_ascending_then_game_id" },
+    "requested_count": { "type": "integer", "minimum": 2 },
+    "ranked_count": { "type": "integer", "minimum": 0 },
+    "not_rankable_count": { "type": "integer", "minimum": 0 },
+    "games": {
+      "type": "array",
+      "minItems": 2,
+      "items": { "$ref": "#/$defs/game" }
+    },
+    "ranking": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["rank", "game_ids"],
+        "properties": {
+          "rank": { "type": "integer", "minimum": 1 },
+          "game_ids": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": { "type": "string", "pattern": "^[a-z0-9-]+$" }
+          }
+        }
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "forbidden_claims": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "game": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "game_id", "eligibility", "quality_result_path", "quality_result_sha256",
+        "evaluation_stop_path", "evaluation_stop_sha256", "terminal_status",
+        "criterion_values", "weighted_total", "rank", "errors"
+      ],
+      "properties": {
+        "game_id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+        "eligibility": { "enum": ["ranked", "not_rankable"] },
+        "quality_result_path": { "type": "string", "minLength": 1 },
+        "quality_result_sha256": {
+          "anyOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }]
+        },
+        "evaluation_stop_path": {
+          "anyOf": [{ "type": "string", "minLength": 1 }, { "type": "null" }]
+        },
+        "evaluation_stop_sha256": {
+          "anyOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }]
+        },
+        "terminal_status": {
+          "anyOf": [
+            {
+              "enum": [
+                "resolved", "instrument_insufficient", "technical_failure",
+                "not_rankable"
+              ]
+            },
+            { "type": "null" }
+          ]
+        },
+        "criterion_values": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "causal_input_control", "risk_reward_coupling",
+            "failure_agency", "outcome_coherence"
+          ],
+          "properties": {
+            "causal_input_control": { "$ref": "#/$defs/nullableOrdinal" },
+            "risk_reward_coupling": { "$ref": "#/$defs/nullableOrdinal" },
+            "failure_agency": { "$ref": "#/$defs/nullableOrdinal" },
+            "outcome_coherence": { "$ref": "#/$defs/nullableOrdinal" }
+          }
+        },
+        "weighted_total": {
+          "anyOf": [
+            { "type": "number", "minimum": 0, "maximum": 20 },
+            { "type": "null" }
+          ]
+        },
+        "rank": {
+          "anyOf": [{ "type": "integer", "minimum": 1 }, { "type": "null" }]
+        },
+        "errors": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "nullableOrdinal": {
+      "anyOf": [
+        { "type": "integer", "minimum": 0, "maximum": 2 },
+        { "type": "null" }
+      ]
+    }
+  }
+}

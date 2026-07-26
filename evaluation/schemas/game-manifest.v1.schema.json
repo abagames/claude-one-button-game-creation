@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/crisp-meta-workflow/game-manifest.v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "game_id", "source", "instrumented_source", "runtime", "input_styles", "execution_environment", "observation_channels", "trust_class"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "game_id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+    "source": { "$ref": "#/$defs/source" },
+    "instrumented_source": { "$ref": "#/$defs/source" },
+    "pair_id": { "anyOf": [{ "type": "string", "minLength": 1 }, { "type": "null" }] },
+    "runtime": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "version", "bundle_sha256"],
+      "properties": {
+        "name": { "const": "crisp-game-lib" },
+        "version": { "type": "string", "minLength": 1 },
+        "bundle_sha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "input_styles": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "enum": ["tap", "hold", "release", "mixed"] }
+    },
+    "execution_environment": { "const": "fresh_node_vm" },
+    "observation_channels": {
+      "type": "array",
+      "const": ["runtime_result", "private_drawing_annotation"]
+    },
+    "trust_class": { "const": "simulator_only_unverified" }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "repository", "commit"],
+      "properties": {
+        "path": { "type": "string", "minLength": 1 },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "repository": { "anyOf": [{ "type": "string", "minLength": 1 }, { "type": "null" }] },
+        "commit": { "anyOf": [{ "type": "string", "pattern": "^[0-9a-f]{40}$" }, { "type": "null" }] }
+      }
+    }
+  }
+}

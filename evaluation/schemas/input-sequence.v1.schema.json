@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/one-button-evaluator/input-sequence.v1.schema.json",
+  "title": "Logical-tick one-button input sequence",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "duration_ticks", "transitions"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "duration_ticks": { "type": "integer", "minimum": 1 },
+    "transitions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["tick", "pressed"],
+        "properties": {
+          "tick": { "type": "integer", "minimum": 0 },
+          "pressed": { "type": "boolean" }
+        }
+      }
+    }
+  },
+  "$comment": "Ascending order, unique ticks, and tick < duration_ticks are cross-item constraints enforced by the contract validator. State before the first transition is false."
+}

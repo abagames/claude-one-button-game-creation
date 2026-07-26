@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/crisp-meta-workflow/play-log-evaluation-stop.v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "artifact_class", "game_id", "status",
+    "reason_code", "message"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "artifact_class": { "const": "play_log_evaluation_stop" },
+    "game_id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+    "status": {
+      "enum": ["resolved", "instrument_insufficient", "technical_failure"]
+    },
+    "reason_code": { "type": "string", "minLength": 1 },
+    "message": { "type": "string", "minLength": 1 },
+    "error": { "type": "string", "minLength": 1 },
+    "feasibility_path": { "$ref": "#/$defs/path" },
+    "feasibility_sha256": { "$ref": "#/$defs/sha256" }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "path": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$)).+$"
+    }
+  }
+}

@@ -1,0 +1,460 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/crisp-meta-workflow/play-log-analysis-result.v2.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "artifact_class",
+    "game_id",
+    "evaluation_id",
+    "status",
+    "trust_class",
+    "provenance",
+    "selections",
+    "metrics",
+    "comparisons",
+    "counterfactuals",
+    "instrument_confidence",
+    "verdict",
+    "limitations",
+    "allowed_claims",
+    "forbidden_claims"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 2
+    },
+    "artifact_class": {
+      "const": "play_log_analysis_result"
+    },
+    "game_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "evaluation_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "status": {
+      "enum": [
+        "completed",
+        "technical_failure",
+        "instrument_insufficient"
+      ]
+    },
+    "trust_class": {
+      "const": "simulator_only_unverified"
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "plan_sha256",
+        "replay_bundle_sha256",
+        "derived_events_sha256"
+      ],
+      "properties": {
+        "plan_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "replay_bundle_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "derived_events_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "counterfactuals_sha256": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/sha256"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "selections": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "selection_id",
+          "policy_role",
+          "gameplay_seed",
+          "final_score",
+          "executed_ticks"
+        ],
+        "properties": {
+          "selection_id": {
+            "type": "string",
+            "pattern": "^[a-z0-9-]+$"
+          },
+          "policy_role": {
+            "type": "string",
+            "minLength": 1
+          },
+          "gameplay_seed": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 4294967295
+          },
+          "final_score": {
+            "type": "number"
+          },
+          "executed_ticks": {
+            "type": "integer",
+            "minimum": 1
+          }
+        }
+      }
+    },
+    "metrics": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "metric_id",
+          "status",
+          "selection_id",
+          "estimate",
+          "unit",
+          "evidence"
+        ],
+        "properties": {
+          "metric_id": {
+            "type": "string",
+            "pattern": "^[a-z0-9_]+$"
+          },
+          "status": {
+            "enum": [
+              "available",
+              "not_applicable",
+              "unavailable",
+              "unresolved"
+            ]
+          },
+          "selection_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "estimate": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "unit": {
+            "type": "string",
+            "minLength": 1
+          },
+          "evidence": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "comparisons": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "comparison_id",
+          "left_selection_id",
+          "right_selection_id",
+          "metric_id",
+          "estimate",
+          "outcome"
+        ],
+        "properties": {
+          "comparison_id": {
+            "type": "string",
+            "pattern": "^[a-z0-9-]+$"
+          },
+          "left_selection_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "right_selection_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "metric_id": {
+            "type": "string",
+            "pattern": "^[a-z0-9_]+$"
+          },
+          "estimate": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "outcome": {
+            "enum": [
+              "supported",
+              "contradicted",
+              "indeterminate",
+              "unavailable"
+            ]
+          }
+        }
+      }
+    },
+    "counterfactuals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "case_id",
+          "criterion_id",
+          "source_selection_id",
+          "source_policy_role",
+          "operation",
+          "anchor_event",
+          "anchor_tick",
+          "lookback_ticks",
+          "edit_tick",
+          "pre_edit_equivalent",
+          "eligible",
+          "ineligibility_reasons",
+          "first_noncontrollable_divergence_tick",
+          "baseline_terminal",
+          "counterfactual_terminal",
+          "terminal_avoided",
+          "terminal_delay_ticks",
+          "score_difference",
+          "survival_difference",
+          "local_window_ticks",
+          "interpretation",
+          "source_gameplay_seed"
+        ],
+        "properties": {
+          "case_id": {
+            "type": "string",
+            "pattern": "^[a-z0-9-]+$"
+          },
+          "criterion_id": {
+            "enum": [
+              "causal_input_control",
+              "risk_reward_coupling",
+              "failure_agency"
+            ]
+          },
+          "source_selection_id": {
+            "type": "string",
+            "pattern": "^[a-z0-9-]+$"
+          },
+          "source_policy_role": {
+            "type": "string",
+            "minLength": 1
+          },
+          "operation": {
+            "enum": [
+              "remove_press",
+              "shift_press_minus_one",
+              "shift_press_plus_one",
+              "insert_press_window",
+              "truncate_press_by_k",
+              "extend_press_by_k"
+            ]
+          },
+          "anchor_event": {
+            "enum": [
+              "reward_event",
+              "structural_event",
+              "terminal_event"
+            ]
+          },
+          "anchor_tick": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "lookback_ticks": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "edit_tick": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "pre_edit_equivalent": {
+            "type": "boolean"
+          },
+          "eligible": {
+            "type": "boolean"
+          },
+          "ineligibility_reasons": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "first_noncontrollable_divergence_tick": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "baseline_terminal": {
+            "$ref": "#/$defs/terminal"
+          },
+          "counterfactual_terminal": {
+            "$ref": "#/$defs/terminal"
+          },
+          "terminal_avoided": {
+            "type": "boolean"
+          },
+          "terminal_delay_ticks": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "score_difference": {
+            "type": "number"
+          },
+          "survival_difference": {
+            "type": "number"
+          },
+          "local_window_ticks": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "interpretation": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source_gameplay_seed": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 4294967295
+          }
+        }
+      }
+    },
+    "instrument_confidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "evidence"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "sufficient",
+            "insufficient"
+          ]
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "verdict": {
+      "enum": [
+        "risk_reward_supported",
+        "safe_reward_dominant",
+        "risk_without_reward",
+        "reward_without_observed_risk",
+        "mixed_or_seed_dependent",
+        "instrument_insufficient",
+        "not_applicable",
+        "technical_failure"
+      ]
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "allowed_claims": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "forbidden_claims": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "terminal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "tick"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "game_over",
+            "tick_budget"
+          ]
+        },
+        "tick": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

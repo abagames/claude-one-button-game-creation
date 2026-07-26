@@ -13,6 +13,10 @@
     "tags": "node scripts/random_tag_selector.js",
     "smoke": "npm run skills:check && node .agents/skills/smoke-testing-web-games/scripts/smoke-test.mjs",
     "batch:check": "npm run skills:check && node scripts/check_batch.js",
+    "eval:setup": "npm --prefix evaluation ci --ignore-scripts && npm --prefix evaluation test",
+    "eval:intake": "npm --prefix evaluation run intake:batch --",
+    "eval:run": "npm --prefix evaluation run evaluate:play-log-quality --",
+    "eval:rank": "npm --prefix evaluation run rank:play-logs --",
     "test:smoke": "npm run skills:check && node .agents/skills/smoke-testing-web-games/scripts/smoke-test.mjs .agents/skills/smoke-testing-web-games/assets/fixtures/fixture-ok.html",
     "playwright:install": "playwright install chromium",
     "test": "npm run test:smoke"

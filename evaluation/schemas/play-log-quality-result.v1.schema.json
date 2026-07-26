@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/crisp-meta-workflow/play-log-quality-result.v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "artifact_class", "game_id", "evaluation_id", "status",
+    "trust_class", "analysis_plan_path", "analysis_plan_sha256",
+    "analysis_result_path", "analysis_result_sha256",
+    "instrument_confidence", "identity_coverage", "criteria", "verdict",
+    "unresolved_metrics", "limitations", "allowed_claims", "forbidden_claims"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "artifact_class": { "const": "play_log_quality_result" },
+    "game_id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+    "evaluation_id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+    "status": { "enum": ["completed", "instrument_insufficient", "technical_failure", "not_rankable"] },
+    "trust_class": { "const": "simulator_only_unverified" },
+    "analysis_plan_path": { "$ref": "#/$defs/path" },
+    "analysis_plan_sha256": { "$ref": "#/$defs/sha256" },
+    "analysis_result_path": { "$ref": "#/$defs/path" },
+    "analysis_result_sha256": { "$ref": "#/$defs/sha256" },
+    "instrument_confidence": { "enum": ["sufficient", "insufficient"] },
+    "identity_coverage": {
+      "anyOf": [
+        { "type": "number", "minimum": 0, "maximum": 1 },
+        { "type": "null" }
+      ]
+    },
+    "criteria": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": { "$ref": "#/$defs/criterion" }
+    },
+    "verdict": {
+      "enum": [
+        "risk_reward_coupled",
+        "causal_reward_without_observed_risk",
+        "risk_without_observed_reward",
+        "mixed_or_seed_dependent",
+        "mechanical_causality_unsupported",
+        "instrument_insufficient",
+        "not_applicable",
+        "technical_failure"
+      ]
+    },
+    "not_rankable_reasons": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "unresolved_metrics": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "allowed_claims": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "forbidden_claims": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "path": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$)).+$"
+    },
+    "criterion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["criterion_id", "status", "ordinal_value", "evidence_ids", "rationale"],
+      "properties": {
+        "criterion_id": {
+          "enum": [
+            "causal_input_control",
+            "risk_reward_coupling",
+            "failure_agency",
+            "outcome_coherence"
+          ]
+        },
+        "status": {
+          "enum": ["confirmed", "mixed", "contradicted", "unresolved", "not_applicable"]
+        },
+        "ordinal_value": {
+          "anyOf": [
+            { "type": "integer", "minimum": 0, "maximum": 2 },
+            { "type": "null" }
+          ]
+        },
+        "evidence_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^(comparison|counterfactual|metric|selection):[a-z0-9_-]+$"
+          }
+        },
+        "rationale": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}

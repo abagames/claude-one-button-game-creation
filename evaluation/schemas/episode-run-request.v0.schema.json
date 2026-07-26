@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/one-button-evaluator/episode-run-request.v0.schema.json",
+  "title": "Private deterministic episode run request",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "game_id",
+    "gameplay_seed",
+    "input_sequence",
+    "timeout_ms",
+    "capture_canvas"
+  ],
+  "properties": {
+    "schema_version": { "const": 0 },
+    "game_id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+    "gameplay_seed": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295
+    },
+    "input_sequence": {
+      "$ref": "https://example.invalid/one-button-evaluator/input-sequence.v1.schema.json"
+    },
+    "timeout_ms": { "type": "integer", "minimum": 1, "maximum": 3600000 },
+    "capture_canvas": { "const": false }
+  }
+}

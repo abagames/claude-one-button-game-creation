@@ -1,0 +1,177 @@
+{
+  "schema_version": 2,
+  "artifact_class": "private_play_log_quality_plan",
+  "game_id": "inert-timer",
+  "evaluation_id": "fixture-v1",
+  "trust_class": "simulator_only_unverified",
+  "provenance": {
+    "adapter_path": "tests/fixtures/games/inert-timer/adapter.mjs",
+    "adapter_sha256": "ac520969e34d430c5fcbd1df219998648e9a929cf111b939992696f22efcdd4a",
+    "source_sha256": "dd400ece208032ddc21fc5d991ce92edccecd030426df63445bf10b623005c97",
+    "runtime_bundle_sha256": "6aa6b18a3ff3fd75866c3e758b4b1758aa234da1d72116e1fb5ed59164f558a4",
+    "policy_sha256": "f40dee06fb6e0ad2a3e2b2443f9920da5147c6b6a3d8cbaa2d3283befc143259"
+  },
+  "seed_plan": {
+    "development": [
+      11001,
+      11002
+    ],
+    "analysis": [
+      21001,
+      21002,
+      21003
+    ]
+  },
+  "policy_roles": {
+    "private_policy": "private_policy",
+    "diagnostic_controls": [
+      "idle",
+      "hold",
+      "periodic",
+      "seeded_random"
+    ]
+  },
+  "selection_rule": {
+    "private_episode_roles": [
+      "best",
+      "median",
+      "low_or_failure"
+    ],
+    "score_order": "descending",
+    "tie_breakers": [
+      "survival_ticks_descending",
+      "release_count_ascending",
+      "gameplay_seed_ascending"
+    ],
+    "same_seed_control_role": "periodic"
+  },
+  "replay_gate": {
+    "mode": "exact_result_v1",
+    "annotation_migration": false,
+    "reason": "fixture evaluation runs annotation-only instrumentation from the start"
+  },
+  "role_mapping": {
+    "controllable": [
+      "marker"
+    ],
+    "hazards": [
+      "drifter"
+    ],
+    "rewards": [],
+    "projectiles_or_zones": [],
+    "unresolved": []
+  },
+  "risk_measurement": {
+    "mode": "hazard_clearance",
+    "hazard_exposure_clearance_threshold": 6
+  },
+  "criterion_rules": [
+    {
+      "criterion_id": "causal_input_control",
+      "confirmed_rule": "At least 2 eligible bounded edits changed non-controllable local state and a local outcome.",
+      "mixed_rule": "Exactly 1 eligible edit satisfied both, or divergence appeared without an outcome change.",
+      "contradicted_rule": "No eligible edit changed non-controllable local state.",
+      "required_evidence_types": [
+        "counterfactual",
+        "metric",
+        "selection"
+      ]
+    },
+    {
+      "criterion_id": "risk_reward_coupling",
+      "confirmed_rule": "At least 2 eligible reward-bearing edits moved local reward and normalized hazard exposure in the same direction with no reverse pair.",
+      "mixed_rule": "Aligned and reverse pairs coexist, or only one direction-consistent pair exists.",
+      "contradicted_rule": "At least 2 eligible edits changed local reward without any exposure coupling.",
+      "required_evidence_types": [
+        "counterfactual",
+        "comparison",
+        "metric"
+      ]
+    },
+    {
+      "criterion_id": "failure_agency",
+      "confirmed_rule": "At least the minimum eligible terminal-window edits delayed or avoided the terminal, including one delay of at least minimum_delay_ticks.",
+      "mixed_rule": "Some eligible terminal-window edits delayed or avoided the terminal, but none reached minimum_delay_ticks.",
+      "contradicted_rule": "No eligible terminal-window edit delayed or avoided the terminal.",
+      "required_evidence_types": [
+        "counterfactual",
+        "metric",
+        "selection"
+      ]
+    },
+    {
+      "criterion_id": "outcome_coherence",
+      "confirmed_rule": "Every scored private selection had complete unique adjacent-tick reward attribution and a terminal signature explained by annotated roles.",
+      "mixed_rule": "Attribution candidates existed but were not unique for every scored selection.",
+      "contradicted_rule": "A terminal or score event contradicted the observed annotated world state.",
+      "required_evidence_types": [
+        "metric",
+        "selection"
+      ]
+    }
+  ],
+  "counterfactual_plans": {
+    "causal_input_control": {
+      "source_selection_rule": "best_private",
+      "anchor_event": "reward_event",
+      "lookback_ticks": 30,
+      "local_window_ticks": 30,
+      "operations": [
+        "remove_press",
+        "shift_press_minus_one",
+        "shift_press_plus_one",
+        "insert_press_window"
+      ],
+      "max_cases": 4,
+      "minimum_eligible_cases": 2
+    },
+    "risk_reward_coupling": {
+      "source_selection_rule": "best_private",
+      "anchor_event": "reward_event",
+      "lookback_ticks": 30,
+      "local_window_ticks": 30,
+      "operations": [
+        "remove_press",
+        "shift_press_minus_one",
+        "shift_press_plus_one",
+        "insert_press_window"
+      ],
+      "max_cases": 4,
+      "minimum_eligible_cases": 2
+    },
+    "failure_agency": {
+      "source_selection_rule": "first_terminal_private_by_gameplay_seed",
+      "source_tie_breakers": [
+        "gameplay_seed_ascending"
+      ],
+      "anchor_event": "terminal_event",
+      "lookback_ticks": 30,
+      "local_window_ticks": 30,
+      "operations": [
+        "remove_press",
+        "shift_press_minus_one",
+        "shift_press_plus_one",
+        "insert_press_window"
+      ],
+      "max_cases": 4,
+      "minimum_eligible_cases": 2,
+      "minimum_delay_ticks": 5
+    }
+  },
+  "execution": {
+    "tick_budget": 300,
+    "timeout_ms": 30000,
+    "retry_count": 0
+  },
+  "output_directory": "tmp/play-log-quality-fixtures/inert-timer/artifacts/play-log-analysis",
+  "allowed_claims": [
+    "local_mechanical_causality_within_tested_simulator",
+    "counterfactual_divergence_up_to_first_structural_difference"
+  ],
+  "forbidden_claims": [
+    "human_fun",
+    "human_fairness",
+    "perceptual_quality",
+    "distribution_runtime_compatibility"
+  ]
+}

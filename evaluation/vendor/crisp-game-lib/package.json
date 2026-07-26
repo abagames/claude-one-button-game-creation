@@ -1,0 +1,38 @@
+{
+  "name": "crisp-game-lib",
+  "version": "1.5.0",
+  "description": "Minimal JavaScript library for creating classic arcade-like mini-games running in the browser",
+  "author": "abagames",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/abagames/crisp-game-lib.git"
+  },
+  "homepage": "https://github.com/abagames/crisp-game-lib",
+  "main": "docs/bundle.js",
+  "typings": "docs/bundle.d.ts",
+  "scripts": {
+    "build": "rollup -c --bundleConfigAsCjs",
+    "watch_games": "light-server -s docs -w \"docs/**/* # # reload\"",
+    "watch_lib": "rollup -c -w --bundleConfigAsCjs",
+    "generate_reference": "typedoc src/main.ts --out ./docs/ref_document/",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^24.0.0",
+    "@rollup/plugin-replace": "^5.0.2",
+    "@rollup/plugin-typescript": "^10.0.1",
+    "@sinonjs/fake-timers": "^15.0.0",
+    "@types/node": "^24.10.0",
+    "@types/pixi.js": "^5.0.0",
+    "@types/sinonjs__fake-timers": "^15.0.1",
+    "happy-dom": "^20.0.10",
+    "light-server": "^2.9.1",
+    "rollup": "^3.8.1",
+    "tslib": "^2.4.1",
+    "typedoc": "^0.23.23",
+    "typescript": "^4.9.4",
+    "vitest": "^4.0.8"
+  }
+}

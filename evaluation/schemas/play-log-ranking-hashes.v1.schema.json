@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/crisp-meta-workflow/play-log-ranking-hashes.v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "contract", "result", "renderer", "report"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "contract": { "$ref": "#/$defs/artifact" },
+    "result": { "$ref": "#/$defs/artifact" },
+    "renderer": { "$ref": "#/$defs/artifact" },
+    "report": { "$ref": "#/$defs/artifact" }
+  },
+  "$defs": {
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": { "type": "string", "minLength": 1 },
+        "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+      }
+    }
+  }
+}

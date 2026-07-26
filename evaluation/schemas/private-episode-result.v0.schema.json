@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/one-button-evaluator/private-episode-result.v0.schema.json",
+  "title": "Private deterministic episode result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "artifact_class",
+    "game_id",
+    "source_commit",
+    "source_hash",
+    "runtime_bundle_sha256",
+    "gameplay_seed",
+    "view_size",
+    "input_sequence_sha256",
+    "episode_random_seed",
+    "executed_ticks",
+    "final_score",
+    "termination",
+    "frames",
+    "diagnostics"
+  ],
+  "properties": {
+    "schema_version": { "const": 0 },
+    "artifact_class": { "const": "private_runtime" },
+    "game_id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+    "source_commit": {
+      "anyOf": [
+        { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+        { "type": "null" }
+      ]
+    },
+    "source_hash": { "$ref": "#/$defs/sha256" },
+    "runtime_bundle_sha256": { "$ref": "#/$defs/sha256" },
+    "gameplay_seed": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295
+    },
+    "view_size": {
+      "anyOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["x", "y"],
+          "properties": {
+            "x": { "type": "number", "exclusiveMinimum": 0 },
+            "y": { "type": "number", "exclusiveMinimum": 0 }
+          }
+        },
+        { "type": "null" }
+      ]
+    },
+    "input_sequence_sha256": { "$ref": "#/$defs/sha256" },
+    "episode_random_seed": {
+      "anyOf": [{ "type": "integer", "minimum": 0 }, { "type": "null" }]
+    },
+    "executed_ticks": { "type": "integer", "minimum": 0 },
+    "final_score": {
+      "anyOf": [{ "type": "number" }, { "type": "null" }]
+    },
+    "termination": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "logical_tick", "message"],
+      "properties": {
+        "kind": {
+          "enum": ["game_over", "tick_budget", "runtime_error", "timeout", "load_error"]
+        },
+        "logical_tick": {
+          "anyOf": [{ "type": "integer", "minimum": 0 }, { "type": "null" }]
+        },
+        "message": {
+          "anyOf": [{ "type": "string", "minLength": 1 }, { "type": "null" }]
+        }
+      }
+    },
+    "frames": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["logical_tick", "input", "phase", "private_step_sha256", "canvas_sha256"],
+        "properties": {
+          "logical_tick": { "type": "integer", "minimum": 0 },
+          "input": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["pressed", "just_pressed", "just_released"],
+            "properties": {
+              "pressed": { "type": "boolean" },
+              "just_pressed": { "type": "boolean" },
+              "just_released": { "type": "boolean" }
+            }
+          },
+          "phase": { "enum": ["inGame", "gameOver", "rewind", "error"] },
+          "private_step_sha256": { "$ref": "#/$defs/sha256" },
+          "canvas_sha256": {
+            "anyOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }]
+          }
+        }
+      }
+    },
+    "diagnostics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["console_errors", "runtime_errors", "cleanup_errors"],
+      "properties": {
+        "console_errors": { "$ref": "#/$defs/messages" },
+        "runtime_errors": { "$ref": "#/$defs/messages" },
+        "cleanup_errors": { "$ref": "#/$defs/messages" }
+      }
+    }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "messages": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    }
+  }
+}

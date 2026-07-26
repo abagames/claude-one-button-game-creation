@@ -1,0 +1,23 @@
+# What this package tracks is the instrument, not the runs.
+#
+# A clean clone plus `npm ci --ignore-scripts && npm test` must be enough to use the
+# workflow. Everything needed for that is tracked: runtime/, scripts/, schemas/,
+# tests/ (including the positive and negative control fixtures), vendor/, the
+# normative documents, and the lockfile.
+#
+# Run outputs are not tracked. `README.md` already lists both directories below under
+# "Not required (artifacts and temporary files)", and `npm run intake:batch` scaffolds
+# `batches/<batch-id>/evaluation-config.mjs` itself with correct paths and hashes, so a
+# cloner does not need a committed example of one.
+
+node_modules/
+tmp/
+
+# Per-run evaluation workspace: frozen source pairs, adapters, private policies, frozen
+# plans, artifacts, and results, one tree per game per evaluation id. 253 MB for one
+# game across seven rounds.
+generated/
+
+# Per-run evaluation configs and ranking outputs. These import from generated/, so they
+# are only meaningful alongside the workspace that intake created.
+batches/

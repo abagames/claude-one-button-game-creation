@@ -1,0 +1,199 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/crisp-meta-workflow/play-log-feasibility.private.v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "artifact_class",
+    "game_id",
+    "evaluation_id",
+    "trust_class",
+    "quality_plan_sha256",
+    "development_seeds",
+    "analysis_seed_accessed",
+    "formal_verdict_generated",
+    "required_annotation_coverage",
+    "observed_annotation_coverage",
+    "checks",
+    "status",
+    "reasons"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "artifact_class": {
+      "const": "private_play_log_feasibility"
+    },
+    "game_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "evaluation_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "trust_class": {
+      "const": "simulator_only_unverified"
+    },
+    "quality_plan_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "development_seeds": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 4294967295
+      }
+    },
+    "analysis_seed_accessed": {
+      "const": false
+    },
+    "formal_verdict_generated": {
+      "const": false
+    },
+    "required_annotation_coverage": {
+      "$ref": "#/$defs/roles"
+    },
+    "observed_annotation_coverage": {
+      "$ref": "#/$defs/roles"
+    },
+    "checks": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "criterion_id",
+          "source_available",
+          "anchor_tick",
+          "generated_case_count",
+          "minimum_eligible_cases",
+          "source_risk_sample_count",
+          "status",
+          "reasons"
+        ],
+        "properties": {
+          "criterion_id": {
+            "enum": [
+              "causal_input_control",
+              "risk_reward_coupling",
+              "failure_agency"
+            ]
+          },
+          "source_available": {
+            "type": "boolean"
+          },
+          "anchor_tick": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "generated_case_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "minimum_eligible_cases": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "source_risk_sample_count": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "status": {
+            "enum": [
+              "ready",
+              "insufficient"
+            ]
+          },
+          "reasons": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "probeable_development_episodes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "gameplay_seed",
+                "generated_case_count"
+              ],
+              "properties": {
+                "gameplay_seed": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 4294967295
+                },
+                "generated_case_count": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              }
+            },
+            "description": "Per development episode, how many bounded edits this criterion could generate from it. Read it before freezing the plan: it shows how often the instrument can probe this game at all."
+          },
+          "minimum_replication_seeds": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "replication_ready_episode_count": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      }
+    },
+    "status": {
+      "enum": [
+        "passed",
+        "instrument_insufficient"
+      ]
+    },
+    "reasons": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "roles": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  }
+}

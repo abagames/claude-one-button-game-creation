@@ -5,8 +5,9 @@ use random tags as inspiration to design and implement a varied batch of ten
 browser-playable games.
 
 The standard workflow ends when ten runnable games are presented. Ranking,
-selection, human review, Polish, retrospective, and publication are separate
-activities and require an explicit user request.
+selection, human review, Polish, retrospective, publication, and play-log
+mechanical evaluation are separate activities and require an explicit user
+request.
 
 ---
 
@@ -81,15 +82,37 @@ publication action.
 
 ---
 
+## Optional: Play-Log Mechanical Evaluation
+
+`evaluation/` is a self-contained workflow that measures four mechanical
+criteria from private play logs executed in a fresh Node VM. It is **optional,
+runs only on explicit user request, and is never a gate on generation.** Never
+start it as a follow-up to finishing a batch.
+
+- Procedure: `workflows/game-evaluation.md`
+- Setup: `npm run eval:setup` (installs and tests inside `evaluation/`)
+- `evaluation/` keeps its own `package.json` and lockfile; do not merge it into
+  the root dependency tree
+
+Its output is play-log mechanical quality only. It says nothing about fun,
+fairness, intuitiveness, appearance, audio, or runtime compatibility, and a game
+the instrument could not measure is reported as `not_rankable`, never as a low
+score. Evaluating one game costs about a full working session, so evaluate two
+or three games first and scale only after that.
+
+---
+
 ## Documents
 
 | File | Purpose |
 | :--- | :--- |
 | `README.md` | Operational entry point for generating and presenting a batch |
 | `workflows/game-generation.md` | Normative procedure for creating one game |
+| `workflows/game-evaluation.md` | Optional post-batch play-log mechanical evaluation |
 | `data/tags.csv` | Static tag seed catalog |
 | `scripts/install_agent_skills.sh` | Install the three required upstream skills into local `.agents/skills/` |
 | `scripts/check_batch.js` | Enforce the ten-game deliverable contract and run every browser smoke test |
+| `evaluation/` | Self-contained simulator-only play-log evaluation workflow (normative docs inside) |
 | `archive/retired-batch-selection/` | Non-normative former selection and Polish workflow |
 
 Archived material is historical context only. It must not be treated as a

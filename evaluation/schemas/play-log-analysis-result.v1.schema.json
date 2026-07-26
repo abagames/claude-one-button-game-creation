@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/crisp-meta-workflow/play-log-analysis-result.v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "artifact_class", "game_id", "evaluation_id", "status", "trust_class", "provenance", "selections", "metrics", "comparisons", "counterfactuals", "instrument_confidence", "verdict", "limitations", "allowed_claims", "forbidden_claims"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "artifact_class": { "const": "play_log_analysis_result" },
+    "game_id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+    "evaluation_id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+    "status": { "enum": ["completed", "technical_failure", "instrument_insufficient"] },
+    "trust_class": { "const": "simulator_only_unverified" },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["plan_sha256", "replay_bundle_sha256", "derived_events_sha256"],
+      "properties": {
+        "plan_sha256": { "$ref": "#/$defs/sha256" },
+        "replay_bundle_sha256": { "$ref": "#/$defs/sha256" },
+        "derived_events_sha256": { "$ref": "#/$defs/sha256" },
+        "counterfactuals_sha256": { "anyOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }] }
+      }
+    },
+    "selections": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["selection_id", "policy_role", "gameplay_seed", "final_score", "executed_ticks"],
+        "properties": {
+          "selection_id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+          "policy_role": { "type": "string", "minLength": 1 },
+          "gameplay_seed": { "type": "integer", "minimum": 0, "maximum": 4294967295 },
+          "final_score": { "type": "number" },
+          "executed_ticks": { "type": "integer", "minimum": 1 }
+        }
+      }
+    },
+    "metrics": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["metric_id", "status", "selection_id", "estimate", "unit", "evidence"],
+        "properties": {
+          "metric_id": { "type": "string", "pattern": "^[a-z0-9_]+$" },
+          "status": { "enum": ["available", "not_applicable", "unavailable", "unresolved"] },
+          "selection_id": { "anyOf": [{ "type": "string", "minLength": 1 }, { "type": "null" }] },
+          "estimate": { "anyOf": [{ "type": "number" }, { "type": "null" }] },
+          "unit": { "type": "string", "minLength": 1 },
+          "evidence": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "comparisons": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["comparison_id", "left_selection_id", "right_selection_id", "metric_id", "estimate", "outcome"],
+        "properties": {
+          "comparison_id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+          "left_selection_id": { "type": "string", "minLength": 1 },
+          "right_selection_id": { "type": "string", "minLength": 1 },
+          "metric_id": { "type": "string", "pattern": "^[a-z0-9_]+$" },
+          "estimate": { "anyOf": [{ "type": "number" }, { "type": "null" }] },
+          "outcome": { "enum": ["supported", "contradicted", "indeterminate", "unavailable"] }
+        }
+      }
+    },
+    "counterfactuals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["case_id", "operation", "score_difference", "survival_difference", "local_window_ticks", "interpretation"],
+        "properties": {
+          "case_id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+          "operation": { "enum": ["remove_press", "shift_press_minus_one", "shift_press_plus_one"] },
+          "score_difference": { "type": "number" },
+          "survival_difference": { "type": "number" },
+          "local_window_ticks": { "type": "integer", "minimum": 1 },
+          "interpretation": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "instrument_confidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "evidence"],
+      "properties": {
+        "status": { "enum": ["sufficient", "insufficient"] },
+        "evidence": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+      }
+    },
+    "verdict": { "enum": ["risk_reward_supported", "safe_reward_dominant", "risk_without_reward", "reward_without_observed_risk", "mixed_or_seed_dependent", "instrument_insufficient", "not_applicable", "technical_failure"] },
+    "limitations": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "allowed_claims": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "forbidden_claims": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } }
+  },
+  "$defs": { "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" } }
+}
