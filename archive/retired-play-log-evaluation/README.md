@@ -1,5 +1,35 @@
 # crisp-game-lib Play-Log Quality Evaluation Workflow
 
+> **Retired 2026-07-27. Historical reference only, and not normative.** Nothing here gates, follows, or
+> accompanies generating a batch. Do not start it automatically, and do not treat the documents below as
+> current instructions even though they are written in normative language — they were normative for this
+> workflow while it ran.
+>
+> **Why it was retired.** The workflow ran a seven-game evaluation to completion and the run produced a
+> negative result. Two things were settled by measurement rather than by opinion, and both are recorded in
+> [BACKLOG.md](BACKLOG.md):
+>
+> - **The instrument cannot evaluate game quality, and no tuning changes that.** Of the author's seven stated
+>   quality reasons in [DESIGNER_LABELS.md](DESIGNER_LABELS.md), four — tactile feel, cognitive panic,
+>   derivativeness, stress — fall outside what a frame sequence can observe at all, and they include both the
+>   highest and the lowest rated of the rankable games. The `claim_scope` exclusion clause excludes the
+>   dominant factor.
+> - **Both output shapes failed.** A ranking was abandoned as the wrong shape; the screen that replaced it was
+>   killed at Gate S, whose decisive datum fell on opposite sides of an ambiguity in the screening signal's own
+>   definition. See "Gate S — the result" in [BACKLOG.md](BACKLOG.md).
+>
+> A third reason is practical: one game costs roughly a full working session, and Phase A measured that half a
+> deliberately favourable sample could not be measured at all. That does not fit a ten-game generation batch.
+>
+> **What is worth reading if you came here for the knowledge.** [BACKLOG.md](BACKLOG.md) is the run's whole
+> record, including six findings about the instrument that are independent of the failure — what a
+> counterfactual terminal rule reaches that a coherence rule does not, why a static gate could not enforce its
+> own documented item, and why a state-dependent hazard belongs in the annotation rather than in a plan enum.
+> The reusable *procedure* was extracted separately as the `gating-expensive-batch-work` agent skill.
+>
+> **What is not here.** `generated/`, `records/`, `batches/` and `tmp/` were never version-controlled and are
+> not part of this archive. If a working copy carried them, the per-round agent work lives on that machine only.
+
 This document defines a workflow for coding agents that converts one-button action
 mini-games built with crisp-game-lib into private mechanical evaluation targets executable in a fresh Node VM,
 and evaluates their play-log mechanical quality.

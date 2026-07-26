@@ -100,25 +100,7 @@ continuation steps:
 - human ranking, comments, selection, or winner records;
 - tuning or Polish;
 - retrospective analysis;
-- copying or publishing a game under `docs/`;
-- the optional play-log mechanical evaluation described below.
-
-## Optional: play-log mechanical evaluation
-
-`evaluation/` measures four mechanical criteria — causal input control,
-risk/reward coupling, failure agency, outcome coherence — from private play logs
-executed in a fresh Node VM, and can rank two or more evaluated games.
-
-```bash
-npm run eval:setup   # install and self-test evaluation/
-```
-
-Then follow [`workflows/game-evaluation.md`](./workflows/game-evaluation.md).
-
-This is opt-in and never gates generation. It says nothing about fun, fairness,
-appearance, audio, or runtime compatibility, and a game whose mechanics the
-instrument could not measure is reported as `not_rankable` rather than scored
-low. Budget roughly one working session per game, and start with two or three.
+- copying or publishing a game under `docs/`.
 
 ## Output contract
 
@@ -136,8 +118,7 @@ all ten browser smoke tests pass.
 
 | Directory | Role |
 | :-- | :-- |
-| `workflows/` | Normative one-game generation procedure and the optional evaluation procedure |
-| `evaluation/` | Self-contained simulator-only play-log evaluation workflow (own package and lockfile) |
+| `workflows/` | Normative one-game generation procedure |
 | `data/` | Static tag inputs |
 | `scripts/` | Tag selection and supporting utilities |
 | `.agents/skills/` | Locally installed design, implementation, and smoke-test skills |
