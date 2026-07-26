@@ -28,7 +28,12 @@ const controls = Object.freeze([
 ]);
 let simulator;
 
-export async function runPlayLogQualityEvaluation(config) {
+// `stopAfterFeasibility` runs Stages 6-8 only: conformance, the development-seed qualification pool, and the
+// development-only feasibility gate. It returns before the first analysis episode, so the frozen analysis seed
+// pool stays unburned and the plan may still be adapted to the game — which is the whole point of reading the
+// feasibility report before freezing. Pool collection stays in this shared executor either way; a game-specific
+// script must never rebuild it to get a feasibility report.
+export async function runPlayLogQualityEvaluation(config, { stopAfterFeasibility = false } = {}) {
   validateEvaluationConfig(config);
   const gameId = config.adapter.game_id;
   const planPath = config.planPath;
@@ -78,6 +83,7 @@ export async function runPlayLogQualityEvaluation(config) {
   if (feasibility.status !== "passed") {
     throw new PlayLogInstrumentInsufficientError(feasibility);
   }
+  if (stopAfterFeasibility) return { plan, conformance, feasibility, stopped_after: "feasibility" };
 
   const baselineSteps = new Map();
   const baseline = await runBaselineMatrix(simulator, {

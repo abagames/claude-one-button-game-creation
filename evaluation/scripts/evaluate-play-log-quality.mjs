@@ -5,7 +5,8 @@ import {
   writePlayLogTechnicalFailure,
 } from "../runtime/index.mjs";
 
-export async function evaluateConfigModule(configModulePath, requestedGameIds = []) {
+export async function evaluateConfigModule(configModulePath, requestedGameIds = [], options = {}) {
+  const { stopAfterFeasibility = false } = options;
   const absoluteConfigPath = path.resolve(configModulePath);
   const module = await import(pathToFileURL(absoluteConfigPath));
   const configs = module.evaluationConfigs;
@@ -23,8 +24,8 @@ export async function evaluateConfigModule(configModulePath, requestedGameIds = 
   const failures = [];
   for (const config of selected) {
     try {
-      await runPlayLogQualityEvaluation(config);
-      process.stdout.write(`${config.adapter.game_id}: completed\n`);
+      await runPlayLogQualityEvaluation(config, { stopAfterFeasibility });
+      process.stdout.write(`${config.adapter.game_id}: ${stopAfterFeasibility ? "feasibility passed" : "completed"}\n`);
     } catch (error) {
       const status = error?.code === "instrument_insufficient"
         ? "instrument_insufficient"
@@ -38,10 +39,12 @@ export async function evaluateConfigModule(configModulePath, requestedGameIds = 
 }
 
 if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) {
-  const [configModulePath, ...requestedGameIds] = process.argv.slice(2);
+  const argv = process.argv.slice(2);
+  const stopAfterFeasibility = argv.includes("--feasibility-only");
+  const [configModulePath, ...requestedGameIds] = argv.filter((value) => value !== "--feasibility-only");
   if (configModulePath == null) {
-    throw new Error("usage: evaluate-play-log-quality.mjs <evaluation-config.mjs> [game-id ...]");
+    throw new Error("usage: evaluate-play-log-quality.mjs <evaluation-config.mjs> [--feasibility-only] [game-id ...]");
   }
-  const failures = await evaluateConfigModule(configModulePath, requestedGameIds);
+  const failures = await evaluateConfigModule(configModulePath, requestedGameIds, { stopAfterFeasibility });
   if (failures.length > 0) process.exitCode = 1;
 }

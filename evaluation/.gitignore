@@ -9,6 +9,13 @@
 # "Not required (artifacts and temporary files)", and `npm run intake:batch` scaffolds
 # `batches/<batch-id>/evaluation-config.mjs` itself with correct paths and hashes, so a
 # cloner does not need a committed example of one.
+#
+# That includes `records/`. It holds the per-round work no script regenerates — the
+# annotation-only copy, the adapter, the private policy, the frozen plan and its result —
+# curated out of `generated/` by `npm run retain:round -- archive <game-id> <eval-id>`, so
+# that `retain:round -- prune` can drop the bulk private evidence without losing it. That
+# separation is what the tree is for; it is still a run output, not the instrument, so it
+# is not tracked either. Back it up outside git if a working copy must survive.
 
 node_modules/
 tmp/
@@ -21,3 +28,6 @@ generated/
 # Per-run evaluation configs and ranking outputs. These import from generated/, so they
 # are only meaningful alongside the workspace that intake created.
 batches/
+
+# Curated per-round agent work, see above.
+records/

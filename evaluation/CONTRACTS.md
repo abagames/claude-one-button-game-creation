@@ -161,8 +161,18 @@ for a margin that exists in the source but not in the drawing, and is frozen wit
 same rule decides reward attribution by contact, which is what makes continuous scoring — drilling, riding,
 holding a zone — attributable at all; transition-based attribution alone only sees pickups.
 
-`execution.retry_count` is reserved: the shared executor does not retry episodes, and a technical termination
-stops the game. Freeze it at 0 until retries are implemented.
+`execution.retry_count` is **retired**, not reserved. Retrying a technically terminated episode inside a round
+would be a silent re-run of a frozen episode pool, which the seed freeze exists to prevent, so it will not be
+implemented. New v2 plans omit the field; the v2 schema still accepts it as `0` so that plans frozen before the
+retirement keep validating, and rejects any other value. The v1 schema is unchanged, since it only reads past
+artifacts.
+
+The procedure for a round that fails technically is therefore the only one: the game stops with the technical
+failure recorded, and re-running means a **new evaluation ID with an unused analysis seed pool and a new config
+hash**, per the freeze rules above and [AGENTS.md](AGENTS.md). Re-running a round on the same evaluation ID and
+the same seeds — whether by hand or by a retry counter — is forbidden, because the pool that produced the
+failure would no longer be recoverable from the artifacts. Burned pools are recorded in
+[SEED_LEDGER.md](SEED_LEDGER.md).
 
 `criterion_rules` in the plan is descriptive preregistration text. The normative classifier is
 `runtime/play-log-quality-evaluator.mjs`; keep the frozen text in agreement with it, and treat any

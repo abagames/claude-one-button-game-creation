@@ -375,8 +375,7 @@
       "additionalProperties": false,
       "required": [
         "tick_budget",
-        "timeout_ms",
-        "retry_count"
+        "timeout_ms"
       ],
       "properties": {
         "tick_budget": {
@@ -389,7 +388,8 @@
         },
         "retry_count": {
           "type": "integer",
-          "minimum": 0
+          "const": 0,
+          "deprecated": true
         }
       }
     },

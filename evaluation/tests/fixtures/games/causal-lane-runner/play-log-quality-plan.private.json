@@ -162,8 +162,7 @@
   },
   "execution": {
     "tick_budget": 400,
-    "timeout_ms": 30000,
-    "retry_count": 0
+    "timeout_ms": 30000
   },
   "output_directory": "tmp/play-log-quality-fixtures/causal-lane-runner/artifacts/play-log-analysis",
   "allowed_claims": [

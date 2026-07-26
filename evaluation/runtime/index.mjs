@@ -46,3 +46,13 @@ export {
   assessPlayLogFeasibility,
   PlayLogInstrumentInsufficientError,
 } from "./play-log-feasibility.mjs";
+export {
+  archiveRound,
+  CURATED_OPTIONAL_FILES,
+  CURATED_REQUIRED_FILES,
+  planRoundArchive,
+  planRoundPrune,
+  PRUNABLE_FILES,
+  pruneRound,
+  roundPaths,
+} from "./round-retention.mjs";

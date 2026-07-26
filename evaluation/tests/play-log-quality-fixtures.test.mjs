@@ -138,6 +138,42 @@ test("the frozen output_directory owns where evaluation artifacts are written", 
   assert.equal(fs.existsSync(path.join(root, "tests/fixtures/games/inert-timer/artifacts")), false);
 });
 
+test("a feasibility-only run reaches the gate without opening the analysis seed pool", async () => {
+  const gameId = "causal-lane-runner";
+  const fixture = fixtures[gameId];
+  const base = path.join(root, `tmp/play-log-quality-feasibility-only/${gameId}`);
+  fs.rmSync(base, { recursive: true, force: true });
+  const planPath = `tests/fixtures/games/${gameId}/play-log-quality-plan.private.json`;
+  const plan = JSON.parse(fs.readFileSync(path.join(root, planPath), "utf8"));
+  plan.output_directory = `tmp/play-log-quality-feasibility-only/${gameId}/artifacts/play-log-analysis`;
+  const scopedPlanPath = path.join(root, "tmp/play-log-quality-feasibility-only/plan.json");
+  fs.mkdirSync(path.dirname(scopedPlanPath), { recursive: true });
+  fs.writeFileSync(scopedPlanPath, `${JSON.stringify(plan, null, 2)}\n`);
+
+  const outcome = await runPlayLogQualityEvaluation({
+    adapter: fixture.adapter,
+    policy: fixture.policy,
+    policyPath: `tests/fixtures/games/${gameId}/private-policy.mjs`,
+    planPath: "tmp/play-log-quality-feasibility-only/plan.json",
+    parameters: undefined,
+    requiredCoverage: fixture.requiredCoverage,
+  }, { stopAfterFeasibility: true });
+
+  assert.equal(outcome.stopped_after, "feasibility");
+  assert.equal(outcome.feasibility.status, "passed");
+  assert.equal(outcome.feasibility.analysis_seed_accessed, false);
+  assert.equal(outcome.qualityResult, undefined);
+  assert.ok(fs.existsSync(path.join(base, "artifacts/play-log-feasibility.private.json")));
+  for (const relative of [
+    "play-log-quality-result.json",
+    "artifacts/analysis-episode-pool.private.json",
+    "artifacts/play-log-analysis/analysis-result.json",
+  ]) {
+    assert.equal(fs.existsSync(path.join(base, relative)), false,
+      `${relative} was written by a feasibility-only run`);
+  }
+});
+
 test("an unmeasurable game is kept out of the ranking instead of ranked last", async () => {
   const positive = (await evaluate("causal-lane-runner")).qualityResult;
   const negative = (await evaluate("inert-timer")).qualityResult;

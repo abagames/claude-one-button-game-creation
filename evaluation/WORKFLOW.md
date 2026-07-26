@@ -209,6 +209,17 @@ required annotation coverage is satisfied. Save the result to the non-formal pri
 `artifacts/play-log-feasibility.private.json`, without analysis seeds, ordinals, or formal verdicts.
 On deficiency, stop as `instrument_insufficient` before Stage 9 without converting to zero points.
 
+To reach that gate without running a single analysis episode — the intended shape when several games are taken
+through Stages 0-8 before any of them is measured — run the shared executor with `--feasibility-only`.
+
+```bash
+npm run evaluate:play-log-quality -- <evaluation-config.mjs> --feasibility-only [game-id ...]
+```
+
+It performs conformance, the development-seed qualification pool, and the feasibility gate, then returns before
+the first analysis episode, so the frozen analysis pool stays unburned and the plan may still be adapted. Do not
+rebuild the qualification pool in a game-specific script to get the same report.
+
 Scoring higher than controls, being non-spam, or using complex input are not qualification conditions. If the
 policy cannot fire mechanics, cannot replay, or uses information outside the observation channels, stop quality
 judgment as `instrument_insufficient`.
@@ -277,9 +288,14 @@ advantage, seed stability, open-loop transfer, game-specific metrics, or raw sco
 
 ## Stage 9: Analysis episode pool
 
-Run the private policy and diagnostic controls under the same tick budget, retry, and timeout conditions with
+Run the private policy and diagnostic controls under the same tick budget and timeout conditions with
 analysis seeds unused in development. This is not an aggregate statistical evaluation; it is an episode pool
 feeding the fixed selection rules.
+
+Episodes are never retried: `execution.retry_count` is retired, and a technical termination stops the game with
+the failure recorded. Re-running means a new evaluation ID, an analysis seed pool unused anywhere else, and a
+new config hash — never the same round again. Record the burned pool in [SEED_LEDGER.md](SEED_LEDGER.md) before
+the re-run, so the pool that produced the failure cannot be drawn a second time.
 
 Save targets:
 
@@ -412,6 +428,19 @@ Conditions to promote to a rankable `completed`:
 
 If any one is missing, stop as `instrument_insufficient`, `technical_failure`, or `not_rankable`, and do not
 generate quality points.
+
+Whichever way the round terminates, archive it as soon as it is terminal. The bulk private evidence under
+`generated/` is large and prunable, but the annotation-only copy, the adapter, the private policy, and the
+frozen plan are agent work that no script regenerates; archiving separates the two so that pruning is safe.
+Neither tree is tracked in version control.
+
+```bash
+npm run retain:round -- archive <game-id> <evaluation-id>
+```
+
+Prune the bulk evidence of rounds under a superseded instrument version with
+`npm run retain:round -- prune <game-id> <evaluation-id> --apply`; it refuses to run until the archive exists
+and matches. See "Retention of finished rounds" in [README.md](README.md).
 
 ## Stage 14: Cross-game ranking
 

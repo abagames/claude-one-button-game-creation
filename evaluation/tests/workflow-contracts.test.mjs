@@ -55,6 +55,19 @@ test("quality plan v2 machine-verifies per-criterion sources and terminal anchor
     /must NOT have fewer than 1 items/);
 });
 
+test("quality plan v2 retires retry_count without breaking plans frozen before the retirement", () => {
+  const current = qualityPlanV2();
+  delete current.execution.retry_count;
+  assertValidArtifact("play_log_quality_plan", current);
+  const frozenBeforeRetirement = qualityPlanV2();
+  assert.equal(frozenBeforeRetirement.execution.retry_count, 0);
+  assertValidArtifact("play_log_quality_plan", frozenBeforeRetirement);
+  const retrying = qualityPlanV2();
+  retrying.execution.retry_count = 1;
+  assert.match(validateArtifact("play_log_quality_plan", retrying).join("; "),
+    /retry_count must be equal to constant/);
+});
+
 test("ranking evaluates only the 4 criteria with fixed weights", () => {
   const contract = rankingContract();
   const strong = qualityResult("strong-game", {

@@ -12,6 +12,7 @@ workflow can produce is a `simulator_only_unverified` private mechanical evaluat
 rendered presentation, perception, audio, on-screen instructions, and human experience are out of scope.
 
 Working notes on the next steps and known open items live in [BACKLOG.md](BACKLOG.md) (non-normative).
+Which seed pools have already been consumed is recorded in [SEED_LEDGER.md](SEED_LEDGER.md).
 
 ## Reading order
 
@@ -43,6 +44,7 @@ runtime/
   play-log-ranking.mjs play-log quality ordinal ranking
   play-log-ranking-renderer.mjs deterministic ranking report renderer
   play-log-ranking-hashes.mjs ranking hash sidecar
+  round-retention.mjs    curation of a finished round and pruning of its bulk evidence
   index.mjs              public module entrypoint
 schemas/                 versioned JSON Schemas for the runtime
 scripts/                 diff, artifact validation, and quality/ranking CLIs
@@ -61,6 +63,21 @@ For artifacts and temporary files, see "Not required" below.
 - `AGENTS.md`, `WORKFLOW.md`, `RUNTIME_CONTRACT.md`, `SIMULATOR_USAGE.md`, `CONTRACTS.md`, `GLOSSARY.md`,
   `GAME_ADAPTER_TEMPLATE.md`, `PLAY_LOG_ANALYSIS.md`, `README.md`
 
+### Run record
+
+- `SEED_LEDGER.md` — which analysis seed pools have been burned, and by which evaluation ID. Not normative
+  prose, but required to run a new round correctly: the next pool is drawn from it, and a pool listed there is
+  never reused. It is tracked because a pool must not be re-drawn on a machine that never held the run.
+- `DESIGNER_LABELS.md` — the games' author's absolute quality rating and stated reason per game, recorded before
+  any quality result for the round exists. Tracked for the same reason: it is not regenerable, and without it a
+  ranking cannot be told apart from a failure to discriminate. It is ground truth for reporting, **never** a
+  target the instrument is tuned against, and it is not commensurable with `weighted_total` — most of its reasons
+  concern properties the play-log contract forbids claiming about. Read its "Provenance" and "How this file may
+  be used" sections before comparing anything to it.
+
+  The run's artifacts themselves — `generated/`, `batches/`, `records/` — are not tracked; see "Retention of
+  finished rounds" below.
+
 ### Package definition
 
 - `package.json`, `package-lock.json` (the only dependency is `ajv`; both files are included so `npm ci`
@@ -68,8 +85,9 @@ For artifacts and temporary files, see "Not required" below.
 
 ### Shared runtime and CLI
 
-- `runtime/` — the 16 files listed under "Included runtime" above
+- `runtime/` — the 17 files listed under "Included runtime" above
 - `scripts/check-annotation-diff.mjs`
+- `scripts/retain-round.mjs` — curates a finished round into `records/` and prunes its bulk private evidence
 - `scripts/intake-batch-games.mjs` — Stage 0 intake freeze and artifact scaffolding for a batch
 - `scripts/evaluate-play-log-quality.mjs` — CLI entrypoint for the shared Stage 8–13 executor
 - `scripts/evaluate-batch8-v3.mjs` — reference implementation of the current batch driver (its structure is
@@ -104,9 +122,9 @@ The 15 files in `schemas/`:
 
 ### Tests and fixtures
 
-- The 6 tests in `tests/` (`annotation-diff.test.mjs`, `play-log-evidence.test.mjs`,
-  `play-log-quality-evaluator.test.mjs`, `play-log-quality-fixtures.test.mjs`, `runtime-conformance.test.mjs`,
-  `workflow-contracts.test.mjs`)
+- The 7 tests in `tests/` (`annotation-diff.test.mjs`, `play-log-evidence.test.mjs`,
+  `play-log-quality-evaluator.test.mjs`, `play-log-quality-fixtures.test.mjs`, `round-retention.test.mjs`,
+  `runtime-conformance.test.mjs`, `workflow-contracts.test.mjs`)
 - `tests/fixtures/annotated-one-button.js`, `tests/fixtures/wide-view-one-button.js`,
   `tests/fixtures/legacy-play-log-quality-plan.private.v1.json`
 - `tests/fixtures/games/` — two self-contained control games with a known mechanical ground truth, each
@@ -133,8 +151,40 @@ work. See `../workflows/game-evaluation.md` for the surrounding procedure.
 
 - Evaluation artifacts under `generated/` (the test suite no longer depends on any of them)
 - Ranking outputs and executed evaluation-config records under `batches/`
+- Curated per-round records under `records/`
 - `archive/` (retired material from past workflows)
 - `tmp/`, `node_modules/`, `.git`
+
+### Retention of finished rounds
+
+`generated/` grows fast: one game across seven rounds reached 253 MB, nearly all of it bulk private evidence.
+But the same tree also holds work no script can regenerate. The two are separated per round:
+
+```bash
+npm run retain:round -- archive <game-id> <evaluation-id>            # curate into records/
+npm run retain:round -- prune   <game-id> <evaluation-id> [--apply]  # drop bulk evidence (dry run by default)
+```
+
+`archive` copies the annotation-only copy, the adapter, the private policy, the frozen plan, the manifest, the
+intake record, and — when the round produced them — the annotation plan, the conformance and feasibility
+artifacts, the analysis result, the quality result, and `ANALYSIS.md` into
+`records/<game-id>/<evaluation-id>/`. `original/main.js` is left out, because it is a byte copy of the
+published source whose SHA-256 is pinned in the manifest. A round is frozen, so re-archiving with different
+content fails closed unless `--force` is given.
+
+`prune` deletes only the five bulk private files (`analysis-episode-pool`, `baseline-matrix`,
+`counterfactuals`, `derived-events`, `replay-runtime`) and refuses to run until the archive exists and matches.
+Their SHA-256 values survive in the retained `analysis-result.json` and in
+`records/<game-id>/<evaluation-id>/round-retention-record.json`, so pruned evidence stays identifiable even
+though it is no longer on disk.
+
+Policy: archive every round as soon as it terminates; keep the bulk evidence only for rounds under the current
+instrument version, and prune superseded rounds. Regenerating pruned evidence is not a re-run — per
+[CONTRACTS.md](CONTRACTS.md) it needs a new evaluation ID and an unused analysis seed pool.
+
+`records/` is not tracked. What this repository tracks is the instrument, not the runs, and a curated run
+output is still a run output. The tree exists so that pruning has something to check against, not as a backup:
+if a run's agent work must survive the loss of a working copy, copy `records/` somewhere outside git.
 
 Setup and runtime conformance check:
 
@@ -157,7 +207,21 @@ npm run validate:artifact -- <artifact-kind> <artifact.json>
 npm run rank:play-logs -- batches/<ranking-id>/play-log-ranking-contract.json batches/<ranking-id>
 npm run verify:play-log-ranking-hashes -- batches/<ranking-id>/play-log-ranking-hashes.json
 npm run render:play-log-quality -- generated/<game-id>/play-log-quality-result.json generated/<game-id>/ANALYSIS.md
+npm run retain:round -- <archive|prune> <game-id> <evaluation-id> [--force] [--apply]
+npm run evaluate:play-log-quality -- <evaluation-config.mjs> [--feasibility-only] [game-id ...]
+npm run measure:control-dominance -- <evaluation-config.mjs> [--out <path>] [game-id ...]
 ```
+
+`--feasibility-only` stops after the development-only feasibility gate, before the first analysis episode, so
+Stages 0-8 can be completed for several games without burning any analysis seed pool.
+
+`measure:control-dominance` is a **diagnostic, not part of the workflow**. It reports how much of the private
+policy's per-tick scoring rate a diagnostic control reproduces, on development seeds only, and it writes no
+round artifact and feeds no criterion. It exists because that ratio was proposed as a screening signal and had
+to be measured; the measurement is recorded in `BACKLOG.md` under "Gate S — the result", and the conclusion was
+that the signal as defined does not work. Read that section before building anything on the numbers — in
+particular, the ratio is reported per control set because the verdict depends on which set is meant, and its
+denominator is agent-written policy code whose strength is not controlled.
 
 The only formal output paths of the current workflow are the play-log quality result and `rank:play-logs`.
 The legacy aggregate report, legacy no-rank batch, and legacy held-out preparation pipeline have been retired
